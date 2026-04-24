@@ -2,9 +2,23 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnóstico Gratuito, n4flow</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<meta property="og:title" content="Diagnóstico Gratuito · n4flow">
+<meta property="og:description" content="Em 30 minutos mapeamos os gargalos da sua operação e mostramos onde IA, dados e automação podem gerar resultado.">
+<meta property="og:image" content="https://n4flow.com.br/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://n4flow.com.br/diagnostico/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="n4flow">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Diagnóstico Gratuito · n4flow">
+<meta name="twitter:description" content="Em 30 minutos mapeamos os gargalos da sua operação e mostramos onde IA, dados e automação podem gerar resultado.">
+<meta name="twitter:image" content="https://n4flow.com.br/assets/img/og-image.jpg"><title>Diagnóstico Gratuito, n4flow</title>
 <meta name="description" content="Em 30 minutos, mapeamos os gargalos da sua operação e mostramos onde automação, dados e IA podem gerar resultado rápido.">
 <link rel="canonical" href="https://n4flow.com.br/diagnostico/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,6 +166,24 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.16);font-family:var(--mono);mar
   .form-card{padding:1.5rem}
   .form-row{grid-template-columns:1fr}
 }
+
+/* === COOKIE BANNER === */
+#cookie-banner{position:fixed;bottom:1.3rem;left:1.3rem;z-index:9999;max-width:440px;background:rgba(15,17,22,.95);color:rgba(255,255,255,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.1rem 1.2rem;box-shadow:0 18px 50px rgba(0,0,0,.35);display:none;font-family:'Plus Jakarta Sans',system-ui,sans-serif;animation:cookieSlideIn .5s cubic-bezier(.16,1,.3,1)}
+#cookie-banner.show{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+@keyframes cookieSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+#cookie-banner .cb-text{font-size:.8rem;line-height:1.5;flex:1;min-width:220px;color:rgba(255,255,255,.78)}
+#cookie-banner .cb-text a{color:#F59D5E;text-decoration:underline;text-underline-offset:2px}
+#cookie-banner .cb-text a:hover{color:#F07B2B}
+#cookie-banner .cb-btn{display:inline-flex;align-items:center;justify-content:center;padding:.6rem 1.3rem;background:#F07B2B;color:#fff;font-size:.82rem;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
+#cookie-banner .cb-btn:hover{background:#D96A1F;transform:translateY(-1px)}
+@media(max-width:560px){#cookie-banner{left:.8rem;right:.8rem;bottom:.8rem;max-width:none;padding:1rem;flex-direction:column;align-items:stretch}#cookie-banner .cb-btn{width:100%}}
+
+/* Footer links legais + meta */
+.footer-bottom-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.06)}
+.footer-bottom-links a{font-size:.74rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s}
+.footer-bottom-links a:hover{color:#F59D5E}
+.footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}
+
 </style>
 </head>
 <body>
@@ -220,7 +252,46 @@ footer p{font-size:.7rem;color:rgba(255,255,255,.16);font-family:var(--mono);mar
   <a href="/" class="nav-logo"><img alt="n4flow" src="/assets/img/logo-header-dark.png" style="height:28px;width:auto;display:block"></a>
   <p>IA, Dados &amp; Automação aplicados ao que trava o crescimento da sua empresa.</p>
   <p>São Paulo, SP · Atendimento em todo o Brasil</p>
+<div style="margin-top:1.4rem;display:flex;flex-direction:column;gap:.7rem;align-items:center">
+<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center">
+<a href="/politica-de-privacidade/" style="font-size:.7rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace">Política de Privacidade</a>
+<a href="/termos-de-uso/" style="font-size:.7rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace">Termos de Uso</a>
+<a href="https://www.linkedin.com/company/n4flow" rel="noopener" target="_blank" style="font-size:.7rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace">LinkedIn</a>
+</div>
+<div style="font-size:.66rem;color:rgba(255,255,255,.25);line-height:1.7;font-family:'DM Mono',monospace;text-align:center;max-width:620px;margin-top:.3rem">
+© 2026 n4flow · Benn Consultoria Business Intelligence e Marketing LTDA<br>CNPJ 05.376.867/0001-60
+</div>
+</div>
 </footer>
+
+
+<!-- Cookie consent banner -->
+<div id="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+  <div class="cb-text">Utilizamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="/politica-de-privacidade/">Política de Privacidade</a>.</div>
+  <button class="cb-btn" onclick="window.n4AcceptCookies()">Aceitar</button>
+</div>
+
+
+<script>
+(function(){
+  function hasCookie(){
+    try { return document.cookie.indexOf('n4_cookie_accept=1') !== -1; } catch(e){ return false; }
+  }
+  window.n4AcceptCookies = function(){
+    var d = new Date(); d.setTime(d.getTime() + 365*24*60*60*1000);
+    document.cookie = 'n4_cookie_accept=1; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+    var el = document.getElementById('cookie-banner');
+    if (el) el.classList.remove('show');
+  };
+  function showBanner(){
+    if (hasCookie()) return;
+    var el = document.getElementById('cookie-banner');
+    if (el) setTimeout(function(){ el.classList.add('show'); }, 800);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showBanner);
+  else showBanner();
+})();
+</script>
 
 </body>
 </html>

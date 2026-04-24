@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade · n4flow</title>
+<meta name="description" content="Saiba como a n4flow trata, protege e utiliza seus dados pessoais em conformidade com a LGPD.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://n4flow.com.br/politica-de-privacidade/">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Política de Privacidade · n4flow">
+<meta property="og:description" content="Como a n4flow trata, protege e utiliza seus dados pessoais em conformidade com a LGPD.">
+<meta property="og:image" content="https://n4flow.com.br/assets/img/og-image.jpg">
+<meta property="og:url" content="https://n4flow.com.br/politica-de-privacidade/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="n4flow">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#F07B2B;--orange-dark:#D96A1F;--orange-light:#F59D5E;
+  --dark:#17191F;--charcoal:#3D3D3D;
+  --g500:#7A7A7A;--g400:#999;--g200:#E0E0E0;--g100:#F0F0F0;
+  --bg-soft:#F9F6F0;
+  --font:'Plus Jakarta Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--dark);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+
+nav{
+  position:sticky;top:0;left:0;right:0;z-index:100;
+  padding:.9rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(23,25,31,.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-logo{font-size:1.4rem;font-weight:800;letter-spacing:-.03em;text-decoration:none;display:inline-block}
+.nav-logo img{height:28px;width:auto;display:block}
+.nav-back{
+  font-size:.8rem;font-weight:500;color:rgba(255,255,255,.55);
+  text-decoration:none;display:flex;align-items:center;gap:.4rem;
+  transition:color .2s;font-family:var(--mono);
+}
+.nav-back:hover{color:var(--orange)}
+.nav-back svg{width:13px;height:13px}
+
+.legal-hero{
+  background:linear-gradient(155deg,#1A1D24 0%,#0F1117 55%,#1A1D24 100%);
+  padding:5rem 2rem 4rem;
+  text-align:center;position:relative;overflow:hidden;
+}
+.legal-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 55% at 50% 45%,rgba(240,123,43,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.legal-hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(240,123,43,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(240,123,43,.025) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;
+}
+.legal-hero-inner{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.3rem .9rem;
+  background:rgba(240,123,43,.12);
+  border:1px solid rgba(240,123,43,.2);
+  border-radius:100px;
+  font-size:.68rem;font-weight:600;color:var(--orange-light);
+  margin-bottom:1.2rem;
+  font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;
+}
+.legal-hero h1{
+  font-size:clamp(2rem,4.5vw,3rem);
+  font-weight:800;line-height:1.15;letter-spacing:-.03em;
+  color:#fff;margin-bottom:.8rem;
+}
+.legal-hero p{
+  font-size:.95rem;color:rgba(255,255,255,.55);
+  font-family:var(--mono);
+}
+
+.legal-content{
+  max-width:760px;margin:0 auto;
+  padding:4rem 2rem 5rem;
+  font-size:.95rem;color:var(--charcoal);line-height:1.8;
+}
+.legal-content p{margin-bottom:1.1rem}
+.legal-content h2{
+  font-size:1.3rem;font-weight:800;letter-spacing:-.02em;
+  color:var(--dark);margin:2.5rem 0 1rem;
+  padding-top:1rem;border-top:1px solid var(--g100);
+}
+.legal-content h2:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.legal-content ul{margin:0 0 1.2rem 1.5rem}
+.legal-content li{margin-bottom:.5rem}
+.legal-content a{color:var(--orange);text-decoration:none}
+.legal-content a:hover{text-decoration:underline}
+.legal-content strong{color:var(--dark);font-weight:700}
+
+.contact-box{
+  margin-top:2rem;padding:1.5rem 1.8rem;
+  background:var(--bg-soft);border-radius:14px;
+  border-left:3px solid var(--orange);
+}
+.contact-box p{margin-bottom:.4rem}
+.contact-box p:last-child{margin-bottom:0}
+
+footer{
+  background:#0B0D11;padding:2.5rem 2rem 1.5rem;text-align:center;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+footer img.footer-logo{height:26px;width:auto;display:inline-block;margin-bottom:.8rem;opacity:.85}
+footer p{font-size:.72rem;color:rgba(255,255,255,.25);font-family:var(--mono);margin-top:.25rem}
+footer .footer-links{margin:1rem 0 .6rem;display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+footer .footer-links a{font-size:.72rem;color:rgba(255,255,255,.4);text-decoration:none;font-family:var(--mono);transition:color .2s}
+footer .footer-links a:hover{color:var(--orange-light)}
+footer .footer-meta{font-size:.68rem;color:rgba(255,255,255,.22);line-height:1.7;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.05)}
+
+@media(max-width:640px){
+  nav{padding:.75rem 1.2rem}
+  .legal-hero{padding:4rem 1.2rem 3rem}
+  .legal-content{padding:3rem 1.2rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/assets/img/logo-header-dark.png" alt="n4flow"></a>
+  <a href="/" class="nav-back">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    Voltar ao site
+  </a>
+</nav>
+
+<section class="legal-hero">
+  <div class="legal-hero-inner">
+    <div class="eyebrow">Documento legal</div>
+    <h1>Política de Privacidade</h1>
+    <p>Última atualização: março de 2026</p>
+  </div>
+</section>
+
+<main class="legal-content">
+
+<p>A n4flow ("nós", "nosso", "nossa") é controladora dos dados pessoais tratados por meio do website n4flow.com.br e de seus serviços. Empregamos os melhores esforços para fornecer medidas de proteção adequadas em todas as nossas operações e para implementar políticas e procedimentos consistentes, efetivos e rigorosos de proteção de dados.</p>
+
+<p>Por reconhecer a importância da sua privacidade, desenvolvemos esta Política para informá-lo sobre as condições sob as quais tratamos e protegemos seus Dados Pessoais, em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong>. Esta Política também descreve seus direitos e como você pode entrar em contato conosco para exercê-los.</p>
+
+<p>Os termos desta Política se aplicam a todos os usuários e visitantes do website n4flow.com.br e demais canais digitais da n4flow.</p>
+
+<h2>1. Objetivo desta Política</h2>
+<p>O objetivo desta Política é informá-lo sobre as condições sob as quais tratamos e protegemos seus Dados Pessoais, descrever seus direitos como titular de dados e orientar sobre como exercê-los.</p>
+
+<h2>2. Dados pessoais que coletamos</h2>
+<p>A n4flow coleta e trata os Dados Pessoais que você fornece diretamente ao preencher nosso formulário de diagnóstico, ao entrar em contato conosco ou ao navegar em nosso website. As informações coletadas incluem:</p>
+<ul>
+  <li><strong>Dados de identificação:</strong> nome, sobrenome, email profissional, nome da empresa, cargo</li>
+  <li><strong>Dados de contato:</strong> número de WhatsApp, endereço de email</li>
+  <li><strong>Dados sobre a operação:</strong> tamanho da equipe, desafios operacionais, ferramentas utilizadas, área de interesse</li>
+  <li><strong>Comunicações:</strong> mensagens e observações enviadas voluntariamente por meio de formulários</li>
+  <li><strong>Dados de navegação:</strong> endereço IP, tipo de navegador, páginas visitadas, duração da visita e dados coletados por meio de cookies e tecnologias similares</li>
+  <li><strong>Dados de consentimento:</strong> registro do aceite da Política de Privacidade, com data e horário</li>
+</ul>
+
+<h2>3. Finalidades para as quais utilizamos seus dados</h2>
+<p>Os Dados Pessoais coletados são utilizados exclusivamente para as seguintes finalidades:</p>
+<ul>
+  <li><strong>Prestação de serviços:</strong> entrar em contato para agendar e realizar o diagnóstico gratuito solicitado, elaborar propostas comerciais e prestar os serviços contratados</li>
+  <li><strong>Personalização:</strong> preparar a conversa de diagnóstico com base no cenário informado e adequar nossas soluções às necessidades da sua empresa</li>
+  <li><strong>Comunicação:</strong> enviar informações relevantes sobre nossos serviços, novidades, funcionalidades e conteúdos que possam ser do seu interesse</li>
+  <li><strong>Melhoria dos serviços:</strong> compreender o perfil dos interessados para aprimorar nossas soluções, processos e comunicação</li>
+  <li><strong>Obrigações legais:</strong> colaborar e/ou cumprir ordem judicial, requisição por autoridade administrativa ou obrigação legal ou regulatória</li>
+  <li><strong>Segurança:</strong> prevenir fraudes, investigar atividades suspeitas e proteger os direitos da n4flow e de terceiros</li>
+</ul>
+<p>A n4flow não vende, aluga ou comercializa seus Dados Pessoais com terceiros para fins de marketing ou qualquer outra finalidade não descrita nesta Política.</p>
+
+<h2>4. Base legal para o tratamento de dados</h2>
+<p>O tratamento dos seus Dados Pessoais é realizado com base nas seguintes hipóteses previstas na LGPD (Lei nº 13.709/2018):</p>
+<ul>
+  <li><strong>Consentimento (art. 7º, I):</strong> ao preencher o formulário e aceitar esta Política, você consente com o tratamento dos dados para as finalidades descritas</li>
+  <li><strong>Execução de contrato (art. 7º, V):</strong> quando o tratamento é necessário para a prestação dos serviços contratados ou para procedimentos preliminares relacionados a contrato do qual você seja parte</li>
+  <li><strong>Legítimo interesse (art. 7º, IX):</strong> para contato comercial, melhoria dos serviços e segurança, quando compatível com as expectativas do titular</li>
+  <li><strong>Cumprimento de obrigação legal ou regulatória (art. 7º, II):</strong> quando necessário para atender determinações legais</li>
+  <li><strong>Exercício regular de direitos (art. 7º, VI):</strong> quando necessário para o exercício de direitos em processo judicial, administrativo ou arbitral</li>
+</ul>
+
+<h2>5. Compartilhamento de dados pessoais</h2>
+<p>A segurança e a confidencialidade dos seus Dados Pessoais são de grande importância para nós. Restringimos o acesso somente aos profissionais devidamente autorizados que precisem ter conhecimento sobre tais dados.</p>
+<p>Seus Dados Pessoais podem ser compartilhados com:</p>
+<ul>
+  <li><strong>Prestadores de serviços autorizados:</strong> provedores de hospedagem, ferramentas de CRM, plataformas de automação, serviços de análise e ferramentas de comunicação, sempre mediante compromisso contratual de proteção dos dados</li>
+  <li><strong>Autoridades públicas:</strong> quando necessário para cumprir obrigação legal, regulatória ou ordem judicial</li>
+  <li><strong>Proteção de direitos:</strong> quando necessário para fazer cumprir e/ou proteger propriedade ou direitos da n4flow, inclusive para investigar fraudes e prevenir ameaças de segurança</li>
+</ul>
+<p>Em todos os casos, garantimos que seus Dados Pessoais sejam tratados apenas para propósitos legítimos, específicos e informados, sem possibilidade de tratamento posterior de forma incompatível com as finalidades descritas nesta Política.</p>
+
+<h2>6. Cookies e tecnologias de rastreamento</h2>
+<p>Nosso website utiliza cookies e tecnologias similares para melhorar a experiência de navegação e para fins analíticos. Os tipos de cookies que utilizamos incluem:</p>
+<ul>
+  <li><strong>Cookies essenciais:</strong> necessários para o funcionamento básico do website, como registro de preferências de consentimento</li>
+  <li><strong>Cookies analíticos:</strong> utilizados para compreender como os visitantes interagem com o website, auxiliando na melhoria da experiência (por exemplo: Google Analytics)</li>
+</ul>
+<p>Ao acessar nosso website pela primeira vez, você será solicitado a consentir com o uso de cookies. Você pode gerenciar suas preferências de cookies a qualquer momento através das configurações do seu navegador.</p>
+
+<h2>7. Armazenamento e segurança dos dados</h2>
+<p>Implementamos as melhores práticas de mercado em segurança técnica e administrativa para proteger seus Dados Pessoais de acessos não autorizados e de situações acidentais ou ilícitas de destruição, perda, alteração, comunicação ou difusão. As medidas adotadas incluem:</p>
+<ul>
+  <li>Acesso restrito aos dados apenas por pessoas autorizadas</li>
+  <li>Criptografia nas comunicações (HTTPS/TLS)</li>
+  <li>Armazenamento em provedores que seguem padrões internacionais de segurança</li>
+  <li>Controles de acesso e autenticação em todas as ferramentas internas</li>
+  <li>Monitoramento contínuo de acessos e anomalias</li>
+</ul>
+<p>No entanto, nenhuma empresa pode eliminar totalmente os riscos de segurança associados ao tratamento de Dados Pessoais. Recomendamos que você também adote medidas de segurança, como proteger o acesso à sua conta de email e utilizar senhas fortes.</p>
+
+<h2>8. Retenção dos dados</h2>
+<p>Armazenamos seus Dados Pessoais somente pelo tempo necessário para cumprir as finalidades para as quais foram coletados, observados os eventuais prazos legais e a necessidade de defesa da n4flow em processos. Findo o prazo e a necessidade legal, os seus Dados Pessoais serão excluídos com uso de métodos de descarte seguro ou utilizados de forma anonimizada para fins estatísticos.</p>
+
+<h2>9. Transferência internacional de dados</h2>
+<p>Eventualmente, seus Dados Pessoais podem ser transferidos para destinatários localizados fora do Brasil, especialmente quando utilizamos ferramentas e provedores de serviços internacionais (como serviços de hospedagem em nuvem, ferramentas de CRM e plataformas de comunicação). Na hipótese de transferência internacional, adotaremos as medidas necessárias para assegurar a existência de garantias adequadas para a proteção dos seus Dados Pessoais de acordo com a LGPD.</p>
+
+<h2>10. Seus direitos como titular de dados</h2>
+<p>Conforme o artigo 18 da LGPD, você tem direito a:</p>
+<ul>
+  <li>Confirmar a existência de tratamento dos seus dados pessoais</li>
+  <li>Acessar seus dados pessoais</li>
+  <li>Corrigir dados incompletos, inexatos ou desatualizados</li>
+  <li>Solicitar a anonimização, bloqueio ou eliminação de dados desnecessários, excessivos ou tratados em desconformidade com a LGPD</li>
+  <li>Solicitar a portabilidade dos dados a outro fornecedor de serviço ou produto</li>
+  <li>Solicitar a eliminação dos dados pessoais tratados com base no consentimento</li>
+  <li>Obter informação sobre as entidades públicas e privadas com as quais seus dados foram compartilhados</li>
+  <li>Obter informação sobre a possibilidade de não fornecer consentimento e sobre as consequências da negativa</li>
+  <li>Revogar o consentimento a qualquer momento</li>
+</ul>
+<p>Para garantir a sua privacidade e como medida de segurança, podemos solicitar a comprovação da sua identidade antes de efetuar qualquer solicitação relacionada aos seus direitos.</p>
+
+<h2>11. Dados pessoais de crianças e adolescentes</h2>
+<p>Os serviços da n4flow não são direcionados a crianças e adolescentes (menores de 18 anos). Não coletamos intencionalmente Dados Pessoais de menores de idade. Caso tenhamos conhecimento de que coletamos dados de um menor, tomaremos as providências necessárias para excluí-los.</p>
+
+<h2>12. Alterações nesta Política</h2>
+<p>Esta Política pode ser atualizada periodicamente para refletir alterações em nossas práticas de tratamento de dados ou para atender novas exigências legais. Eventuais alterações serão publicadas nesta página com a data de atualização revisada. Todas as modificações entrarão em vigor imediatamente após a publicação da versão revisada, a menos que especificado de outra forma.</p>
+<p>Recomendamos que você consulte esta página periodicamente para se manter informado sobre como protegemos seus dados.</p>
+
+<h2>13. Lei aplicável e jurisdição</h2>
+<p>A presente Política de Privacidade será regida, interpretada e executada segundo a legislação brasileira, sendo eleito o Foro da Comarca de São Paulo — SP para dirimir qualquer litígio ou controvérsia envolvendo o presente documento, salvo ressalva específica de competência pela legislação aplicável.</p>
+
+<h2>14. Fale conosco</h2>
+<p>Se você tiver dúvidas sobre esta Política de Privacidade, sobre o tratamento dos seus dados pessoais, ou quiser exercer qualquer um dos seus direitos como titular de dados, entre em contato:</p>
+<div class="contact-box">
+  <p><strong>n4flow</strong></p>
+  <p>Email: <a href="mailto:contato@n4flow.com.br">contato@n4flow.com.br</a></p>
+  <p>São Paulo, SP — Atendimento em todo o Brasil</p>
+</div>
+
+</main>
+
+<footer>
+  <a href="/" class="nav-logo"><img class="footer-logo" src="/assets/img/logo-footer.png" alt="n4flow"></a>
+  <p>IA, Dados &amp; Automação aplicados ao que trava o crescimento da sua empresa.</p>
+  <div class="footer-links">
+    <a href="/politica-de-privacidade/">Política de Privacidade</a>
+    <a href="/termos-de-uso/">Termos de Uso</a>
+  </div>
+  <div class="footer-meta">
+    © 2026 n4flow · Benn Consultoria Business Intelligence e Marketing LTDA<br>
+    CNPJ 05.376.867/0001-60 · São Paulo, SP · Atendimento em todo o Brasil
+  </div>
+</footer>
+
+</body>
+</html>

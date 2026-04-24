@@ -3,8 +3,23 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<meta property="og:title" content="Inteligência de Dados · n4flow">
+<meta property="og:description" content="Dados integrados, dashboards em tempo real e inteligência aplicada para decisões mais rápidas e seguras.">
+<meta property="og:image" content="https://n4flow.com.br/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://n4flow.com.br/dados/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="n4flow">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inteligência de Dados · n4flow">
+<meta name="twitter:description" content="Dados integrados, dashboards em tempo real e inteligência aplicada para decisões mais rápidas e seguras.">
+<meta name="twitter:image" content="https://n4flow.com.br/assets/img/og-image.jpg">
 <title>Inteligência de Dados, Dashboards, Integração e Indicadores | n4flow</title>
 <meta content="Conectamos seus sistemas, organizamos seus dados e entregamos dashboards executivos com indicadores em tempo real. Decisões mais rápidas e seguras para sua empresa." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -39,7 +54,7 @@ body{font-family:var(--font);color:var(--text-dark);background:var(--bg);overflo
 .reveal{opacity:0;transform:translateY(26px);transition:all .75s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem max(2.5rem, calc((100% - 1140px) / 2));display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
 nav.scrolled{background:rgba(255,255,255,.95);border-bottom-color:var(--border)}
 .nav-logo{display:flex;align-items:center;gap:2px;text-decoration:none}
 .nav-links{display:flex;align-items:center;gap:2.2rem}.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.6);transition:color .2s;letter-spacing:-.01em}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent-light)}
@@ -58,7 +73,7 @@ nav.scrolled .hamburger span{background:var(--text-dark)}
 .page-hero-inner{position:relative;z-index:2;width:100%;max-width:1200px;display:flex;align-items:center;gap:4rem;justify-content:space-between}.page-hero-content{flex:1;min-width:0;text-align:left}.page-hero h1{margin-bottom:1.4rem}.page-hero-sub{margin:0 0 2.5rem}.hero-cta-row{justify-content:flex-start}.page-hero-visual{flex:0 0 auto;width:min(440px,42vw);position:relative}@media(max-width:900px){.page-hero-inner{flex-direction:column;text-align:center}.page-hero-content{text-align:center}.hero-cta-row{justify-content:center}.page-hero-visual{width:min(380px,85vw)}.page-hero-sub{margin:0 auto 2.5rem}}
 .hero-badge{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem .4rem .7rem;background:rgba(240,123,43,.15);border:1px solid rgba(240,123,43,.25);border-radius:100px;font-size:.72rem;font-weight:600;color:var(--accent-light);margin-bottom:2rem;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
 .hero-badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-.page-hero h1{font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:1.4rem}
+.page-hero h1{font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:1.4rem;max-width:18ch;text-wrap:balance}
 .page-hero h1 .accent{background:linear-gradient(90deg,#F07B2B,#F59D5E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .page-hero-sub{font-size:1.05rem;line-height:1.8;color:rgba(255,255,255,.6);max-width:600px;margin:0 0 2.5rem}
 .hero-cta-row{display:flex;gap:1rem;justify-content:flex-start;align-items:center;flex-wrap:wrap}
@@ -657,6 +672,41 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding
 .nav-logo-img--light { position:absolute; top:0; left:0; opacity:0; }
 nav.scrolled .nav-logo-img--dark { opacity:0; }
 nav.scrolled .nav-logo-img--light { opacity:1; }
+
+
+/* === FAQ === */
+.faq-section{padding:6rem 2.5rem;background:var(--bg-warm, #F9F6F0)}
+.faq-inner{max-width:800px;margin:0 auto}
+.faq-header{text-align:center;margin-bottom:3.5rem}
+.faq-header .section-desc{margin:0 auto;text-align:center}
+.faq-list{display:flex;flex-direction:column;gap:.8rem}
+.faq-item{background:#fff;border:1.5px solid var(--border, #E6E1D9);border-radius:14px;overflow:hidden;transition:border-color .25s}
+.faq-item.open{border-color:rgba(240,123,43,.28)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.4rem 1.6rem;cursor:pointer;user-select:none}
+.faq-q-text{font-size:.92rem;font-weight:700;color:var(--text-dark, #1A1D23);line-height:1.4}
+.faq-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border, #E6E1D9);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:var(--text-muted, #7A7A7A);font-size:1.05rem;font-weight:400;line-height:1}
+.faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.faq-item.open .faq-a{max-height:600px}
+.faq-a-inner{padding:0 1.6rem 1.4rem;font-size:.86rem;color:var(--text-body, #3D3D3D);line-height:1.8;border-top:1px solid var(--border, #E6E1D9)}
+
+
+/* === COOKIE BANNER === */
+#cookie-banner{position:fixed;bottom:1.3rem;left:1.3rem;z-index:9999;max-width:440px;background:rgba(15,17,22,.95);color:rgba(255,255,255,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.1rem 1.2rem;box-shadow:0 18px 50px rgba(0,0,0,.35);display:none;font-family:'Plus Jakarta Sans',system-ui,sans-serif;animation:cookieSlideIn .5s cubic-bezier(.16,1,.3,1)}
+#cookie-banner.show{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+@keyframes cookieSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+#cookie-banner .cb-text{font-size:.8rem;line-height:1.5;flex:1;min-width:220px;color:rgba(255,255,255,.78)}
+#cookie-banner .cb-text a{color:#F59D5E;text-decoration:underline;text-underline-offset:2px}
+#cookie-banner .cb-text a:hover{color:#F07B2B}
+#cookie-banner .cb-btn{display:inline-flex;align-items:center;justify-content:center;padding:.6rem 1.3rem;background:#F07B2B;color:#fff;font-size:.82rem;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
+#cookie-banner .cb-btn:hover{background:#D96A1F;transform:translateY(-1px)}
+@media(max-width:560px){#cookie-banner{left:.8rem;right:.8rem;bottom:.8rem;max-width:none;padding:1rem;flex-direction:column;align-items:stretch}#cookie-banner .cb-btn{width:100%}}
+
+/* Footer links legais + meta */
+.footer-bottom-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.06)}
+.footer-bottom-links a{font-size:.74rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s}
+.footer-bottom-links a:hover{color:#F59D5E}
+.footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}
 
 </style>
 <style>
@@ -1339,6 +1389,76 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 </div>
 </section>
 <!-- CTA FINAL -->
+
+<!-- FAQ -->
+<section class="faq-section">
+<div class="faq-inner">
+<div class="faq-header reveal">
+<div class="section-label" style="justify-content:center">Perguntas frequentes</div>
+<h2 class="section-title">As dúvidas mais honestas sobre<br/>estruturar os dados do negócio</h2>
+<p class="section-desc">Respondemos o que donos, diretores e gestores mais perguntam antes de começar um projeto de inteligência de dados.</p>
+</div>
+<div class="faq-list">
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">E se os dados da minha empresa estiverem uma bagunça? Precisa estar organizado antes?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Não. A maioria dos clientes chega com dados exatamente nesse cenário: planilhas paralelas, cadastros duplicados, campos sem padrão, sistemas que não conversam. Parte do trabalho da n4flow é justamente estruturar essa base. No diagnóstico inicial conseguimos entender o estado dos dados e propor o plano de organização junto com o projeto de visualização. Esperar ter tudo arrumado antes costuma atrasar a empresa por anos, quando na verdade a própria estrutura ajuda a organizar.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Já tentamos usar Power BI / Looker internamente e não deu certo. Qual é diferente?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Essas ferramentas são excelentes, e em muitos projetos a n4flow entrega sobre elas. O que costuma falhar quando a empresa tenta sozinha não é a ferramenta, é a camada que vem antes: engenharia de dados, modelagem, integração com os sistemas e regras de negócio bem traduzidas. Sem isso, o dashboard mostra número errado, fica lento, ou vira mais uma fonte de confusão. Entregamos essa base antes, e só depois o painel, conectado de forma sustentável ao ecossistema da empresa.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Onde ficam os nossos dados? É seguro, considerando LGPD?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Os dados ficam em ambiente controlado pela própria empresa, em nuvem (AWS, Google Cloud, Azure, Microsoft Fabric, entre outras) ou infraestrutura interna, conforme a preferência e o nível de maturidade do cliente. Em nenhum momento a estrutura fica presa a uma plataforma da n4flow, o cliente é dono da conta e dos dados. Aplicamos boas práticas de LGPD desde o início: acessos por perfil, registro de quem viu o quê, pseudonimização de dados pessoais quando necessário e documentação do tratamento. Em setores mais sensíveis (saúde, jurídico, educação), aprofundamos esse cuidado no desenho do projeto.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Dá pra começar pequeno e ir crescendo, ou tem que fazer o projeto todo de uma vez?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Dá e costuma ser o caminho mais inteligente. A maioria dos projetos começa por uma área específica (comercial, financeiro, estoque, marketing, operação) ou por um indicador que está doendo mais. A estrutura é desenhada já prevendo crescimento, então novas áreas, sistemas e análises vão sendo incorporados em etapas, com entregas visíveis a cada fase. Isso reduz risco, acelera retorno e permite que a empresa aprenda a usar dados antes de escalar.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Quanto tempo leva até eu ver o primeiro dashboard no ar?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Depende da quantidade de fontes de dados, da qualidade dessas fontes e da complexidade das regras de negócio. Projetos focados, com 1 ou 2 sistemas bem acessíveis, podem gerar dashboards em poucas semanas. Projetos envolvendo múltiplos ERPs, tratamento pesado de dados e regras específicas costumam levar alguns meses. O diagnóstico é o que permite essa estimativa antes de qualquer compromisso. Em todos os casos trabalhamos com entregas parciais, não é preciso esperar o projeto inteiro acabar pra começar a ver valor.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">É possível cruzar dados internos com dados externos (mercado, concorrência, indicadores públicos)?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Sim, quando faz sentido para o negócio. Trabalhamos com integração de dados externos como preços praticados pelo mercado, indicadores macroeconômicos, dados climáticos, notícias setoriais, informações públicas de concorrentes, entre outros. Esses cruzamentos enriquecem muito a leitura: ajudam a entender se uma queda nas vendas foi interna ou do mercado, se um aumento de custo é isolado ou generalizado, ou se uma oportunidade que parece boa já está sendo abocanhada. A viabilidade depende da disponibilidade e qualidade das fontes externas.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Preciso trocar os sistemas (ERP, CRM) que já uso?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Não. Esse é um dos pontos mais importantes do nosso modelo. Conectamos os sistemas que a empresa já tem, por APIs, banco de dados ou outros meios técnicos. Trocar o ERP ou CRM é uma decisão estratégica que envolve custo, treinamento e risco alto, e quase sempre não é necessária para extrair mais inteligência dos dados. O que transforma a operação é o que é construído em cima do que já existe.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Depois que a estrutura estiver pronta, fico dependente da n4flow pra sempre?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Não, e isso é proposital. A solução é entregue como ativo da empresa: documentação técnica, acesso total às contas de nuvem, código-fonte dos pipelines, regras de negócio registradas. O cliente pode operar com equipe interna, contratar outro profissional ou seguir com a n4flow, como preferir. Encerrar o contrato não significa perder o que foi construído: diferente de plataformas fechadas, aqui a empresa fica com a estrutura completa, mesmo sem a gente.</div></div>
+</div>
+</div>
+</div>
+</section>
+
 <section class="cta-final">
 <div class="cta-inner reveal">
 <div class="section-label" style="justify-content:center;margin-bottom:1.2rem">Vamos conversar?</div>
@@ -1376,8 +1496,15 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 </div>
 </div>
 <div class="footer-bottom">
-<p class="footer-copy">© 2026 n4flow. Todos os direitos reservados.</p>
-<p class="footer-copy">IA · Dados · Automação</p>
+<div class="footer-bottom-links">
+<a href="/politica-de-privacidade/">Política de Privacidade</a>
+<a href="/termos-de-uso/">Termos de Uso</a>
+<a href="https://www.linkedin.com/company/n4flow" rel="noopener" target="_blank">LinkedIn</a>
+</div>
+<div class="footer-meta-legal">
+© 2026 n4flow · Benn Consultoria Business Intelligence e Marketing LTDA · CNPJ 05.376.867/0001-60<br>
+São Paulo, SP · Atendimento em todo o Brasil · IA · Dados · Automação
+</div>
 </div>
 </footer>
 <a aria-label="Falar com um especialista" class="float-contact" href="https://wa.me/551152864920" rel="noopener" target="_blank">
@@ -1528,6 +1655,44 @@ const cloudObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.cloud-wrap').forEach(el => cloudObserver.observe(el));
+
+// ── FAQ toggle
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
 </script>
+
+<!-- Cookie consent banner -->
+<div id="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+  <div class="cb-text">Utilizamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="/politica-de-privacidade/">Política de Privacidade</a>.</div>
+  <button class="cb-btn" onclick="window.n4AcceptCookies()">Aceitar</button>
+</div>
+
+
+<script>
+(function(){
+  function hasCookie(){
+    try { return document.cookie.indexOf('n4_cookie_accept=1') !== -1; } catch(e){ return false; }
+  }
+  window.n4AcceptCookies = function(){
+    var d = new Date(); d.setTime(d.getTime() + 365*24*60*60*1000);
+    document.cookie = 'n4_cookie_accept=1; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+    var el = document.getElementById('cookie-banner');
+    if (el) el.classList.remove('show');
+  };
+  function showBanner(){
+    if (hasCookie()) return;
+    var el = document.getElementById('cookie-banner');
+    if (el) setTimeout(function(){ el.classList.add('show'); }, 800);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showBanner);
+  else showBanner();
+})();
+</script>
+
 </body>
 </html>
