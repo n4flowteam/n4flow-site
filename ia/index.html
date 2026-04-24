@@ -57,7 +57,7 @@ body{font-family:var(--font);color:var(--text-dark);background:var(--bg);overflo
 .reveal{opacity:0;transform:translateY(24px);transition:all .75s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem max(2.5rem, calc((100% - 1140px) / 2));display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.75rem calc(2.5rem + max(0px, (100% - 1240px) / 2));display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
 nav.scrolled{background:rgba(255,255,255,.95);border-bottom-color:var(--border)}
 .nav-logo{display:flex;align-items:center;text-decoration:none}
 .nav-links{display:flex;align-items:center;gap:2.2rem}.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.6);transition:color .2s}
@@ -228,7 +228,7 @@ section{padding:6rem 2.5rem}.container{max-width:1140px;margin:0 auto}
 .faq-q{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.4rem 1.6rem;cursor:pointer;user-select:none}
 .faq-q-text{font-size:.92rem;font-weight:700;color:var(--text-dark);line-height:1.4}
 .faq-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:var(--text-muted);font-size:.9rem}
-.faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.faq-item.open .faq-icon{color:var(--accent);transform:rotate(180deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
 .faq-item.open .faq-a{max-height:400px}
 .faq-a-inner{padding:0 1.6rem 1.4rem;font-size:.86rem;color:var(--text-body);line-height:1.8;border-top:1px solid var(--border)}
@@ -342,46 +342,24 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding
   padding: 0;
 }
 .ia-photo-ring {
-  position: absolute; inset: -2px; border-radius: 25px;
-  background: conic-gradient(from 135deg,
-    #F07B2B 0%,
-    rgba(240,123,43,.15) 25%,
-    rgba(240,123,43,0) 40%,
-    rgba(240,123,43,0) 60%,
-    rgba(240,123,43,.2) 75%,
-    #F07B2B 100%
-  );
-  padding: 2px; pointer-events: none; z-index: 3;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-}
-.ia-ring-outer {
-  position: absolute; inset: -14px; border-radius: 30px;
-  border: 1px solid rgba(240,123,43,.1);
+  position: absolute; inset: 0; border-radius: 28px;
+  border: 1.5px dashed rgba(240,123,43,.15);
   pointer-events: none; z-index: 0;
 }
+.ia-ring-outer{display:none}
 .ia-glow-bottom {
-  position: absolute; bottom: -18px; left: 8%; right: 8%;
-  height: 50px; z-index: 0; pointer-events: none;
-  background: radial-gradient(ellipse, rgba(240,123,43,.45) 0%, transparent 70%);
-  filter: blur(10px);
+  position: absolute; bottom: -18px; left: 10%; right: 10%;
+  height: 40px; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse, rgba(240,123,43,.25) 0%, transparent 70%);
+  filter: blur(12px);
 }
-.ia-glow {
-  position: absolute; inset: 0; border-radius: 22px;
-  background: radial-gradient(ellipse 50% 40% at 65% 30%, rgba(240,123,43,.13) 0%, transparent 65%);
-  pointer-events: none; z-index: 2;
-}
+.ia-glow{display:none}
 .ia-photo-frame {
   position: relative; border-radius: 22px; overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,.32), 0 8px 24px rgba(0,0,0,.18);
-  z-index: 1; background: var(--bg-muted);
+  box-shadow: 0 20px 50px rgba(0,0,0,.11), 0 0 0 1px rgba(240,123,43,.08);
+  z-index: 1; background: var(--bg-muted, #EEE9E2);
 }
-.ia-photo {
-  width: 108%;
-  height: auto;
-  display: block;
-  margin-left: -8%;
-}
+.ia-photo { width: 100%; height: auto; display: block; }
 .ia-accent-dot {
   position: absolute; top: 1.2rem; right: 1.2rem; z-index: 5;
   width: 9px; height: 9px; border-radius: 50%;
@@ -935,56 +913,56 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Qual a diferença entre usar ChatGPT e ter uma IA implementada pela n4flow?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Ferramentas como ChatGPT, Gemini ou Claude são úteis para tarefas do dia a dia, mas não conhecem a sua empresa. Elas não têm acesso aos seus dados, sistemas, documentos internos, regras do negócio ou histórico de operação. Cada vez que você usa, precisa explicar o contexto do zero. A IA implementada pela n4flow é diferente: ela é construída com a realidade da sua empresa, conectada aos seus sistemas, alimentada pelos seus dados e configurada com as suas regras. O resultado é uma inteligência que responde como alguém de dentro da organização, não como uma ferramenta genérica que nunca ouviu falar do seu negócio.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">A empresa precisa ter os dados organizados antes de implementar IA?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Não necessariamente. Muitas empresas chegam até nós com dados espalhados em planilhas, ERPs, CRMs e sistemas desconectados, e isso é bastante comum. Parte do trabalho da n4flow é justamente estruturar essa base antes de aplicar a IA. Trabalhamos desde a organização dos dados até a implementação da inteligência, de forma que cada etapa prepare o terreno para a próxima. Se os dados da sua empresa já estiverem organizados, o processo é mais rápido. Se não estiverem, o diagnóstico inicial nos ajuda a entender o que precisa ser feito antes de avançar.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">O que é um agente de IA e como ele funciona dentro de uma empresa?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Um agente de IA é uma inteligência configurada para executar tarefas específicas de forma autônoma, com conhecimento, regras e objetivos definidos. Diferente de um chatbot simples que apenas responde perguntas com scripts fixos, um agente pode consultar dados em tempo real, cruzar informações de múltiplas fontes, tomar decisões dentro de limites pré-definidos e agir com base no contexto. Na prática, uma empresa pode ter um agente de vendas que analisa o histórico do cliente e sugere abordagens, um agente de gestão que responde perguntas sobre indicadores e metas, e um agente de atendimento que responde clientes com informações reais do pedido, tudo rodando integrado aos sistemas da empresa.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">É seguro conectar os dados da empresa a uma IA?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Sim, quando feito de forma estruturada. A diferença está em como a IA é construída. Quando uma empresa usa ferramentas abertas e insere dados sensíveis manualmente, o controle sobre essas informações é limitado. Na n4flow, a IA é implementada em uma estrutura controlada pela própria empresa, com acessos por perfil, definição de quem vê o quê, e sem exposição de informações estratégicas em plataformas públicas. A segurança é parte do projeto desde o início, não um detalhe adicionado depois.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Quanto tempo leva para implementar IA em uma empresa?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Depende da complexidade do projeto, do estado atual dos dados e dos objetivos. Projetos mais focados, como um agente de atendimento conectado a uma base de conhecimento já estruturada, podem ser implementados em algumas semanas. Projetos mais completos, com múltiplas integrações, agentes para diferentes áreas e organização de dados do zero, costumam levar alguns meses. O diagnóstico inicial é justamente o que nos permite estimar o escopo com precisão antes de qualquer compromisso.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Depois de implementada, a empresa fica dependente da n4flow para manter a IA funcionando?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Não. Essa é uma das diferenças centrais do modelo da n4flow. Construímos a solução como um ativo da empresa, documentada, explicada e entregue de forma que o cliente tenha autonomia para operar, ajustar e evoluir a estrutura. A empresa pode gerenciar internamente, envolver outras equipes ou contratar outros profissionais no futuro. Não criamos dependência de plataforma fechada, nem existe risco de perder o acesso à estrutura construída se o contrato encerrar.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Quais tipos de perguntas e tarefas a IA consegue realizar dentro da empresa?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Uma IA bem implementada consegue responder perguntas sobre indicadores, metas e desempenho; localizar informações em documentos internos; cruzar dados de diferentes áreas para gerar análises; identificar padrões, riscos e oportunidades; apoiar equipes comerciais com dados de clientes e histórico; atender clientes com informações reais sobre pedidos, produtos e serviços; gerar relatórios automáticos; e muito mais. O limite é definido pela qualidade dos dados conectados e pela forma como a IA é configurada, quanto mais contexto ela tem, mais útil ela se torna.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Minha empresa é pequena ou média. Faz sentido investir em IA agora?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Faz, desde que o projeto seja dimensionado para a realidade da empresa. IA não é exclusividade de grandes corporações, e empresas menores muitas vezes têm mais agilidade para adotar mudanças e colher resultados mais rapidamente. O importante é não tentar implementar tudo de uma vez. A n4flow trabalha com uma abordagem consultiva: identificamos as áreas com maior impacto potencial, priorizamos o que gera retorno mais rápido e construímos a estrutura de forma progressiva, com investimento proporcional ao porte e aos objetivos do negócio.</div></div>
 </div>

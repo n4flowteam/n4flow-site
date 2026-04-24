@@ -54,7 +54,7 @@ body{font-family:var(--font);color:var(--text-dark);background:var(--bg);overflo
 .reveal{opacity:0;transform:translateY(24px);transition:all .75s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem max(2.5rem, calc((100% - 1140px) / 2));display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.75rem calc(2.5rem + max(0px, (100% - 1240px) / 2));display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
 nav.scrolled{background:rgba(255,255,255,.95);border-bottom-color:var(--border)}
 .nav-logo{display:flex;align-items:center;text-decoration:none}
 .nav-links{display:flex;align-items:center;gap:2.2rem}.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.6);transition:color .2s;letter-spacing:-.01em}
@@ -764,8 +764,8 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 .faq-item.open{border-color:rgba(240,123,43,.28)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.4rem 1.6rem;cursor:pointer;user-select:none}
 .faq-q-text{font-size:.92rem;font-weight:700;color:var(--text-dark, #1A1D23);line-height:1.4}
-.faq-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border, #E6E1D9);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:var(--text-muted, #7A7A7A);font-size:1.05rem;font-weight:400;line-height:1}
-.faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.faq-icon{width:20px;height:20px;flex-shrink:0;color:var(--text-muted, #7A7A7A);transition:transform .35s cubic-bezier(.16,1,.3,1), color .25s}
+.faq-item.open .faq-icon{color:var(--accent);transform:rotate(180deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
 .faq-item.open .faq-a{max-height:600px}
 .faq-a-inner{padding:0 1.6rem 1.4rem;font-size:.86rem;color:var(--text-body, #3D3D3D);line-height:1.8;border-top:1px solid var(--border, #E6E1D9)}
@@ -1670,56 +1670,56 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">E se um dos sistemas que usamos não tiver API ou integração pronta?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Quando a API não existe ou é limitada, a n4flow trabalha com caminhos alternativos: integração via banco de dados, extração estruturada de relatórios, robôs de interface (RPA) ou até conectores intermediários. O diagnóstico identifica qual a via mais adequada para cada sistema, sem forçar a empresa a trocar a ferramenta que já funciona na operação.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Não dá pra fazer isso sozinho com Zapier, Make ou n8n?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Dá, em cenários simples. Essas ferramentas são ótimas para automações isoladas e de baixa complexidade. O projeto com a n4flow entra em cena quando a automação precisa lidar com múltiplos sistemas conversando entre si, regras de negócio específicas, tratamento de exceções, volume alto de dados, validações críticas ou integração com estruturas internas que essas plataformas não cobrem. Em vários projetos, aliás, usamos essas ferramentas como parte da solução, combinadas com engenharia sob medida.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Se o processo mudar depois, a automação precisa ser refeita do zero?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Não. Os fluxos são desenhados de forma modular justamente para absorver mudanças. Ajustes pontuais, como trocar um critério, adicionar um campo ou mudar a frequência de execução, são feitos sem reescrever a automação. Mudanças estruturais (ex: troca completa de sistema) podem exigir adaptação maior, mas raramente reconstrução total. A documentação entregue permite que esses ajustes sejam feitos pela própria equipe ou por outro profissional, sem depender exclusivamente da n4flow.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Quem monitora se uma automação falhou ou deu erro?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Todo fluxo entregue tem uma camada de monitoramento e alertas configurada desde o início. Quando algo falha, as pessoas certas são avisadas (por e-mail, Slack, WhatsApp ou canal definido), junto com o detalhe do erro e a etapa afetada. O objetivo é que a empresa saiba imediatamente se alguma rotina parou de rodar, sem descobrir só quando um relatório não chega ou um dado some. A n4flow pode também acompanhar a saúde dos fluxos via contrato de suporte, quando faz sentido para o cliente.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Automação vai substituir pessoas da minha equipe?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">O objetivo raramente é esse, e quase nunca é o resultado. Na prática, a automação elimina tarefas repetitivas que hoje consomem tempo do time sem agregar valor (copiar e colar, conferir planilhas, atualizar controles). O que muda é o que o time passa a fazer com esse tempo: análise, decisão, relacionamento com cliente, melhoria de processo. Em empresas em crescimento, automatizar é o que permite escalar sem precisar aumentar o time na mesma velocidade da operação.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Depois de pronto, minha equipe consegue mexer ou precisa chamar a n4flow toda vez?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">A estrutura é entregue documentada e pensada para ser operada pela empresa. Ajustes simples (mudar destinatários, editar texto de um alerta, ativar ou desativar um fluxo) podem ser feitos pela equipe. Para evoluções maiores, a empresa pode chamar a n4flow, outro profissional ou uma equipe interna, sem ficar presa a um fornecedor só. Esse é um princípio do nosso modelo: a solução é ativo da empresa, não uma caixa-preta.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Qual o custo recorrente pra manter as automações rodando?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Depende das ferramentas usadas na infraestrutura do projeto (alguns conectores, servidores em nuvem ou plataformas de automação têm mensalidade), mas o custo costuma ser baixo em comparação com o ganho. Esses valores ficam claros no diagnóstico, antes de qualquer proposta. Manutenção técnica só é contratada se a empresa quiser, não é obrigatória: é possível contratar por demanda, por um pacote mensal ou simplesmente operar internamente depois da entrega.</div></div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="toggleFaq(this)">
 <span class="faq-q-text">Como saber por onde começar se a operação tem muita coisa pra automatizar?</span>
-<span class="faq-icon">+</span>
+<svg class="faq-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </div>
 <div class="faq-a"><div class="faq-a-inner">Essa é uma das principais entregas do diagnóstico inicial. Em 30 minutos mapeamos os processos mais consumidores de tempo, os que têm maior risco de erro humano e os que geram mais atrito entre áreas. A partir disso, sugerimos uma ordem de prioridade que equilibra impacto, esforço de implementação e retorno no curto prazo. Nenhuma empresa precisa automatizar tudo de uma vez: o caminho é começar pelo que gera resultado mais rápido e ir evoluindo.</div></div>
 </div>
