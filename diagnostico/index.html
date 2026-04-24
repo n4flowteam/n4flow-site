@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Gratuito, n4flow</title>
+<meta name="description" content="Em 30 minutos, mapeamos os gargalos da sua operação e mostramos onde automação, dados e IA podem gerar resultado rápido.">
+<link rel="canonical" href="https://n4flow.com.br/diagnostico/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#F07B2B;--orange-dark:#D96A1F;--orange-light:#F59D5E;
+  --dark:#17191F;--charcoal:#3D3D3D;
+  --g500:#7A7A7A;--g400:#999;--g200:#E0E0E0;
+  --pw:#FFF;--border-light:rgba(255,255,255,.07);
+  --font:'Plus Jakarta Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',monospace;
+  --shadow-orange:0 12px 40px rgba(240,123,43,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--dark);background:var(--pw);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.fade-up{animation:fadeUp .7s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.fd1{animation-delay:.1s}.fd2{animation-delay:.22s}.fd3{animation-delay:.34s}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:.9rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(23,25,31,.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-light);
+}
+.nav-logo{font-size:1.4rem;font-weight:800;letter-spacing:-.03em;text-decoration:none}
+.nav-logo .n4{color:var(--orange)}.nav-logo .flow{color:rgba(255,255,255,.5)}
+.nav-back{
+  font-size:.8rem;font-weight:500;color:rgba(255,255,255,.35);
+  text-decoration:none;display:flex;align-items:center;gap:.4rem;
+  transition:color .2s;font-family:var(--mono);
+}
+.nav-back:hover{color:var(--orange)}
+.nav-back svg{width:13px;height:13px}
+
+.page{
+  min-height:100vh;
+  background:linear-gradient(155deg,#1A1D24 0%,#0F1117 55%,#1A1D24 100%);
+  position:relative;overflow:hidden;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:100px 2rem 5rem;
+}
+.page::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 30%,rgba(240,123,43,.1) 0%,transparent 65%),
+    radial-gradient(ellipse 30% 30% at 85% 75%,rgba(240,123,43,.05) 0%,transparent 60%);
+  pointer-events:none;
+}
+.page::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(240,123,43,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(240,123,43,.025) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;
+}
+
+.content{position:relative;z-index:2;width:100%;max-width:620px}
+
+.page-header{text-align:center;margin-bottom:2.5rem}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.3rem .85rem .3rem .55rem;
+  background:rgba(240,123,43,.12);
+  border:1px solid rgba(240,123,43,.2);
+  border-radius:100px;
+  font-size:.68rem;font-weight:600;color:var(--orange-light);
+  margin-bottom:1.4rem;
+  font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;
+}
+.eyebrow-dot{width:5px;height:5px;background:var(--orange);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.page-h1{
+  font-size:clamp(1.9rem,4vw,2.8rem);
+  font-weight:800;line-height:1.18;letter-spacing:-.03em;
+  color:#fff;margin-bottom:.9rem;
+}
+.page-h1 .acc{
+  background:linear-gradient(90deg,#F07B2B,#F59D5E);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.page-sub{
+  font-size:.92rem;color:rgba(255,255,255,.45);line-height:1.75;
+  max-width:480px;margin:0 auto 1.5rem;
+}
+.trust-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:.55rem;font-size:.72rem;color:rgba(255,255,255,.28);font-family:var(--mono);
+  flex-wrap:wrap;
+}
+.trust-dot{width:3px;height:3px;background:rgba(255,255,255,.18);border-radius:50%}
+
+.form-card{
+  background:#fff;border-radius:18px;
+  padding:2.2rem 2.4rem;
+  box-shadow:0 24px 70px rgba(0,0,0,.4);
+}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.79rem;font-weight:600;color:var(--charcoal);margin-bottom:.38rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:.72rem 1rem;
+  border:1.5px solid var(--g200);border-radius:9px;
+  font-size:.88rem;font-family:var(--font);color:var(--dark);
+  background:#fff;transition:border-color .2s,box-shadow .2s;
+  appearance:none;-webkit-appearance:none;
+}
+.form-group select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A7A7A' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+  padding-right:2.5rem;cursor:pointer;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(240,123,43,.1)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--g400)}
+.form-group textarea{resize:vertical;min-height:80px}
+.submit-btn{
+  width:100%;padding:1rem;background:var(--orange);color:#fff;
+  font-size:.97rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;
+  font-family:var(--font);transition:all .25s;margin-top:.4rem;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.submit-btn:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:var(--shadow-orange)}
+.submit-note{text-align:center;font-size:.72rem;color:var(--g400);margin-top:.7rem;font-family:var(--mono)}
+
+footer{
+  background:#0B0D11;padding:1.8rem 2rem;text-align:center;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+footer .nav-logo{font-size:1.05rem;display:inline-block;margin-bottom:.4rem}
+footer .nav-logo .flow{color:rgba(255,255,255,.22)}
+footer p{font-size:.7rem;color:rgba(255,255,255,.16);font-family:var(--mono);margin-top:.25rem}
+
+@media(max-width:580px){
+  nav{padding:.75rem 1.2rem}
+  .page{padding:85px 1rem 3rem}
+  .form-card{padding:1.5rem}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><span class="n4">n4</span><span class="flow">flow</span></a>
+  <a href="/" class="nav-back">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    Voltar
+  </a>
+</nav>
+
+<div class="page">
+  <div class="content">
+
+    <div class="page-header">
+      <div class="eyebrow fade-up"><span class="eyebrow-dot"></span>Gratuito &nbsp;·&nbsp; 30 min &nbsp;·&nbsp; Sem compromisso</div>
+      <h1 class="page-h1 fade-up fd1">Diagnóstico <span class="acc">gratuito</span><br>para sua empresa</h1>
+      <p class="page-sub fade-up fd2">Em 30 minutos mapeamos os gargalos da sua operação e mostramos onde automação, dados e IA podem gerar resultado rápido.</p>
+      <div class="trust-row fade-up fd3">
+        <span>Sem venda forçada</span>
+        <span class="trust-dot"></span>
+        <span>Você sai com um plano</span>
+        <span class="trust-dot"></span>
+        <span>Atendimento em todo o Brasil</span>
+      </div>
+    </div>
+
+    <div class="form-card fade-up fd3">
+      <form name="diagnostico" method="POST" data-netlify="true" action="/diagnostico/obrigado.html">
+        <input type="hidden" name="form-name" value="diagnostico">
+        <div class="form-row">
+          <div class="form-group"><label>Nome *</label><input type="text" name="nome" placeholder="Seu nome" required></div>
+          <div class="form-group"><label>Sobrenome *</label><input type="text" name="sobrenome" placeholder="Seu sobrenome" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email profissional *</label><input type="email" name="email" placeholder="seu@empresa.com" required></div>
+          <div class="form-group"><label>Empresa *</label><input type="text" name="empresa" placeholder="Nome da empresa" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Cargo</label><input type="text" name="cargo" placeholder="Seu cargo na empresa"></div>
+          <div class="form-group"><label>WhatsApp</label><input type="tel" name="whatsapp" placeholder="(00) 00000-0000"></div>
+        </div>
+        <div class="form-group"><label>Quantas pessoas na operação? *</label>
+          <select name="tamanho" required><option value="" disabled selected>Selecione...</option><option>Até 10</option><option>11 a 50</option><option>51 a 200</option><option>Mais de 200</option></select>
+        </div>
+        <div class="form-group"><label>Qual o maior desafio da sua operação hoje? *</label>
+          <select name="desafio" required><option value="" disabled selected>Selecione...</option><option>Tarefas manuais e repetitivas</option><option>Dados espalhados em várias ferramentas</option><option>Dificuldade em acompanhar indicadores</option><option>Atendimento lento ou desorganizado</option><option>Outro</option></select>
+        </div>
+        <div class="form-group"><label>Já usam alguma ferramenta de BI, automação ou IA?</label>
+          <select name="maturidade"><option value="" disabled selected>Selecione...</option><option>Sim, várias</option><option>Sim, algumas básicas</option><option>Não, quase tudo é manual</option><option>Não sei</option></select>
+        </div>
+        <div class="form-group"><label>O que mais te interessou na n4flow?</label>
+          <select name="interesse"><option value="" disabled selected>Selecione...</option><option>Automatizar processos</option><option>Organizar dados para gestão</option><option>Usar IA de forma prática</option><option>Tudo acima</option><option>Quero entender melhor</option></select>
+        </div>
+        <div class="form-group"><label>Algo mais que queira nos contar?</label><textarea name="observacoes" placeholder="Contexto extra, dúvidas, desafios específicos..."></textarea></div>
+        <button type="submit" class="submit-btn">Solicitar diagnóstico <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+        <p class="submit-note">Nossa equipe entra em contato para agendar em até 48h.</p>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="nav-logo"><span class="n4">n4</span><span class="flow">flow</span></a>
+  <p>IA, Dados &amp; Automação aplicados ao que trava o crescimento da sua empresa.</p>
+  <p>São Paulo, SP · Atendimento em todo o Brasil</p>
+</footer>
+
+</body>
+</html>

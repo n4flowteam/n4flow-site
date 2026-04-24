@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IA Aplicada ao Negócio, Inteligência com Contexto Real | n4flow</title>
+<meta content="IA que pensa com os dados reais da sua empresa — conectada à sua operação, seus sistemas e regras do negócio." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --accent:#F07B2B;--accent-dark:#D96A1F;--accent-light:#F59D5E;--accent-pale:#FFF0E6;--accent-glow:rgba(240,123,43,.12);
+  --bg:#FFFFFF;--bg-warm:#FDFAF7;--bg-soft:#F7F4F0;--bg-muted:#EEE9E2;
+  --dark:#17191F;--dark-card:#1F2229;--dark-surface:#252A33;--dark-2:#2C3040;
+  --text-dark:#17191F;--text-body:#4A4E5A;--text-muted:#8A8D98;
+  --border:rgba(0,0,0,.07);
+  --font:'Inter',-apple-system,sans-serif;--mono:'DM Mono',monospace;
+  --radius:14px;--radius-sm:8px;--radius-lg:22px;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.04);--shadow-md:0 8px 30px rgba(0,0,0,.07);--shadow-lg:0 20px 60px rgba(0,0,0,.12);--shadow-orange:0 12px 40px rgba(240,123,43,.22);
+  --green:#059669;--green-l:#34D399;--red:#DC2626;--blue:#2563EB;--blue-l:#60A5FA;
+}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text-dark);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes flowPulse{0%{box-shadow:0 0 0 0 rgba(240,123,43,.4)}70%{box-shadow:0 0 0 10px rgba(240,123,43,0)}100%{box-shadow:0 0 0 0 rgba(240,123,43,0)}}
+@keyframes greenPulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.4)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+100%{transform:translateX(-50%)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes typingDot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes nodePop{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
+@keyframes edgeFlow{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}}
+
+.fade-up{animation:fadeUp .8s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.fd1{animation-delay:.1s}.fd2{animation-delay:.25s}.fd3{animation-delay:.4s}.fd4{animation-delay:.55s}
+.reveal{opacity:0;transform:translateY(24px);transition:all .75s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
+nav.scrolled{background:rgba(255,255,255,.95);border-bottom-color:var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}.nav-logo-svg{height:30px;width:auto}
+.nav-links{display:flex;align-items:center;gap:2.2rem}.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.6);transition:color .2s}
+.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent-light)}
+nav.scrolled .nav-links a{color:var(--text-muted)}nav.scrolled .nav-links a:hover{color:var(--text-dark)}nav.scrolled .nav-links a.active{color:var(--accent)}
+.nav-links a.nav-cta{padding:.6rem 1.4rem;background:var(--accent);color:#fff !important;font-size:.82rem;font-weight:700;border-radius:var(--radius-sm);transition:all .25s;letter-spacing:.01em}
+.nav-links a.nav-cta:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:var(--shadow-orange)}
+.logo-flow{fill:#fff;transition:fill .4s}nav.scrolled .logo-flow{fill:#1A1D23}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:background .4s}
+nav.scrolled .hamburger span{background:var(--text-dark)}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:var(--bg);padding:1.5rem 2rem;border-bottom:1px solid var(--border);flex-direction:column;gap:1.2rem;z-index:99;box-shadow:var(--shadow-md)}.mobile-menu.open{display:flex}.mobile-menu a{text-decoration:none;font-size:.95rem;font-weight:500;color:var(--text-body);padding:.5rem 0}
+
+/* ── MEGA MENU ── */
+.nav-mega-wrap{position:relative;display:flex;align-items:center}
+.nav-mega-wrap > a{display:flex;align-items:center;gap:.3rem}
+.nav-mega-wrap > a .chevron{width:11px;height:11px;transition:transform .25s}
+.nav-mega-wrap:hover > a .chevron{transform:rotate(180deg)}
+.mega-menu{
+  position:absolute;top:100%;left:0;
+  padding-top:14px;
+  background:transparent;
+  width:260px;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transform:translateY(-4px);
+  transition:opacity .2s ease,transform .2s ease;
+  z-index:200;
+}
+.mega-menu-inner{
+  background:#fff;border:1px solid #E5E7EB;border-radius:14px;
+  box-shadow:0 20px 50px rgba(0,0,0,.11),0 4px 12px rgba(0,0,0,.06);
+  padding:.6rem;display:flex;flex-direction:column;gap:.15rem;position:relative;
+}
+.mega-menu-inner::before{content:'';position:absolute;top:-5px;left:18px;
+  width:10px;height:10px;background:#fff;
+  border-left:1px solid #E5E7EB;border-top:1px solid #E5E7EB;
+  transform:rotate(45deg)}
+.nav-mega-wrap:hover .mega-menu{opacity:1;pointer-events:all;transform:translateY(0)}
+.mega-item{display:flex;align-items:center;gap:.75rem;padding:.65rem .8rem;border-radius:9px;text-decoration:none;transition:background .18s}
+.mega-item:hover{background:#FEF0E4}
+.mega-item-icon{width:32px;height:32px;border-radius:8px;background:#F07B2B;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mega-item-label{font-size:.82rem;font-weight:700;color:#1A1D24;line-height:1.2}
+.mega-item-desc{font-size:.7rem;color:#7A7A7A;line-height:1.3;margin-top:.1rem}
+
+/* ── HERO ── */
+.page-hero{min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 2.5rem 5rem;position:relative;overflow:hidden;background:linear-gradient(160deg,#0D0F18 0%,#0A0C14 55%,#141720 100%)}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 50% at 50% 45%,rgba(240,123,43,.08) 0%,transparent 55%),radial-gradient(ellipse 45% 40% at 80% 20%,rgba(240,123,43,.07) 0%,transparent 60%),radial-gradient(ellipse 35% 30% at 15% 70%,rgba(96,165,250,.05) 0%,transparent 60%);pointer-events:none}
+.page-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(240,123,43,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,123,43,.025) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+.page-hero-inner{position:relative;z-index:2;width:100%;max-width:1200px;display:flex;align-items:center;gap:4rem;justify-content:space-between}.page-hero-content{flex:1;min-width:0;text-align:left}.page-hero-sub{margin:0 0 2.5rem}.page-hero h1{text-align:left}.hero-cta-row{justify-content:flex-start}.page-hero-visual{flex:0 0 auto;width:min(520px,48vw);position:relative}@media(max-width:960px){.page-hero-inner{flex-direction:column;text-align:center}.page-hero-content{text-align:center}.page-hero h1{text-align:center}.hero-cta-row{justify-content:center}.page-hero-visual{width:min(460px,90vw)}.page-hero-sub{margin:0 auto 2.5rem}}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem .4rem .7rem;background:rgba(240,123,43,.13);border:1px solid rgba(240,123,43,.22);border-radius:100px;font-size:.72rem;font-weight:600;color:#F59D5E;margin-bottom:2rem;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;background:var(--accent-light);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.page-hero h1{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-.035em;color:#fff;margin-bottom:1.4rem}
+.page-hero h1 .accent{background:linear-gradient(90deg,#F07B2B,#F59D5E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero h1 .accent{background:linear-gradient(90deg,#FF8C35,#F07B2B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:brightness(1.15)}
+.page-hero-sub{font-size:1.05rem;line-height:1.8;color:rgba(255,255,255,.55);max-width:600px;margin:0 0 2.5rem}
+.hero-cta-row{display:flex;gap:1rem;justify-content:flex-start;flex-wrap:wrap;align-items:center}.hero-cta-note{font-size:.72rem;color:rgba(255,255,255,.38);font-family:var(--mono);letter-spacing:.04em}
+
+/* Ticker */
+
+/* ── BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:var(--accent);color:#fff;font-size:.92rem;font-weight:700;border-radius:10px;text-decoration:none;transition:all .3s}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:var(--shadow-orange)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:transparent;color:rgba(255,255,255,.7);font-size:.92rem;font-weight:600;border-radius:10px;text-decoration:none;transition:all .3s;border:1px solid rgba(255,255,255,.14)}
+.btn-ghost:hover{background:rgba(255,255,255,.05);color:#fff;border-color:#9CA3AF}
+
+/* ── SECTION UTILS ── */
+section{padding:6rem 2.5rem}.container{max-width:1140px;margin:0 auto}
+.section-label{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:1rem}.section-label::before{content:'';width:18px;height:1.5px;background:var(--accent)}
+.section-title{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.14;margin-bottom:1.2rem}
+.section-desc{font-size:.95rem;color:var(--text-body);line-height:1.8;max-width:600px}
+
+/* ── KPI STRIP ── */
+.kpi-strip{padding:3rem 2.5rem;background:var(--bg-soft);border-bottom:1px solid var(--border)}
+.kpi-strip-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.kpi-val{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;color:var(--accent);letter-spacing:-.04em;margin-bottom:.3rem}
+.kpi-lbl{font-size:.72rem;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;line-height:1.5}
+
+/* ── CHAT DEMO ── */
+.chat-section{padding:6rem 2.5rem;background:#F3F3F3;overflow:hidden}
+.chat-inner{max-width:1140px;margin:0 auto}
+.chat-header{text-align:center;margin-bottom:3.5rem}
+.chat-header .section-title{color:#1A1D24}
+.chat-header .section-desc{color:#6B7280;margin:0 auto}
+
+/* Context tabs */
+.context-tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.5rem}
+.ctx-tab{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;background:#fff;border:1px solid #E5E7EB;border-radius:100px;font-size:.78rem;font-weight:600;color:#9CA3AF;cursor:pointer;transition:all .25s;font-family:var(--font);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ctx-tab:hover{border-color:rgba(240,123,43,.35);color:var(--accent)}
+.ctx-tab.active{background:rgba(240,123,43,.08);border-color:rgba(240,123,43,.3);color:var(--accent);box-shadow:0 2px 8px rgba(240,123,43,.12)}
+.ctx-tab svg{width:14px;height:14px}
+
+/* Chat window */
+.chat-window{background:#fff;border:1px solid #E0E0E0;border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.14),0 8px 24px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04)}
+.chat-titlebar{display:flex;align-items:center;gap:1rem;padding:.85rem 1.4rem;background:#FAFAFA;border-bottom:1px solid #F0F0F0}
+.chat-dots{display:flex;gap:6px}.chat-dot{width:11px;height:11px;border-radius:50%}
+.chat-dot-r{background:#FF5F57}.chat-dot-y{background:#FEBC2E}.chat-dot-g{background:#28C840}
+.chat-title-text{font-size:.7rem;font-weight:600;color:#9CA3AF;font-family:var(--mono);flex:1;text-align:center}
+.chat-live-badge{font-size:.56rem;font-family:var(--mono);padding:.2rem .6rem;border-radius:100px;display:flex;align-items:center;gap:.3rem;background:rgba(5,150,105,.1);color:#059669}
+.chat-live-badge::before{content:'';width:5px;height:5px;background:#059669;border-radius:50%;animation:pulse 1.5s infinite}
+
+/* Two-col: sidebar + chat */
+.chat-layout{display:grid;grid-template-columns:220px 1fr;height:520px}
+
+/* Sidebar sources */
+.chat-sidebar{background:#FAFAFA;border-right:1px solid #F0F0F0;padding:1.5rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;overflow-y:auto}
+.sidebar-title{font-size:.58rem;font-family:var(--mono);color:#9CA3AF;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem}
+.source-item{display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;border-radius:8px;transition:background .2s;cursor:default}
+.source-item.active{background:rgba(240,123,43,.06);border:1px solid rgba(240,123,43,.1)}
+.source-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.source-icon.crm{background:rgba(37,99,235,.1);color:#3B82F6}
+.source-icon.vendas{background:rgba(5,150,101,.1);color:#059669}
+.source-icon.docs{background:rgba(240,123,43,.1);color:var(--accent)}
+.source-icon.metas{background:rgba(251,191,36,.1);color:#D97706}
+.source-icon.estoque{background:rgba(240,123,43,.08);color:#EA580C}
+.source-icon.op{background:rgba(96,165,250,.1);color:#6366F1}
+.source-label{font-size:.65rem;font-weight:600;color:#374151;line-height:1.2}
+.source-sub{font-size:.55rem;color:#9CA3AF;font-family:var(--mono)}
+.source-dot{width:6px;height:6px;border-radius:50%;background:rgba(5,150,105,.3);margin-left:auto;flex-shrink:0}
+.source-item.active .source-dot{background:#059669;animation:greenPulse 2s infinite}
+
+/* Chat messages */
+.chat-messages{padding:1.8rem;display:flex;flex-direction:column;gap:1.2rem;background:#fff;position:relative;overflow-y:auto;height:100%;scroll-behavior:smooth}
+.chat-msg{display:flex;gap:.9rem;align-items:flex-start;opacity:0}
+.chat-msg.visible{opacity:1}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-msg.user .chat-bubble{background:linear-gradient(135deg,rgba(240,123,43,.12),rgba(240,123,43,.07));border:1px solid rgba(240,123,43,.18);color:#1A1D24}
+.chat-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700}
+.avatar-ai{background:linear-gradient(135deg,#F07B2B,#E86A18);border:none;color:#fff;font-family:var(--mono);box-shadow:0 2px 8px rgba(240,123,43,.3)}
+.avatar-user{background:#F3F4F6;border:1px solid #E5E7EB;color:#6B7280}
+.chat-bubble{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:12px;padding:.8rem 1.1rem;font-size:.78rem;color:#374151;line-height:1.65;max-width:440px}
+.chat-bubble strong{color:#111827;font-weight:600}
+.chat-bubble .tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.58rem;font-family:var(--mono);padding:.15rem .45rem;border-radius:4px;margin-right:.3rem;font-weight:600}
+.tag-crm{background:rgba(37,99,235,.1);color:#3B82F6}
+.tag-vendas{background:rgba(5,150,101,.1);color:#059669}
+.tag-meta{background:rgba(217,119,6,.1);color:#D97706}
+.typing{display:flex;align-items:center;gap:.3rem;padding:.7rem 1rem}
+.typing span{width:7px;height:7px;border-radius:50%;background:rgba(240,123,43,.4);animation:typingDot .9s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+.chat-source-ref{font-size:.58rem;font-family:var(--mono);color:#9CA3AF;margin-top:.5rem;display:flex;align-items:center;gap:.4rem}
+.chat-source-ref::before{content:'↗';font-size:.55rem}
+
+/* ── VERSUS ── */
+.versus-section{padding:6rem 2.5rem;background:#0D0F18}
+.versus-inner{max-width:1100px;margin:0 auto}
+.versus-header{text-align:center;margin-bottom:4rem}.versus-header .section-label{color:var(--accent-light)}.versus-header .section-title{color:#fff}.versus-header .section-desc{color:rgba(255,255,255,.45)}
+.versus-grid{display:grid;grid-template-columns:1fr 80px 1fr;gap:2rem;align-items:center}
+.vs-col{display:flex;flex-direction:column;gap:1rem}
+.vs-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.5rem}
+.vs-card.generic{border-color:rgba(220,38,38,.18);background:rgba(220,38,38,.02)}
+.vs-card.smart{border-color:rgba(5,150,101,.18);background:rgba(5,150,101,.02)}
+.vs-lbl{font-size:.58rem;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+.vs-card.generic .vs-lbl{color:#DC2626}
+.vs-card.smart .vs-lbl{color:var(--green)}
+.vs-title{font-size:.88rem;font-weight:700;color:var(--text-dark);line-height:1.35;margin-bottom:.3rem}
+.vs-desc{font-size:.76rem;color:var(--text-muted);line-height:1.6}
+.vs-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem}
+.vs-badge{font-size:.6rem;font-family:var(--mono);color:rgba(255,255,255,.5);background:var(--dark);padding:.3rem .7rem;border-radius:100px;text-align:center}
+.vs-arrow{width:40px;height:40px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:var(--shadow-orange);font-weight:700;font-size:.9rem}
+
+/* ── FAQ ── */
+.faq-section{padding:6rem 2.5rem;background:var(--bg-warm)}
+.faq-inner{max-width:800px;margin:0 auto}
+.faq-header{text-align:center;margin-bottom:4rem}
+.faq-header .section-desc{margin:0 auto;text-align:center}
+.faq-list{display:flex;flex-direction:column;gap:.8rem}
+.faq-item{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .25s}
+.faq-item.open{border-color:rgba(240,123,43,.28)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.4rem 1.6rem;cursor:pointer;user-select:none}
+.faq-q-text{font-size:.92rem;font-weight:700;color:var(--text-dark);line-height:1.4}
+.faq-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:var(--text-muted);font-size:.9rem}
+.faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a-inner{padding:0 1.6rem 1.4rem;font-size:.86rem;color:var(--text-body);line-height:1.8;border-top:1px solid var(--border)}
+
+/* ── USE CASES ── */
+.cases-section{padding:6rem 2.5rem;background:var(--dark)}
+.cases-inner{max-width:1140px;margin:0 auto}
+.cases-header{text-align:center;margin-bottom:4rem}
+.cases-header .section-title{color:#fff}
+.cases-header .section-desc{color:rgba(255,255,255,.45);margin:0 auto}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.case-card{background:#1F2229;border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-lg);padding:1.8rem;transition:all .3s;position:relative;overflow:hidden}
+.case-card:hover{border-color:rgba(240,123,43,.25);background:#252A33}
+.case-card::after{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(240,123,43,.06),transparent 70%)}
+.case-sector{display:inline-flex;align-items:center;gap:.4rem;font-size:.6rem;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.25rem .65rem;border-radius:100px;margin-bottom:1.2rem;border:1px solid}
+.sector-ag{background:rgba(5,150,101,.1);color:#34D399;border-color:rgba(52,211,153,.2)}
+.sector-far{background:rgba(37,99,235,.1);color:#60A5FA;border-color:rgba(96,165,250,.2)}
+.sector-cli{background:rgba(240,123,43,.1);color:var(--accent-light);border-color:rgba(240,123,43,.2)}
+.sector-sup{background:rgba(240,123,43,.1);color:#F59D5E;border-color:rgba(240,123,43,.2)}
+.sector-eng{background:rgba(251,191,36,.1);color:#FCD34D;border-color:rgba(252,211,77,.2)}
+.sector-rh{background:rgba(244,63,94,.1);color:#FB7185;border-color:rgba(251,113,133,.2)}
+.case-title{font-size:.92rem;font-weight:700;color:#fff;margin-bottom:.6rem;line-height:1.35}
+.case-desc{font-size:.76rem;color:rgba(255,255,255,.45);line-height:1.65}
+.case-result{margin-top:1.2rem;padding:.7rem 1rem;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.12);border-radius:8px;font-size:.7rem;color:#34D399;font-family:var(--mono);font-weight:500}
+
+/* ── HOW IT WORKS ── */
+.how-section{padding:6rem 2.5rem;background:var(--bg)}
+.how-inner{max-width:960px;margin:0 auto}
+.how-header{text-align:center;margin-bottom:4rem}
+.steps-timeline{display:flex;flex-direction:column;gap:0}
+.step-item{display:grid;grid-template-columns:60px 1fr;gap:1.5rem;position:relative}
+.step-item:not(:last-child)::before{content:'';position:absolute;left:29px;top:60px;width:2px;bottom:-2rem;background:linear-gradient(180deg,var(--accent),rgba(240,123,43,.1));z-index:0}
+.step-number{width:60px;height:60px;border-radius:50%;background:var(--accent);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;box-shadow:var(--shadow-orange)}
+.step-body{padding:0 0 2.5rem}
+.step-title{font-size:1.05rem;font-weight:700;color:var(--text-dark);margin-bottom:.5rem;padding-top:.9rem}
+.step-desc{font-size:.88rem;color:var(--text-body);line-height:1.75}
+.step-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.step-chip{font-size:.62rem;font-family:var(--mono);padding:.2rem .55rem;border-radius:4px;background:var(--accent-pale);color:var(--accent-dark);font-weight:600}
+
+/* ── GAIN ── */
+.gain-section{padding:6rem 2.5rem;background:var(--bg-soft)}
+.gain-inner{max-width:1140px;margin:0 auto}
+.gain-header{text-align:center;margin-bottom:3.5rem}.gain-header .section-desc{margin:0 auto;text-align:center}
+.gain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.gain-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;transition:all .3s}
+.gain-card:hover{border-color:rgba(240,123,43,.3);box-shadow:var(--shadow-sm)}
+.gain-icon{font-size:1.6rem;margin-bottom:.8rem}
+.gain-title{font-size:.85rem;font-weight:700;color:var(--text-dark);margin-bottom:.4rem}
+.gain-desc{font-size:.73rem;color:var(--text-muted);line-height:1.6}
+
+/* ── CTA ── */
+.cta-final{padding:6rem 2.5rem;background:linear-gradient(160deg,#0D0F18,#141720);text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(240,123,43,.08) 0%,transparent 65%),radial-gradient(ellipse 35% 30% at 85% 20%,rgba(240,123,43,.06) 0%,transparent 60%);pointer-events:none}
+.cta-inner{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.cta-final .section-title{color:#fff}
+.cta-final .section-desc{color:rgba(255,255,255,.5);margin:0 auto 2.5rem}
+.cta-final .section-label{color:#F59D5E;justify-content:center}.cta-final .section-label::before{background:var(--accent-light)}
+.cta-fine{margin-top:1.2rem;font-size:.78rem;color:rgba(255,255,255,.3)}.cta-fine a{color:rgba(255,255,255,.45);text-decoration:none}.cta-fine a:hover{color:rgba(255,255,255,.7)}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding:3rem 2.5rem 2rem}
+.footer-content{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+.footer-logo{height:24px;width:auto;opacity:.55;margin-bottom:1rem;display:block}
+.footer-tagline{font-size:.78rem;color:rgba(255,255,255,.32);font-family:var(--mono);line-height:1.6}
+.footer-col-title{font-size:.66rem;font-family:var(--mono);color:#9CA3AF;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem}
+.footer-col a{display:block;text-decoration:none;font-size:.82rem;font-weight:500;color:rgba(255,255,255,.42);margin-bottom:.6rem;transition:color .2s}.footer-col a:hover{color:var(--accent)}
+.footer-bottom{max-width:1140px;margin:0 auto;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.22);font-family:var(--mono)}
+
+/* ── FLOAT CTA ── */
+.float-contact{position:fixed;bottom:2rem;right:2rem;display:flex;align-items:center;gap:.5rem;padding:.75rem 1.4rem .75rem 1rem;background:var(--accent);color:#fff;font-size:.82rem;font-weight:700;border-radius:100px;text-decoration:none;box-shadow:var(--shadow-orange);z-index:90;transition:all .3s}
+.float-contact:hover{background:var(--accent-dark);transform:translateY(-2px)}
+.float-contact svg{width:16px;height:16px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .kpi-strip-inner{grid-template-columns:repeat(2,1fr)}
+  .chat-layout{grid-template-columns:1fr}
+  .chat-sidebar{display:none}
+  .versus-grid{grid-template-columns:1fr;gap:1.5rem}
+  .vs-center{flex-direction:row;justify-content:center}
+  .layers-grid{grid-template-columns:repeat(2,1fr)}
+  .cases-grid{grid-template-columns:1fr}
+  .gain-grid{grid-template-columns:repeat(2,1fr)}
+  footer .footer-content{grid-template-columns:1.6fr 1fr 1fr 1fr;gap:1.5rem}
+  .steps-timeline .step-item{grid-template-columns:44px 1fr}
+  .step-number{width:44px;height:44px;font-size:.9rem}
+}
+
+.demo-note{
+  display:flex;align-items:flex-start;gap:.6rem;
+  max-width:680px;margin:0 auto 1.8rem;
+  padding:.55rem 1rem;
+  background:#fff;
+  border:1px solid #E5E7EB;
+  border-radius:8px;
+  font-size:.73rem;color:#9CA3AF;
+  line-height:1.5;font-family:var(--mono);
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.demo-note svg{width:13px;height:13px;flex-shrink:0;margin-top:.1rem;color:#D1D5DB}
+
+/* HERO VISUAL */
+
+/* === IA PHOTO VISUAL === */
+.ia-visual-wrap {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+.ia-photo-ring {
+  position: absolute; inset: -2px; border-radius: 25px;
+  background: conic-gradient(from 135deg,
+    #F07B2B 0%,
+    rgba(240,123,43,.15) 25%,
+    rgba(240,123,43,0) 40%,
+    rgba(240,123,43,0) 60%,
+    rgba(240,123,43,.2) 75%,
+    #F07B2B 100%
+  );
+  padding: 2px; pointer-events: none; z-index: 3;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.ia-ring-outer {
+  position: absolute; inset: -14px; border-radius: 30px;
+  border: 1px solid rgba(240,123,43,.1);
+  pointer-events: none; z-index: 0;
+}
+.ia-glow-bottom {
+  position: absolute; bottom: -18px; left: 8%; right: 8%;
+  height: 50px; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse, rgba(240,123,43,.45) 0%, transparent 70%);
+  filter: blur(10px);
+}
+.ia-glow {
+  position: absolute; inset: 0; border-radius: 22px;
+  background: radial-gradient(ellipse 50% 40% at 65% 30%, rgba(240,123,43,.13) 0%, transparent 65%);
+  pointer-events: none; z-index: 2;
+}
+.ia-photo-frame {
+  position: relative; border-radius: 22px; overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,.32), 0 8px 24px rgba(0,0,0,.18);
+  z-index: 1; background: var(--bg-muted);
+}
+.ia-photo {
+  width: 108%;
+  height: auto;
+  display: block;
+  margin-left: -8%;
+}
+.ia-accent-dot {
+  position: absolute; top: 1.2rem; right: 1.2rem; z-index: 5;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(240,123,43,.2), 0 0 20px rgba(240,123,43,.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+.how-mid-cta{margin-top:3.5rem;padding:2.5rem;background:rgba(240,123,43,.06);border:1px solid rgba(240,123,43,.15);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}.how-mid-cta-text{font-size:1rem;font-weight:600;color:var(--text-dark);margin:0}@media(max-width:640px){.how-mid-cta{flex-direction:column;text-align:center}}
+.btn-whatsapp{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;background:transparent;color:var(--accent-light);font-size:.88rem;font-weight:700;border-radius:10px;text-decoration:none;transition:all .3s;border:1.5px solid rgba(240,123,43,.45)}.btn-whatsapp:hover{background:rgba(240,123,43,.08);border-color:var(--accent);color:#fff;transform:translateY(-2px)}
+.section-cta-bar{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.08)}
+.section-cta-bar .btn-ghost-dark{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.6rem;background:transparent;border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.65);border-radius:10px;text-decoration:none;font-size:.88rem;font-weight:600;transition:all .3s}
+.section-cta-bar .btn-ghost-dark:hover{border-color:rgba(240,123,43,.4);color:#F59D5E}
+.section-cta-bar .cta-nudge{font-size:.75rem;color:rgba(255,255,255,.3);font-family:var(--mono)}
+.section-cta-bar-light{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.section-cta-bar-light .cta-nudge{font-size:.75rem;color:#9CA3AF;font-family:var(--mono)}
+
+/* Floating WhatsApp CTA, padronizado */
+.float-contact{position:fixed;bottom:1.5rem;right:1.5rem;z-index:90;display:flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem .7rem .8rem;background:var(--dark, #151515);color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.1);border-radius:100px;text-decoration:none;font-size:.78rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .3s}
+.float-contact:hover{background:var(--accent, #F07B2B);border-color:var(--accent, #F07B2B);transform:translateY(-2px);box-shadow:0 10px 30px rgba(240,123,43,.25);color:#fff}
+.float-contact svg{width:18px;height:18px;flex-shrink:0}
+@media (max-width:768px){.float-contact{bottom:1rem;right:1rem;padding:.7rem 1rem .7rem .85rem;font-size:.76rem}}
+
+</style>
+<style>
+/* Pain/Solution paired layout */
+.ps-col-headers{display:grid;grid-template-columns:1fr 100px 1fr;gap:1rem;margin-bottom:1rem;padding:0 .5rem}
+.ps-col-header{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.5rem .8rem;border-radius:8px}
+.ps-col-header svg{width:14px;height:14px;flex-shrink:0}
+.ps-header-pain{color:#F87171;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2)}
+.ps-header-sol{color:#34D399;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}
+.ps-col-header-center{}
+.ps-pair{display:grid;grid-template-columns:1fr 100px 1fr;gap:1rem;align-items:center;margin-bottom:.75rem}
+.ps-card{border-radius:12px;padding:1.2rem 1.4rem}
+.ps-pain{background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.18);border-left:3px solid #F87171}
+.ps-sol{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.18);border-left:3px solid #34D399}
+.ps-tag-pain{font-size:.62rem;font-weight:700;color:#F87171;font-family:var(--mono);margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.06em}
+.ps-tag-sol{font-size:.62rem;font-weight:700;color:#059669;font-family:var(--mono);margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.06em}
+.ps-title{font-size:.88rem;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.4rem}
+.ps-desc{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.65}
+.ps-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem}
+.ps-n4flow-badge{display:inline-flex;align-items:center;padding:.3rem .7rem;background:rgba(240,123,43,.1);border:1px solid rgba(240,123,43,.25);border-radius:8px;font-size:.85rem;font-weight:800;letter-spacing:-.02em}
+.ps-n4-accent{color:#F07B2B}
+.ps-n4-flow{color:rgba(255,255,255,.35)}
+.ps-arrow-line{width:40px;opacity:.7}
+.ps-arrow-line svg{width:100%}
+@media(max-width:768px){
+  .ps-pair,.ps-col-headers{grid-template-columns:1fr}
+  .ps-mid{flex-direction:row;padding:.5rem 0}
+  .ps-col-header-center{display:none}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="nav">
+<a class="nav-logo" href="/">
+<svg class="nav-logo-svg" viewbox="0 0 794 265" xmlns="http://www.w3.org/2000/svg">
+<text fill="#F07B2B" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="0" y="222">n</text>
+<g transform="translate(6,0)"><path d="m 275.38826,221.58323 c -3.04762,-0.51146 -6.02027,-2.6528 -7.57358,-5.45561 l -0.7608,-1.37278 -0.13229,-15.875 -0.13229,-15.875 -33.86667,-0.14822 c -30.06233,-0.13156 -34.0193,-0.19587 -35.22551,-0.57251 -11.46996,-3.58155 -17.94484,-12.86428 -17.95245,-25.73761 -0.005,-9.03976 0.15171,-9.37145 12.05677,-25.46261 2.55845,-3.45806 6.55878,-8.96629 8.88962,-12.24051 2.33084,-3.27422 5.44736,-7.62 6.92561,-9.65729 1.47824,-2.03729 5.00702,-6.91886 7.84172,-10.847925 2.8347,-3.92906 6.59299,-9.10828 8.35175,-11.50937 1.75876,-2.4011 3.93325,-5.420918 4.8322,-6.710728 0.89895,-1.2898 1.91482,-2.69102 2.25748,-3.11383 0.71049,-0.87666 6.75735,-9.19213 13.05778,-17.95669 8.93374,-12.42778 12.87182,-17.43256 16.14343,-20.51616 13.69781,-12.91066 33.85155,-10.13621 38.40732,5.28731 0.55026,1.8629 0.5517,1.99412 0.59802,54.605738 0.0255,29.006095 0.11161,52.803525 0.19127,52.883185 0.0797,0.0797 5.89474,0.12811 12.92241,0.10768 15.0283,-0.0437 13.47224,-0.51274 13.63117,4.10888 0.58267,16.94394 -7.51197,27.08572 -22.02025,27.58916 l -4.49792,0.15608 -0.16767,11.37708 c -0.19923,13.51863 -0.3344,14.22007 -3.54523,18.39805 -5.23369,6.81016 -12.43119,9.8478 -20.23189,8.53868 z m -8.54439,-70.29477 c 0.0676,-0.0676 0.15919,-14.80699 0.20361,-32.75428 0.0444,-17.94728 0.17034,-33.851825 0.27984,-35.343403 0.28063,-3.82277 0.13285,-3.73792 -4.24219,2.435818 -1.30968,1.84814 -4.52757,6.29774 -7.15085,9.888 -2.62328,3.59025 -6.12916,8.432745 -7.79084,10.761075 -3.41798,4.78925 -6.64856,9.22508 -11.10378,15.24634 -1.68228,2.27361 -5.7376,7.78905 -9.01182,12.25654 -8.56037,11.68015 -8.40556,11.47012 -10.64948,14.44855 -1.12778,1.49695 -2.05052,2.85011 -2.05052,3.00702 -1e-5,0.28257 51.23376,0.33661 51.51603,0.0543 z" fill="#F07B2B"></path></g>
+<text class="logo-flow" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="320" y="222">flow</text>
+</svg>
+</a>
+<div class="nav-links"><a href="/">Home</a><div class="nav-mega-wrap"><a class="nav-link mega-toggle active" href="/">Soluções<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="m6 9 6 6 6-6"></path></svg></a><div class="mega-menu"><div class="mega-menu-inner"><a class="mega-item" href="/dados/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18"></path><path d="M8 5v14"></path></svg></div><div><div class="mega-item-label">Inteligência de Dados</div><div class="mega-item-desc">Dados integrados, dashboards em tempo real</div></div></a><a class="mega-item" href="/automacao/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="m13 2-8 12h6l-2 8 10-14h-6l2-6z"></path></svg></div><div><div class="mega-item-label">Automação</div><div class="mega-item-desc">Processos automáticos, time mais estratégico</div></div></a><a class="mega-item" href="/ia/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path></svg></div><div><div class="mega-item-label">IA para Negócios</div><div class="mega-item-desc">IA com contexto real da sua operação</div></div></a></div></div></div><a href="/sobre/">Sobre</a><a class="nav-cta" href="/diagnostico/">Solicitar diagnóstico</a></div>
+<button aria-label="Menu" class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mob-menu"><a href="/">Home</a><a href="/">Soluções</a><a href="/dados/" style="padding-left:1rem;font-size:.85rem;color:var(--text-muted)">→ Inteligência de Dados</a><a href="/automacao/" style="padding-left:1rem;font-size:.85rem;color:var(--text-muted)">→ Automação</a><a href="/ia/" style="padding-left:1rem;font-size:.85rem;color:var(--text-muted)">→ IA para Negócios</a><a href="/sobre/">Sobre</a><a href="/diagnostico/" style="color:var(--accent);font-weight:700">Solicitar diagnóstico</a></div>
+<!-- HERO -->
+<section class="page-hero">
+<div class="page-hero-inner">
+<div class="page-hero-content">
+<div class="hero-badge fade-up"><span class="hero-badge-dot"></span> IA Aplicada ao Negócio</div>
+<h1 class="fade-up fd1">A IA que pensa<br/>com os <span class="accent">dados reais</span><br/>da sua empresa</h1>
+<p class="page-hero-sub fade-up fd2">Conectamos IA aos seus dados, documentos, sistemas e regras do negócio. O resultado é uma inteligência que conhece a sua operação, e responde como alguém de dentro da empresa.</p>
+<div class="hero-cta-row fade-up fd3">
+<a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
+<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+</div>
+</div>
+<div class="page-hero-visual">
+<div class="solution-visual">
+<div class="ia-visual-wrap">
+<!-- Imagem principal -->
+<div class="ia-ring-outer"></div>
+<div class="ia-photo-ring"></div>
+<div class="ia-glow"></div>
+<div class="ia-glow-bottom"></div>
+<div class="ia-accent-dot"></div>
+<div class="ia-photo-frame">
+<img alt="Executivo usando IA conversacional" class="ia-photo" src="/assets/img/ia-executivo.png"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI STRIP -->
+<!-- CHAT DEMO -->
+<section class="chat-section" id="demo">
+<div class="chat-inner">
+<div class="chat-header reveal">
+<div class="section-label" style="justify-content:center">IA ao vivo</div>
+<h2 class="section-title">Converse com uma inteligência que <span class="accent">conhece o negócio</span></h2>
+<p class="section-desc" style="margin:0 auto">Diferente de uma ferramenta genérica, essa IA acessa seus dados reais, cruzar contextos e responde como alguém de dentro da empresa.</p>
+</div>
+<div class="context-tabs reveal">
+<div class="ctx-tab active" onclick="showContext('gestao')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="3" y="14"></rect><rect height="7" width="7" x="14" y="14"></rect></svg>
+        Gestão &amp; Estratégia
+      </div>
+<div class="ctx-tab" onclick="showContext('vendas')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+        Vendas &amp; CRM
+      </div>
+<div class="ctx-tab" onclick="showContext('operacao')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+        Operação &amp; Estoque
+      </div>
+</div>
+<div class="demo-note reveal">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+      Ilustração demonstrativa. A solução real é integrada às ferramentas do seu negócio e construída com tecnologias definidas conforme cada projeto.
+    </div>
+<div class="chat-window reveal">
+<div class="chat-titlebar">
+<div class="chat-dots">
+<div class="chat-dot chat-dot-r"></div>
+<div class="chat-dot chat-dot-y"></div>
+<div class="chat-dot chat-dot-g"></div>
+</div>
+<div class="chat-title-text" id="chat-window-title">n4flow IA, Assistente de Gestão · Conectado ao ambiente da empresa</div>
+<div class="chat-live-badge">Ao vivo</div>
+</div>
+<div class="chat-layout">
+<!-- Sidebar sources -->
+<div class="chat-sidebar">
+<div class="sidebar-title">Fontes conectadas</div>
+<div class="source-item active">
+<div class="source-icon crm">📊</div>
+<div><div class="source-label">ERP / Financeiro</div><div class="source-sub">Atualizado agora</div></div>
+<div class="source-dot"></div>
+</div>
+<div class="source-item active">
+<div class="source-icon vendas">📈</div>
+<div><div class="source-label">CRM Comercial</div><div class="source-sub">Atualizado agora</div></div>
+<div class="source-dot"></div>
+</div>
+<div class="source-item active">
+<div class="source-icon metas">🎯</div>
+<div><div class="source-label">Metas &amp; OKRs</div><div class="source-sub">Atualizado hoje</div></div>
+<div class="source-dot"></div>
+</div>
+<div class="source-item">
+<div class="source-icon estoque">📦</div>
+<div><div class="source-label">Estoque</div><div class="source-sub">Atualizado hoje</div></div>
+<div class="source-dot" style="opacity:.3"></div>
+</div>
+<div class="source-item">
+<div class="source-icon docs">📄</div>
+<div><div class="source-label">Docs Internos</div><div class="source-sub">45 documentos</div></div>
+<div class="source-dot" style="opacity:.3"></div>
+</div>
+<div class="source-item">
+<div class="source-icon op">⚙️</div>
+<div><div class="source-label">Operação</div><div class="source-sub">Atualizado hoje</div></div>
+<div class="source-dot" style="opacity:.3"></div>
+</div>
+</div>
+<!-- Messages -->
+<div class="chat-messages" id="chat-messages">
+<!-- injected by JS -->
+</div>
+</div>
+</div>
+</div>
+<div class="section-cta-bar reveal">
+<a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
+<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+</div>
+</section>
+<!-- VERSUS -->
+<section class="versus-section">
+<div class="versus-inner">
+<div class="versus-header reveal">
+<div class="section-label">A diferença que importa</div>
+<h2 class="section-title">IA genérica vs. IA<br/>com contexto do negócio</h2>
+<p class="section-desc" style="margin:0 auto;text-align:center">Usar ChatGPT ou Gemini no dia a dia pode ser útil, mas isso não é o mesmo que ter uma inteligência construída para a sua empresa.</p>
+</div>
+<div class="ps-col-headers reveal">
+<div class="ps-col-header ps-header-pain">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" x2="9" y1="9" y2="15"></line><line x1="9" x2="15" y1="9" y2="15"></line></svg>
+        Como está hoje
+      </div>
+<div class="ps-col-header-center"></div>
+<div class="ps-col-header ps-header-sol">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        Com a n4flow
+      </div>
+</div>
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Sem contexto</div>
+<div class="ps-title">Não conhece sua empresa</div>
+<div class="ps-desc">Responde com conhecimento genérico, sem acesso aos seus dados, histórico, regras ou documentos internos.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge"><span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span></div>
+<div class="ps-arrow-line"><svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Com contexto</div>
+<div class="ps-title">Conhece profundamente a sua operação</div>
+<div class="ps-desc">Conectada aos seus dados, documentos, CRM, ERP e regras específicas do negócio. Responde com precisão.</div>
+</div>
+</div>
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Sem integração</div>
+<div class="ps-title">Você alimenta manualmente</div>
+<div class="ps-desc">Para obter uma resposta útil, você precisa copiar e colar dados, tabelas e contexto toda vez que usar.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge"><span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span></div>
+<div class="ps-arrow-line"><svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Integrada</div>
+<div class="ps-title">Dados atualizados em tempo real</div>
+<div class="ps-desc">Consulta diretamente os sistemas da empresa, sem cópia manual, sem dados desatualizados, sem retrabalho.</div>
+</div>
+</div>
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Sem personalização</div>
+<div class="ps-title">Mesma IA para todos</div>
+<div class="ps-desc">Não há perfis de acesso, identidade da empresa, linguagem personalizada nem regras do negócio.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge"><span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span></div>
+<div class="ps-arrow-line"><svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Personalizada</div>
+<div class="ps-title">Desenhada para cada empresa</div>
+<div class="ps-desc">Com identidade visual, linguagem, perfis de acesso por área e comportamento definido para cada objetivo.</div>
+</div>
+</div>
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Risco de segurança</div>
+<div class="ps-title">Dados expostos em plataformas abertas</div>
+<div class="ps-desc">Informações estratégicas inseridas em ferramentas genéricas podem sair do controle da empresa.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge"><span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span></div>
+<div class="ps-arrow-line"><svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Segura</div>
+<div class="ps-title">Estrutura controlada pela empresa</div>
+<div class="ps-desc">Dados e acessos gerenciados com segurança. A empresa define quem vê o quê, por área, cargo ou perfil.</div>
+</div>
+</div>
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Sem escalabilidade</div>
+<div class="ps-title">Cada pergunta exige um humano disponível</div>
+<div class="ps-desc">Dúvidas sobre pedidos, contratos, indicadores e processos travam o time porque dependem de alguém para responder, sempre.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge"><span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span></div>
+<div class="ps-arrow-line"><svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Escalável</div>
+<div class="ps-title">Respostas instantâneas, 24h por dia, sem depender de ninguém</div>
+<div class="ps-desc">O agente de IA responde com dados reais da operação a qualquer hora, para qualquer área, liberando o time para o que realmente importa.</div>
+</div>
+</div>
+</div>
+<div class="section-cta-bar reveal">
+<a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
+<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+</div>
+</section><!-- USE CASES BY SECTOR -->
+<section class="how-section">
+<div class="how-inner">
+<div class="how-header reveal">
+<div class="section-label">Como funciona</div>
+<h2 class="section-title">Do diagnóstico à inteligência<br/>rodando na empresa</h2>
+<p class="section-desc">Não instalamos uma ferramenta genérica. Construímos uma estrutura do zero, conectada à realidade do seu negócio.</p>
+</div>
+<div class="steps-timeline">
+<div class="step-item reveal">
+<div class="step-number">1</div>
+<div class="step-body">
+<div class="step-title">Diagnóstico e mapeamento do negócio</div>
+<div class="step-desc">Entendemos a operação, os sistemas utilizados, as fontes de dados disponíveis, os processos críticos e os objetivos de cada área. Esse mapeamento é a base para tudo o que vem depois.</div>
+<div class="step-chips"><span class="step-chip">Entrevistas</span><span class="step-chip">Mapeamento de sistemas</span><span class="step-chip">Inventário de dados</span></div>
+</div>
+</div>
+<div class="step-item reveal">
+<div class="step-number">2</div>
+<div class="step-body">
+<div class="step-title">Estruturação da base de dados e integrações</div>
+<div class="step-desc">Organizamos e conectamos os dados que a IA vai usar, ERP, CRM, planilhas, plataformas de marketing, documentos internos e outras fontes relevantes para o negócio.</div>
+<div class="step-chips"><span class="step-chip">Integrações via API</span><span class="step-chip">ETL de dados</span><span class="step-chip">Base de conhecimento</span></div>
+</div>
+</div>
+<div class="step-item reveal">
+<div class="step-number">3</div>
+<div class="step-body">
+<div class="step-title">Desenvolvimento da inteligência e dos agentes</div>
+<div class="step-desc">Construímos a IA com as regras do negócio, o tom de voz, os perfis de acesso e os objetivos de cada área. Desenvolvemos agentes com skills e personalidades desenhadas para cada função.</div>
+<div class="step-chips"><span class="step-chip">Agentes de IA</span><span class="step-chip">Regras de negócio</span><span class="step-chip">Perfis de acesso</span></div>
+</div>
+</div>
+<div class="step-item reveal">
+<div class="step-number">4</div>
+<div class="step-body">
+<div class="step-title">Testes, refinamentos e implantação</div>
+<div class="step-desc">Testamos com situações reais da empresa, ajustamos comportamentos, validamos integrações e garantimos que a inteligência responde com precisão antes de entrar em produção.</div>
+<div class="step-chips"><span class="step-chip">Testes com dados reais</span><span class="step-chip">Ajustes finos</span><span class="step-chip">Validação com usuários</span></div>
+</div>
+</div>
+<div class="step-item reveal">
+<div class="step-number">5</div>
+<div class="step-body">
+<div class="step-title">Entrega como ativo da empresa</div>
+<div class="step-desc">A inteligência é entregue como um ativo da empresa, preparada para evoluir, receber novas integrações e ser gerenciada internamente. Não há dependência permanente da n4flow para o funcionamento da solução.</div>
+<div class="step-chips"><span class="step-chip">Documentação</span><span class="step-chip">Capacitação do time</span><span class="step-chip">Escalável</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section class="cases-section">
+<div class="cases-inner">
+<div class="cases-header reveal">
+<div class="section-label" style="color:var(--accent-light);justify-content:center">Aplicação por setor</div>
+<h2 class="section-title">IA que <span style="background:linear-gradient(90deg,#F07B2B,#F59D5E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">faz sentido</span> para cada negócio</h2>
+<p class="section-desc">Não existe solução genérica. Cada empresa tem sua operação, seus dados e seus desafios. Veja como a n4flow aplica IA em diferentes contextos.</p>
+</div>
+<div class="cases-grid">
+<div class="case-card reveal">
+<div class="case-sector sector-ag">🌱 Agronegócio</div>
+<div class="case-title">Assistente de gestão agrícola com dados de produção, clima e mercado</div>
+<div class="case-desc">Agente que integra dados de produtividade, variações climáticas, custos de insumos e oscilações de mercado, respondendo em linguagem natural para gestores e decisores.</div>
+<div class="case-result">↗ Decisões mais rápidas com visão cruzada de variáveis que antes estavam em sistemas separados</div>
+</div>
+<div class="case-card reveal">
+<div class="case-sector sector-far">💊 Farmacêutico</div>
+<div class="case-title">Copiloto comercial com dados de vendas, giro e demanda por região</div>
+<div class="case-desc">IA que responde perguntas sobre desempenho de produtos, canais e regiões, cruzando dados de pedidos, distribuição e mercado para apoiar a equipe comercial em tempo real.</div>
+<div class="case-result">↗ Equipe acessa insights estratégicos sem precisar de analista dedicado para cada consulta</div>
+</div>
+<div class="case-card reveal">
+<div class="case-sector sector-cli">🦷 Clínicas &amp; Saúde</div>
+<div class="case-title">Agente de atendimento e gestão integrado à agenda e ao CRM</div>
+<div class="case-desc">Inteligência conversacional conectada à agenda, histórico de pacientes, campanhas e indicadores da clínica, respondendo pacientes e apoiando a gestão com dados reais da operação.</div>
+<div class="case-result">↗ Redução de no-shows, melhora na experiência do paciente e gestores mais bem informados</div>
+</div>
+<div class="case-card reveal">
+<div class="case-sector sector-sup">🛒 Supermercados &amp; Varejo</div>
+<div class="case-title">Copiloto de categoria com análise de ruptura, margem e comportamento</div>
+<div class="case-desc">IA que monitora estoque, rentabilidade por categoria e comportamento de compra, antecipando rupturas e sugerindo ajustes com base em padrões reais da loja ou rede.</div>
+<div class="case-result">↗ Menos perdas por ruptura e mais inteligência sobre mix, promoções e abastecimento</div>
+</div>
+<div class="case-card reveal">
+<div class="case-sector sector-eng">🏗️ Construtoras</div>
+<div class="case-title">Assistente de obra com dados de cronograma, custo e medição</div>
+<div class="case-desc">Agente que centraliza dados de múltiplas obras, cronograma, custo real x orçado, medições, contratos e suprimentos, e responde perguntas da gestão em linguagem natural.</div>
+<div class="case-result">↗ Visão integrada da carteira de projetos sem depender de relatórios manuais</div>
+</div>
+<div class="case-card reveal">
+<div class="case-sector sector-rh">🏪 Materiais de Construção</div>
+<div class="case-title">Análise de precificação com dados externos e benchmark de mercado</div>
+<div class="case-desc">IA que cruza dados internos de margem, giro e mix de produtos com preços de mercado e concorrência, gerando recomendações de precificação e oportunidades comerciais.</div>
+<div class="case-result">↗ Vantagem competitiva real com precificação baseada em dados, não em feeling</div>
+</div>
+</div>
+</div>
+<div class="section-cta-bar-light reveal" style="max-width:1100px;margin:3rem auto 0;padding:2.5rem 2.5rem 0;border-top:1px solid var(--border)">
+<a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
+<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+</div>
+</section>
+<!-- HOW IT WORKS -->
+<section class="faq-section">
+<div class="faq-inner">
+<div class="faq-header reveal">
+<div class="section-label">Perguntas frequentes</div>
+<h2 class="section-title">Tudo que você precisa<br/>saber sobre IA no negócio</h2>
+<p class="section-desc">Respondemos as principais dúvidas de quem está considerando aplicar inteligência artificial na empresa de forma estruturada.</p>
+</div>
+<div class="faq-list">
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Qual a diferença entre usar ChatGPT e ter uma IA implementada pela n4flow?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Ferramentas como ChatGPT, Gemini ou Claude são úteis para tarefas do dia a dia, mas não conhecem a sua empresa. Elas não têm acesso aos seus dados, sistemas, documentos internos, regras do negócio ou histórico de operação. Cada vez que você usa, precisa explicar o contexto do zero. A IA implementada pela n4flow é diferente: ela é construída com a realidade da sua empresa, conectada aos seus sistemas, alimentada pelos seus dados e configurada com as suas regras. O resultado é uma inteligência que responde como alguém de dentro da organização, não como uma ferramenta genérica que nunca ouviu falar do seu negócio.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">A empresa precisa ter os dados organizados antes de implementar IA?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Não necessariamente. Muitas empresas chegam até nós com dados espalhados em planilhas, ERPs, CRMs e sistemas desconectados, e isso é bastante comum. Parte do trabalho da n4flow é justamente estruturar essa base antes de aplicar a IA. Trabalhamos desde a organização dos dados até a implementação da inteligência, de forma que cada etapa prepare o terreno para a próxima. Se os dados da sua empresa já estiverem organizados, o processo é mais rápido. Se não estiverem, o diagnóstico inicial nos ajuda a entender o que precisa ser feito antes de avançar.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">O que é um agente de IA e como ele funciona dentro de uma empresa?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Um agente de IA é uma inteligência configurada para executar tarefas específicas de forma autônoma, com conhecimento, regras e objetivos definidos. Diferente de um chatbot simples que apenas responde perguntas com scripts fixos, um agente pode consultar dados em tempo real, cruzar informações de múltiplas fontes, tomar decisões dentro de limites pré-definidos e agir com base no contexto. Na prática, uma empresa pode ter um agente de vendas que analisa o histórico do cliente e sugere abordagens, um agente de gestão que responde perguntas sobre indicadores e metas, e um agente de atendimento que responde clientes com informações reais do pedido, tudo rodando integrado aos sistemas da empresa.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">É seguro conectar os dados da empresa a uma IA?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Sim, quando feito de forma estruturada. A diferença está em como a IA é construída. Quando uma empresa usa ferramentas abertas e insere dados sensíveis manualmente, o controle sobre essas informações é limitado. Na n4flow, a IA é implementada em uma estrutura controlada pela própria empresa, com acessos por perfil, definição de quem vê o quê, e sem exposição de informações estratégicas em plataformas públicas. A segurança é parte do projeto desde o início, não um detalhe adicionado depois.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Quanto tempo leva para implementar IA em uma empresa?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Depende da complexidade do projeto, do estado atual dos dados e dos objetivos. Projetos mais focados, como um agente de atendimento conectado a uma base de conhecimento já estruturada, podem ser implementados em algumas semanas. Projetos mais completos, com múltiplas integrações, agentes para diferentes áreas e organização de dados do zero, costumam levar alguns meses. O diagnóstico inicial é justamente o que nos permite estimar o escopo com precisão antes de qualquer compromisso.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Depois de implementada, a empresa fica dependente da n4flow para manter a IA funcionando?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Não. Essa é uma das diferenças centrais do modelo da n4flow. Construímos a solução como um ativo da empresa, documentada, explicada e entregue de forma que o cliente tenha autonomia para operar, ajustar e evoluir a estrutura. A empresa pode gerenciar internamente, envolver outras equipes ou contratar outros profissionais no futuro. Não criamos dependência de plataforma fechada, nem existe risco de perder o acesso à estrutura construída se o contrato encerrar.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Quais tipos de perguntas e tarefas a IA consegue realizar dentro da empresa?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Uma IA bem implementada consegue responder perguntas sobre indicadores, metas e desempenho; localizar informações em documentos internos; cruzar dados de diferentes áreas para gerar análises; identificar padrões, riscos e oportunidades; apoiar equipes comerciais com dados de clientes e histórico; atender clientes com informações reais sobre pedidos, produtos e serviços; gerar relatórios automáticos; e muito mais. O limite é definido pela qualidade dos dados conectados e pela forma como a IA é configurada, quanto mais contexto ela tem, mais útil ela se torna.</div></div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">
+<span class="faq-q-text">Minha empresa é pequena ou média. Faz sentido investir em IA agora?</span>
+<span class="faq-icon">+</span>
+</div>
+<div class="faq-a"><div class="faq-a-inner">Faz, desde que o projeto seja dimensionado para a realidade da empresa. IA não é exclusividade de grandes corporações, e empresas menores muitas vezes têm mais agilidade para adotar mudanças e colher resultados mais rapidamente. O importante é não tentar implementar tudo de uma vez. A n4flow trabalha com uma abordagem consultiva: identificamos as áreas com maior impacto potencial, priorizamos o que gera retorno mais rápido e construímos a estrutura de forma progressiva, com investimento proporcional ao porte e aos objetivos do negócio.</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA FINAL -->
+<section class="cta-final">
+<div class="cta-inner">
+<div class="section-label">Próximo passo</div>
+<h2 class="section-title">Veja o que a IA pode fazer<br/>pelo seu negócio — sem custo</h2>
+<p class="section-desc">Solicitar diagnóstico, sem compromisso. Em 30 minutos entendemos a sua operação e mostramos onde a IA pode gerar resultado real no seu negócio.</p>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem"><a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a><a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a></div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="footer-content">
+<div>
+<svg aria-label="n4flow" class="footer-logo" viewbox="0 0 794 265" xmlns="http://www.w3.org/2000/svg">
+<text fill="#F07B2B" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="0" y="222">n</text>
+<g transform="translate(6,0)"><path d="m 275.38826,221.58323 c -3.04762,-0.51146 -6.02027,-2.6528 -7.57358,-5.45561 l -0.7608,-1.37278 -0.13229,-15.875 -0.13229,-15.875 -33.86667,-0.14822 c -30.06233,-0.13156 -34.0193,-0.19587 -35.22551,-0.57251 -11.46996,-3.58155 -17.94484,-12.86428 -17.95245,-25.73761 -0.005,-9.03976 0.15171,-9.37145 12.05677,-25.46261 2.55845,-3.45806 6.55878,-8.96629 8.88962,-12.24051 2.33084,-3.27422 5.44736,-7.62 6.92561,-9.65729 1.47824,-2.03729 5.00702,-6.91886 7.84172,-10.847925 2.8347,-3.92906 6.59299,-9.10828 8.35175,-11.50937 1.75876,-2.4011 3.93325,-5.420918 4.8322,-6.710728 0.89895,-1.2898 1.91482,-2.69102 2.25748,-3.11383 0.71049,-0.87666 6.75735,-9.19213 13.05778,-17.95669 8.93374,-12.42778 12.87182,-17.43256 16.14343,-20.51616 13.69781,-12.91066 33.85155,-10.13621 38.40732,5.28731 0.55026,1.8629 0.5517,1.99412 0.59802,54.605738 0.0255,29.006095 0.11161,52.803525 0.19127,52.883185 0.0797,0.0797 5.89474,0.12811 12.92241,0.10768 15.0283,-0.0437 13.47224,-0.51274 13.63117,4.10888 0.58267,16.94394 -7.51197,27.08572 -22.02025,27.58916 l -4.49792,0.15608 -0.16767,11.37708 c -0.19923,13.51863 -0.3344,14.22007 -3.54523,18.39805 -5.23369,6.81016 -12.43119,9.8478 -20.23189,8.53868 z m -8.54439,-70.29477 c 0.0676,-0.0676 0.15919,-14.80699 0.20361,-32.75428 0.0444,-17.94728 0.17034,-33.851825 0.27984,-35.343403 0.28063,-3.82277 0.13285,-3.73792 -4.24219,2.435818 -1.30968,1.84814 -4.52757,6.29774 -7.15085,9.888 -2.62328,3.59025 -6.12916,8.432745 -7.79084,10.761075 -3.41798,4.78925 -6.64856,9.22508 -11.10378,15.24634 -1.68228,2.27361 -5.7376,7.78905 -9.01182,12.25654 -8.56037,11.68015 -8.40556,11.47012 -10.64948,14.44855 -1.12778,1.49695 -2.05052,2.85011 -2.05052,3.00702 -1e-5,0.28257 51.23376,0.33661 51.51603,0.0543 z" fill="#F07B2B"></path></g>
+<text fill="rgba(255,255,255,.25)" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="320" y="222">flow</text>
+</svg>
+<p class="footer-tagline">IA, Dados &amp; Automação aplicados à operação da sua empresa.<br/>São Paulo, SP · Atendimento em todo o Brasil</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Soluções</p>
+<a href="/dados/">Inteligência de Dados</a>
+<a href="/automacao/">Automação</a>
+<a href="/ia/">IA para Negócios</a>
+<a href="/">Ver tudo</a>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<a href="/">Home</a>
+<a href="/sobre/">Sobre a n4flow</a>
+<a href="/">Método</a>
+<a href="/">FAQ</a>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Contato</p>
+<a href="https://www.linkedin.com/company/n4flow" rel="noopener" target="_blank">LinkedIn</a>
+<a href="https://wa.me/551152864920" rel="noopener" target="_blank">Falar com um especialista</a>
+<a href="/diagnostico/">Solicitar diagnóstico</a>
+</div>
+</div>
+<div class="footer-bottom">
+<p class="footer-copy">© 2026 n4flow. Todos os direitos reservados.</p>
+<p class="footer-copy">IA · Dados · Automação</p>
+</div>
+</footer>
+<a aria-label="Falar com um especialista" class="float-contact" href="https://wa.me/551152864920" rel="noopener" target="_blank">
+<svg fill="currentColor" height="18" style="flex-shrink:0" viewbox="0 0 24 24" width="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
+<span>Falar com um especialista</span>
+</a>
+<script>
+// ── FAQ
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ── NAV
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+document.querySelector('.hamburger').addEventListener('click', () => document.getElementById('mob-menu').classList.toggle('open'));
+
+// ── REVEAL
+const revObs = new IntersectionObserver(es => es.forEach((e,i) => {
+  if(e.isIntersecting){ setTimeout(() => e.target.classList.add('visible'), i*60); revObs.unobserve(e.target); }
+}), {threshold:.08});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// ── KPI COUNT-UP
+function countUp(el){
+  const target = parseFloat(el.dataset.count), suffix = el.dataset.suffix || '', dur = 1800;
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min((now-start)/dur,1), ease = 1-Math.pow(1-p,3);
+    const val = target*ease, isInt = Number.isInteger(target);
+    el.textContent = (isInt ? Math.round(val) : val.toFixed(1)) + suffix;
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const kpiObs = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ countUp(e.target); kpiObs.unobserve(e.target); }
+}), {threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el => kpiObs.observe(el));
+
+// ── CHAT SCENARIOS
+const SCENARIOS = {
+  gestao: {
+    title: 'n4flow IA, Assistente de Gestão · ERP + CRM + Metas',
+    messages: [
+      {role:'user', text:'Como está o faturamento do trimestre em relação à meta?'},
+      {role:'ai', text:'Faturamento acumulado até hoje: <strong>R$ 1.847.320</strong>, equivale a <strong>78,4% da meta trimestral</strong> de R$ 2.356.000.<br><br>Faltam R$ 508.680 e ainda temos 18 dias úteis. Com o ritmo médio dos últimos 30 dias (R$ 28.200/dia), a projeção é fechar o trimestre em <strong>R$ 2.354.760</strong>, praticamente na meta.', src:'ERP Financeiro · Metas & OKRs'},
+      {role:'user', text:'Quais segmentos estão puxando esse resultado?'},
+      {role:'ai', text:'O <span class="tag tag-crm">Comercial B2B</span> lidera com 52% do faturamento (R$ 960k), seguido pelo <span class="tag tag-vendas">Varejo</span> com 31% (R$ 573k). O segmento de <span class="tag tag-meta">Serviços</span> representa 17% (R$ 314k) mas cresceu 38% em relação ao trimestre anterior, o de maior aceleração.', src:'ERP Financeiro · CRM Comercial'},
+      {role:'user', text:'O crescimento de Serviços é de algum cliente específico ou está distribuído?'},
+      {role:'ai', text:'Está concentrado em <strong>3 clientes novos</strong> que entraram no início do trimestre: Grupo Vértice (R$ 87k), Plataforma Ágil (R$ 74k) e RB Consultoria (R$ 61k). Os três vieram por indicação e ainda estão em fase de onboarding, potencial de expansão de contrato nos próximos 60 dias.', src:'CRM Comercial · Histórico de Contratos'},
+    ]
+  },
+  vendas: {
+    title: 'n4flow IA, Copiloto de Vendas · CRM + Pipeline',
+    messages: [
+      {role:'user', text:'Quais oportunidades estão paradas há mais de 30 dias sem nenhuma interação?'},
+      {role:'ai', text:'Encontrei <strong>3 oportunidades</strong> sem atividade há mais de 30 dias:<br><br>🔴 <strong>Construtora Alfa</strong>, 42 dias parada, R$ 84k, último contato: e-mail sem resposta em 14/03.<br>🟡 <strong>LogiTrans</strong>, 38 dias, R$ 52k, aguardando aprovação interna do cliente.<br>🟡 <strong>Rede Farma Sul</strong>, 31 dias, R$ 67k, proposta enviada mas sem retorno.', src:'CRM · Pipeline de Vendas'},
+      {role:'user', text:'O que aconteceu na última interação com a Construtora Alfa?'},
+      {role:'ai', text:'Na reunião de 01/03, o Diretor de TI <strong>Marcos Ferreira</strong> demonstrou alto interesse técnico, mas levantou uma objeção sobre o <strong>prazo de implantação</strong>, ele precisava de algo operacional em até 60 dias, e a proposta original previa 90 dias.<br><br>O e-mail de 14/03 foi enviado sugerindo uma implantação faseada, mas não houve resposta.', src:'CRM · Notas de Reunião · Histórico de E-mails'},
+      {role:'user', text:'O prazo de 60 dias seria viável para nós?'},
+      {role:'ai', text:'Sim, é viável se a proposta for reestruturada em fases. A primeira entrega em 45 dias cobriria integração de dados e dashboards principais, que era a dor central do Marcos. O módulo de IA ficaria para a fase 2, em mais 30 dias.<br><br>Isso resolve a objeção sem comprometer a qualidade. Quer que eu prepare um rascunho revisado da proposta com esse novo cronograma?', src:'Cronograma de Projetos · Proposta #2847'},
+    ]
+  },
+  operacao: {
+    title: 'n4flow IA, Monitor de Operação · Estoque + Fornecedores',
+    messages: [
+      {role:'user', text:'Tem algum item com risco de ruptura nos próximos 15 dias?'},
+      {role:'ai', text:'Sim, identifiquei <strong>2 itens críticos</strong>:<br><br>🔴 <strong>Parafuso Estrutural M8:</strong> estoque para 7 dias, demanda cresceu 28% esta semana, sem pedido de reposição em aberto.<br>🟡 <strong>Chapa de Aço 2mm:</strong> estoque para 11 dias, fornecedor principal com lead time de 9 dias, janela muito apertada.', src:'ERP Estoque · Histórico de Vendas'},
+      {role:'user', text:'Por que o Parafuso M8 não tem pedido em aberto?'},
+      {role:'ai', text:'O último pedido foi cancelado em 18/03 porque o fornecedor (Metais Dutra) informou indisponibilidade temporária. O sistema não gerou um novo pedido automaticamente pois a tarefa ficou aguardando confirmação manual, que não foi realizada.<br><br>Há dois fornecedores alternativos cadastrados: <strong>Inox Sul</strong> (lead time 5 dias, +6% no custo) e <strong>Ferromax</strong> (lead time 4 dias, +11% no custo).', src:'ERP Compras · Cadastro de Fornecedores'},
+      {role:'user', text:'Emite o pedido pela Inox Sul então, mesma quantidade do último pedido'},
+      {role:'ai', text:'Pedido gerado: <strong>1.200 unidades de Parafuso M8</strong> para a Inox Sul, mesma quantidade do pedido cancelado de 18/03. Prazo estimado de entrega: <strong>5 dias úteis</strong>. Custo total: R$ 3.816 (+6% em relação ao fornecedor habitual).<br><br>O pedido está em rascunho aguardando sua assinatura digital para envio.', src:'ERP Compras · Rascunho #PC-0471'},
+    ]
+  }
+};
+
+let currentCtx = 'gestao';
+let animTimeout = null;
+
+function showContext(ctx) {
+  currentCtx = ctx;
+  document.querySelectorAll('.ctx-tab').forEach(t => t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const s = SCENARIOS[ctx];
+  document.getElementById('chat-window-title').textContent = s.title;
+  renderChat(ctx);
+}
+
+function renderChat(ctx) {
+  const container = document.getElementById('chat-messages');
+  container.innerHTML = '';
+  if(animTimeout) clearTimeout(animTimeout);
+  const msgs = SCENARIOS[ctx].messages;
+  let delay = 0;
+  msgs.forEach((msg, i) => {
+    delay += i === 0 ? 300 : 1000;
+    // Show typing first for AI
+    if(msg.role === 'ai') {
+      const typDelay = delay;
+      delay += 600;
+      setTimeout(() => {
+        const t = document.createElement('div');
+        t.className = 'chat-msg visible';
+        t.id = 'typing-' + i;
+        t.innerHTML = `<div class="chat-avatar avatar-ai">n4</div><div class="chat-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+        container.appendChild(t);
+        container.scrollTop = container.scrollHeight;
+      }, typDelay);
+    }
+    const msgDelay = delay;
+    delay += 600;
+    setTimeout(() => {
+      // Remove typing
+      const typing = document.getElementById('typing-' + i);
+      if(typing) typing.remove();
+      const el = document.createElement('div');
+      el.className = 'chat-msg ' + msg.role;
+      if(msg.role === 'user') {
+        el.innerHTML = `<div class="chat-avatar avatar-user">VC</div><div class="chat-bubble">${msg.text}</div>`;
+      } else {
+        el.innerHTML = `<div class="chat-avatar avatar-ai">n4</div><div class="chat-bubble">${msg.text}${msg.src ? `<div class="chat-source-ref">${msg.src}</div>` : ''}</div>`;
+      }
+      el.style.animation = (msg.role === 'ai' ? 'slideIn' : 'slideInRight') + ' .4s ease forwards';
+      container.appendChild(el);
+      setTimeout(() => el.classList.add('visible'), 50);
+      container.scrollTop = container.scrollHeight;
+    }, msgDelay);
+  });
+}
+
+// Init chat on scroll into view
+const chatObs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting){ renderChat('gestao'); chatObs.unobserve(e.target); } });
+}, {threshold:.2});
+const chatSection = document.getElementById('demo');
+if(chatSection) chatObs.observe(chatSection);
+</script>
+</body>
+</html>

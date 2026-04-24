@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automação de Dados, Relatórios e Alertas | n4flow</title>
+<meta content="Automatizamos aprovações, atendimento, relatórios e integrações entre sistemas. Sua equipe focada no que importa, o resto roda sozinho." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --accent:#F07B2B;--accent-dark:#D96A1F;--accent-light:#F59D5E;--accent-pale:#FFF0E6;--accent-glow:rgba(240,123,43,.12);
+  --bg:#FFFFFF;--bg-warm:#FDFAF7;--bg-soft:#F7F4F0;--bg-muted:#EEE9E2;
+  --dark:#17191F;--dark-card:#1F2229;--dark-surface:#252A33;--dark-2:#2C3040;
+  --text-dark:#17191F;--text-body:#4A4E5A;--text-muted:#8A8D98;
+  --border:rgba(0,0,0,.07);
+  --font:'Inter',-apple-system,sans-serif;--mono:'DM Mono',monospace;
+  --radius:14px;--radius-sm:8px;--radius-lg:22px;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.04);--shadow-md:0 8px 30px rgba(0,0,0,.07);--shadow-lg:0 16px 50px rgba(0,0,0,.1);--shadow-orange:0 12px 40px rgba(240,123,43,.2);
+  --green:#059669;--green-l:#34D399;--red:#DC2626;--blue:#2563EB;--blue-l:#60A5FA;--purple:#7C3AED;--purple-l:#A78BFA;
+}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text-dark);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes flowPulse{0%{box-shadow:0 0 0 0 rgba(240,123,43,.4)}70%{box-shadow:0 0 0 10px rgba(240,123,43,0)}100%{box-shadow:0 0 0 0 rgba(240,123,43,0)}}
+@keyframes greenPulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.4)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+@keyframes edgeFlow{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}}
+@keyframes nodePop{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
+@keyframes countUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.fade-up{animation:fadeUp .8s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.fd1{animation-delay:.1s}.fd2{animation-delay:.25s}.fd3{animation-delay:.4s}.fd4{animation-delay:.55s}
+.reveal{opacity:0;transform:translateY(24px);transition:all .75s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
+nav.scrolled{background:rgba(255,255,255,.95);border-bottom-color:var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}.nav-logo-svg{height:30px;width:auto}
+.nav-links{display:flex;align-items:center;gap:2.2rem}.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.6);transition:color .2s;letter-spacing:-.01em}
+.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent-light)}
+nav.scrolled .nav-links a{color:var(--text-muted)}nav.scrolled .nav-links a:hover{color:var(--text-dark)}nav.scrolled .nav-links a.active{color:var(--accent)}
+.nav-links a.nav-cta{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.4rem;background:var(--accent);color:#fff !important;font-size:.82rem;font-weight:700;border-radius:var(--radius-sm);text-decoration:none;transition:all .25s;letter-spacing:.01em}
+.nav-links a.nav-cta:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:var(--shadow-orange)}
+.logo-flow{fill:#fff;transition:fill .4s}nav.scrolled .logo-flow{fill:#1A1D23}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:background .4s}
+nav.scrolled .hamburger span{background:var(--text-dark)}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:var(--bg);padding:1.5rem 2rem;border-bottom:1px solid var(--border);flex-direction:column;gap:1.2rem;z-index:99;box-shadow:var(--shadow-md)}.mobile-menu.open{display:flex}.mobile-menu a{text-decoration:none;font-size:.95rem;font-weight:500;color:var(--text-body);padding:.5rem 0}
+
+/* ── HERO ── */
+.page-hero{min-height:84vh;display:flex;align-items:center;justify-content:center;text-align:left;padding:8rem max(2.5rem,calc((100vw - 1280px)/2)) 6rem;position:relative;overflow:hidden;background:linear-gradient(160deg,#13161E 0%,#0B0D13 55%,#171B24 100%)}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 45%,rgba(240,123,43,.13) 0%,transparent 65%),radial-gradient(ellipse 40% 35% at 85% 25%,rgba(124,58,237,.06) 0%,transparent 60%);pointer-events:none}
+.page-hero::after{display:none}
+.page-hero-inner{position:relative;z-index:2;max-width:1340px;width:100%;display:flex;align-items:center;gap:3rem}
+.page-hero-content{flex:1;min-width:0}
+.page-hero-visual{flex:0 0 560px;width:560px}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem .4rem .7rem;background:rgba(240,123,43,.15);border:1px solid rgba(240,123,43,.25);border-radius:100px;font-size:.72rem;font-weight:600;color:var(--accent-light);margin-bottom:2rem;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.page-hero h1{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:800;line-height:1.12;letter-spacing:-.035em;color:#fff;margin-bottom:1.4rem}
+.page-hero h1 .accent{background:linear-gradient(90deg,#F07B2B,#F59D5E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero-sub{font-size:1rem;line-height:1.8;color:rgba(255,255,255,.58);max-width:560px;margin:0 0 2.5rem}
+.hero-cta-row{display:flex;gap:1rem;justify-content:flex-start;flex-wrap:wrap}
+
+/* ── BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:var(--accent);color:#fff;font-size:.92rem;font-weight:700;border-radius:10px;text-decoration:none;transition:all .3s;font-family:var(--font)}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:var(--shadow-orange)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:transparent;color:rgba(255,255,255,.7);font-size:.92rem;font-weight:600;border-radius:10px;text-decoration:none;transition:all .3s;font-family:var(--font);border:1px solid rgba(255,255,255,.15)}
+.btn-ghost:hover{background:rgba(255,255,255,.05);color:#fff;border-color:rgba(255,255,255,.3)}
+.btn-hero-primary,.btn-hero-ghost{white-space:nowrap}
+.btn-hero-primary{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2.2rem;background:var(--accent);color:#fff;font-size:.95rem;font-weight:700;border-radius:10px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;font-family:var(--font);box-shadow:0 4px 24px rgba(240,123,43,.4);letter-spacing:-.01em}
+.btn-hero-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 36px rgba(240,123,43,.5)}
+.btn-hero-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;background:transparent;color:rgba(255,255,255,.8);font-size:.95rem;font-weight:600;border-radius:10px;text-decoration:none;border:1.5px solid rgba(255,255,255,.2);transition:all .3s;cursor:pointer;font-family:var(--font)}
+.btn-hero-ghost:hover{border-color:var(--accent);color:var(--accent-light);transform:translateY(-2px)}
+.btn-outline-dark{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;background:transparent;color:var(--accent);font-size:.88rem;font-weight:600;border-radius:10px;text-decoration:none;border:1.5px solid rgba(240,123,43,.4);transition:all .3s;font-family:var(--font)}
+
+/* ── SECTION UTILS ── */
+section{padding:6rem 2.5rem}.container{max-width:1140px;margin:0 auto}
+.section-label{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:1rem}.section-label::before{content:'';width:18px;height:1.5px;background:var(--accent)}
+.section-title{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.14;margin-bottom:1.2rem}
+.section-desc{font-size:.95rem;color:var(--text-body);line-height:1.8;max-width:600px}
+
+/* ── FLOW ENGINE (main demo) ── */
+.flow-section{padding:6rem 2.5rem;background:var(--bg-soft);overflow:hidden}
+.flow-inner{max-width:1140px;margin:0 auto}
+.flow-header{text-align:center;margin-bottom:3.5rem}
+.flow-header .section-title{color:var(--text-dark)}
+.flow-header .section-desc{color:var(--text-body);margin:0 auto}
+
+/* Scenario tabs */
+.scenario-tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.5rem}
+.sc-tab{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;background:#fff;border:1px solid var(--border);border-radius:100px;font-size:.78rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .25s;font-family:var(--font);box-shadow:var(--shadow-sm)}
+.sc-tab:hover{border-color:rgba(240,123,43,.4);color:var(--accent)}
+.sc-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:var(--shadow-orange)}
+.sc-tab svg{width:14px;height:14px}
+
+/* Flow window */
+.flow-window{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.flow-titlebar{display:flex;align-items:center;gap:1rem;padding:.85rem 1.4rem;background:var(--bg-soft);border-bottom:1px solid var(--border)}
+.flow-dots{display:flex;gap:6px}.flow-dot{width:11px;height:11px;border-radius:50%}
+.flow-dot-r{background:#FF5F57}.flow-dot-y{background:#FEBC2E}.flow-dot-g{background:#28C840}
+.flow-title-text{font-size:.7rem;font-weight:600;color:var(--text-muted);font-family:var(--mono);flex:1;text-align:center}
+.flow-running-badge{font-size:.56rem;font-family:var(--mono);padding:.2rem .6rem;border-radius:100px;display:flex;align-items:center;gap:.3rem}
+.flow-running-badge.running{background:rgba(5,150,105,.1);color:#059669}
+.flow-running-badge.running::before{content:'';width:5px;height:5px;background:#059669;border-radius:50%;animation:pulse 1.5s infinite}
+.flow-running-badge.done{background:rgba(5,150,105,.08);color:#059669}
+.flow-running-badge.waiting{background:rgba(240,123,43,.1);color:var(--accent)}
+
+/* Two-column layout inside flow window */
+.flow-content{display:grid;grid-template-columns:1fr 340px;min-height:480px}
+
+/* Left: step-by-step */
+.flow-steps-panel{padding:2rem;border-right:1px solid var(--border)}
+.flow-steps-title{font-size:.65rem;font-family:var(--mono);color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.2rem}
+.flow-steps-list{display:flex;flex-direction:column}
+.fl-step{display:flex;align-items:flex-start;gap:.9rem;padding:.75rem .8rem;border-radius:10px;opacity:.35;transition:all .5s ease;position:relative}
+.fl-step.active{opacity:1;background:rgba(240,123,43,.06)}
+.fl-step.completed{opacity:1}
+.fl-connector{width:2px;height:20px;background:var(--border);margin-left:calc(.8rem + 11px);transition:background .6s}
+.fl-connector.lit{background:linear-gradient(180deg,#059669,rgba(5,150,105,.3))}
+.fl-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .5s;background:#fff}
+.fl-dot svg{width:11px;height:11px;color:var(--text-muted);transition:color .5s}
+.fl-step.active .fl-dot{border-color:var(--accent);background:rgba(240,123,43,.08);animation:flowPulse 2s infinite}
+.fl-step.active .fl-dot svg{color:var(--accent)}
+.fl-step.completed .fl-dot{border-color:#059669;background:rgba(5,150,105,.08)}
+.fl-step.completed .fl-dot svg{color:#059669}
+.fl-step-body{flex:1}
+.fl-step-name{font-size:.78rem;font-weight:700;color:var(--text-body);transition:color .5s}
+.fl-step.active .fl-step-name{color:var(--text-dark)}
+.fl-step-desc{font-size:.63rem;color:var(--text-muted);margin-top:.15rem;line-height:1.5;transition:color .5s}
+.fl-step.active .fl-step-desc,.fl-step.completed .fl-step-desc{color:var(--text-body)}
+.fl-step-time{font-size:.56rem;font-family:var(--mono);color:var(--text-muted);margin-left:auto;flex-shrink:0;padding-top:.2rem;transition:color .5s;min-width:36px;text-align:right}
+.fl-step.completed .fl-step-time{color:#059669}
+.fl-step.active .fl-step-time{color:var(--accent)}
+
+/* Progress bar */
+.flow-progress-row{display:flex;align-items:center;gap:.8rem;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+.flow-progress-bar{flex:1;height:5px;background:var(--bg-muted);border-radius:3px;overflow:hidden}
+.flow-progress-fill{height:100%;background:linear-gradient(90deg,#059669,#F07B2B);border-radius:3px;width:0;transition:width .8s ease}
+.flow-progress-txt{font-size:.6rem;font-family:var(--mono);color:var(--text-muted);flex-shrink:0}
+
+/* Right: log panel */
+.flow-log-panel{padding:1.8rem;display:flex;flex-direction:column;background:var(--bg-soft)}
+.flow-log-title{font-size:.6rem;font-family:var(--mono);color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
+.flow-log{flex:1;display:flex;flex-direction:column;gap:.5rem;overflow:hidden}
+.log-entry{display:flex;align-items:flex-start;gap:.6rem;opacity:0;transform:translateX(8px);transition:all .4s ease}
+.log-entry.visible{opacity:1;transform:translateX(0)}
+.log-ts{font-size:.52rem;font-family:var(--mono);color:var(--text-muted);flex-shrink:0;padding-top:.1rem;min-width:40px}
+.log-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.28rem}
+.log-dot.ok{background:#059669}
+.log-dot.act{background:var(--accent)}
+.log-dot.info{background:#3B82F6}
+.log-dot.warn{background:#F59E0B}
+.log-text{font-size:.63rem;color:var(--text-body);line-height:1.55}
+.log-text strong{color:var(--text-dark);font-weight:600}
+
+/* Stats row at bottom of flow */
+.flow-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.flow-stat{padding:1rem 1.4rem;background:#fff;text-align:center}
+.flow-stat-val{font-size:1.3rem;font-weight:800;color:var(--text-dark);letter-spacing:-.03em}
+.flow-stat-lbl{font-size:.56rem;font-family:var(--mono);color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
+
+/* ── NODE MAP (visual) ── */
+.nodes-section{padding:6rem 2.5rem;background:var(--bg-warm)}
+.nodes-inner{max-width:1140px;margin:0 auto}
+.nodes-header{text-align:center;margin-bottom:4rem}
+.nodes-canvas{background:var(--dark);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-lg);padding:2.5rem;overflow:hidden;position:relative;box-shadow:var(--shadow-lg)}
+.nodes-canvas::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.nodes-svg{width:100%;overflow:visible;display:block}
+/* SVG node elements */
+.n-node{cursor:default;transition:filter .3s}
+.n-node:hover{filter:brightness(1.2)}
+.n-edge{fill:none;stroke-width:1.5;stroke-dasharray:6 4;animation:edgeFlow 1.5s linear infinite}
+.n-label{font-family:'DM Mono',monospace;font-size:11px;fill:rgba(255,255,255,.9);font-weight:700}
+.n-sublabel{font-family:'DM Mono',monospace;font-size:9px;fill:rgba(255,255,255,.5)}
+.n-edgelabel{font-family:'DM Mono',monospace;font-size:8px;fill:rgba(255,255,255,.28)}
+
+
+/* ── KPI STRIP ── */
+.kpi-strip{padding:3rem max(2.5rem,calc((100vw - 1140px)/2));background:var(--bg-soft);border-bottom:1px solid var(--border)}
+.kpi-strip-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.kpi-item{}
+.kpi-value{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:900;color:var(--accent);letter-spacing:-.03em;margin-bottom:.3rem}
+.kpi-label{font-size:.72rem;color:var(--text-muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
+
+/* ── PAIN / SOLUTION ── */
+.pain-section{
+  padding:6rem 2.5rem;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+}
+.pain-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 50% at 50% 45%,rgba(240,123,43,.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+.pain-section::after{display:none}
+.pain-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.pain-header{text-align:center;margin-bottom:3rem}
+.pain-header .section-title{color:var(--text-dark)}
+.pain-header .section-desc{color:var(--text-body)}
+
+/* Column headers */
+.ps-col-headers{display:grid;grid-template-columns:1fr 100px 1fr;gap:1rem;margin-bottom:1rem;padding:0 .5rem}
+.ps-col-header{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.5rem .8rem;border-radius:8px}
+.ps-col-header svg{width:14px;height:14px;flex-shrink:0}
+.ps-header-pain{color:#DC2626;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.18)}
+.ps-header-sol{color:#059669;background:rgba(5,150,105,.08);border:1px solid rgba(5,150,105,.18)}
+.ps-col-header-center{}
+
+/* Pairs */
+.ps-pair{display:grid;grid-template-columns:1fr 100px 1fr;gap:1rem;align-items:center;margin-bottom:.75rem}
+.ps-card{border-radius:12px;padding:1.2rem 1.4rem}
+.ps-pain{
+  background:rgba(220,38,38,.04);
+  border:1px solid rgba(220,38,38,.14);
+  border-left:3px solid #DC2626;
+}
+.ps-sol{
+  background:rgba(5,150,105,.04);
+  border:1px solid rgba(5,150,105,.14);
+  border-left:3px solid #059669;
+}
+.ps-tag-pain{font-size:.62rem;font-weight:700;color:#DC2626;font-family:var(--mono);margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.06em}
+.ps-tag-sol{font-size:.62rem;font-weight:700;color:#059669;font-family:var(--mono);margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.06em}
+.ps-title{font-size:.88rem;font-weight:700;color:var(--text-dark);line-height:1.35;margin-bottom:.4rem}
+.ps-desc{font-size:.78rem;color:var(--text-body);line-height:1.65}
+
+/* Middle connector */
+.ps-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem}
+.ps-n4flow-badge{display:inline-flex;align-items:center;padding:.3rem .7rem;background:rgba(240,123,43,.1);border:1px solid rgba(240,123,43,.25);border-radius:8px;font-size:.85rem;font-weight:800;letter-spacing:-.02em}
+.ps-n4-accent{color:#F07B2B}
+.ps-n4-flow{color:rgba(23,25,31,.35)}
+.ps-arrow-line{width:40px;opacity:.85}
+.ps-arrow-line svg{width:100%}
+
+@media(max-width:768px){
+  .ps-pair,.ps-col-headers{grid-template-columns:1fr}
+  .ps-mid{flex-direction:row;padding:.5rem 0}
+  .ps-col-header-center{display:none}
+  .ps-pain{border-left:3px solid #DC2626;order:1}
+  .ps-mid{order:2}
+  .ps-sol{order:3}
+}
+
+.pains-vs{display:grid;grid-template-columns:1fr 60px 1fr;gap:1.5rem;align-items:start}
+.pv-col{display:flex;flex-direction:column;gap:1rem}
+.pv-item{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.5rem}
+.pv-item.pain{border-color:rgba(220,38,38,.18);background:rgba(220,38,38,.02)}
+.pv-item.sol{border-color:rgba(5,150,101,.18);background:rgba(5,150,101,.02)}
+.pv-lbl{font-size:.58rem;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+.pv-item.pain .pv-lbl{color:#DC2626}
+.pv-item.sol .pv-lbl{color:var(--green)}
+.pv-title{font-size:.88rem;font-weight:700;color:var(--text-dark);line-height:1.35;margin-bottom:.35rem}
+.pv-desc{font-size:.76rem;color:var(--text-muted);line-height:1.6}
+.pv-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding-top:1rem}
+.pv-arrow{width:36px;height:36px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;box-shadow:var(--shadow-orange);flex-shrink:0}
+
+/* ── IMPACT SECTION ── */
+.impact-section{padding:6rem max(2.5rem,calc((100vw - 1140px)/2));background:var(--bg-soft)}
+.impact-inner{max-width:1140px;margin:0 auto}
+.impact-header{text-align:center;margin-bottom:3.5rem}
+.impact-header .section-desc{margin:0 auto;max-width:760px}
+.impact-table{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.impact-row{display:grid;grid-template-columns:minmax(240px,280px) 1fr;gap:2rem;padding:1.65rem 0;align-items:start}
+.impact-row + .impact-row{border-top:1px solid var(--border)}
+.impact-area{display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start}
+.impact-index{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--accent);padding-top:.25rem}
+.impact-area h3{font-size:1rem;font-weight:800;color:var(--text-dark);margin-bottom:.35rem}
+.impact-area p{font-size:.8rem;line-height:1.65;color:var(--text-muted)}
+.impact-shift{display:grid;grid-template-columns:1fr 1fr auto;gap:1.15rem;align-items:start}
+.impact-col{padding-left:1rem;border-left:2px solid var(--border)}
+.impact-col.before{border-left-color:rgba(220,38,38,.22)}
+.impact-col.after{border-left-color:rgba(5,150,105,.24)}
+.impact-kicker{font-size:.62rem;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem}
+.impact-col.before .impact-kicker{color:#B45309}
+.impact-col.after .impact-kicker{color:#047857}
+.impact-col p{font-size:.82rem;line-height:1.7;color:var(--text-body)}
+.impact-result{justify-self:end;align-self:center;display:inline-flex;align-items:center;padding:.6rem .9rem;border-radius:999px;background:rgba(240,123,43,.08);border:1px solid rgba(240,123,43,.18);font-size:.72rem;font-weight:700;color:#B45309;white-space:nowrap}
+
+@media(max-width:960px){
+  .impact-row{grid-template-columns:1fr;gap:1.2rem}
+  .impact-shift{grid-template-columns:1fr;gap:.85rem}
+  .impact-result{justify-self:start}
+}
+
+@media(max-width:768px){
+  .impact-section{padding:5rem 1.25rem}
+  .impact-area{grid-template-columns:44px 1fr;gap:.85rem}
+}
+
+/* BENEFITS RAIL */
+/* ── BENEFITS CARDS ── */
+.benefits-rail-section{background:var(--bg-soft);color:#111827;padding:110px 0;border-top:1px solid rgba(17,24,39,.06);border-bottom:1px solid rgba(17,24,39,.06);overflow:hidden;position:relative}
+.benefits-rail-section::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;background:radial-gradient(circle,rgba(240,123,43,.07) 0%,transparent 65%);pointer-events:none}
+.benefits-rail-header{text-align:center;max-width:860px;margin:0 auto 4rem}
+.benefits-rail-header .section-label{color:var(--accent)}
+.benefits-rail-header .section-title{color:#111827}
+.benefits-rail-header .section-desc{color:#4B5563;max-width:700px;margin:1rem auto 0}
+
+/* Intro strip */
+.benefits-intro-strip{display:flex;align-items:center;justify-content:space-between;gap:2rem;background:#fff;border:1px solid rgba(17,24,39,.07);border-radius:var(--radius-lg);padding:1.8rem 2.4rem;margin-bottom:3rem;box-shadow:var(--shadow-sm)}
+.benefits-intro-text h3{font-size:1.08rem;font-weight:700;letter-spacing:-.02em;color:#111827;margin-bottom:.4rem;line-height:1.35}
+.benefits-intro-text p{font-size:.9rem;line-height:1.7;color:#4B5563;max-width:54ch}
+.benefits-side-note{display:inline-flex;align-items:center;gap:.55rem;padding:.7rem 1.1rem;border-radius:999px;border:1px solid rgba(240,123,43,.25);background:rgba(240,123,43,.07);font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:#B45309;white-space:nowrap;flex-shrink:0}
+.benefits-side-note::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(240,123,43,.15);font-size:.8rem;font-weight:800}
+
+/* Cards grid */
+.benefits-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.benefit-card{background:#fff;border:1px solid rgba(17,24,39,.07);border-radius:var(--radius-lg);padding:2rem 1.9rem 1.8rem;display:flex;flex-direction:column;gap:1.1rem;box-shadow:0 2px 12px rgba(17,24,39,.04);transition:all .3s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.benefit-card::after{content:'';position:absolute;inset:0;border-radius:var(--radius-lg);border:1.5px solid transparent;transition:border-color .3s;pointer-events:none}
+.benefit-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(17,24,39,.1)}
+.benefit-card:hover::after{border-color:rgba(240,123,43,.22)}
+.benefit-card.card-featured{background:var(--dark-card);border-color:transparent;grid-column:span 2}
+.benefit-card.card-featured:hover{box-shadow:0 20px 56px rgba(240,123,43,.18)}
+.benefit-card.card-featured::after{border-color:transparent}
+.benefit-card.card-featured:hover::after{border-color:rgba(240,123,43,.3)}
+
+/* Card header */
+.benefit-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.benefit-card-icon{width:44px;height:44px;border-radius:12px;background:rgba(240,123,43,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.benefit-card-icon svg{width:22px;height:22px;color:var(--accent)}
+.card-featured .benefit-card-icon{background:rgba(240,123,43,.18)}
+.benefit-card-num{font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--accent);background:rgba(240,123,43,.09);padding:.3rem .6rem;border-radius:6px}
+
+/* Card body */
+.benefit-card-body{flex:1}
+.benefit-card-body h3{font-size:1.1rem;font-weight:700;letter-spacing:-.025em;line-height:1.3;color:#111827;margin-bottom:.55rem}
+.card-featured .benefit-card-body h3{color:#fff;font-size:1.2rem}
+.benefit-card-body p{font-size:.88rem;line-height:1.75;color:#4B5563}
+.card-featured .benefit-card-body p{color:rgba(255,255,255,.58);font-size:.9rem}
+
+/* Card footer tag */
+.benefit-card-tag{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .85rem;border-radius:999px;border:1px solid rgba(17,24,39,.08);background:var(--bg-soft);color:#6B7280;font-size:.73rem;font-weight:600;align-self:flex-start;transition:all .25s}
+.benefit-card:hover .benefit-card-tag{border-color:rgba(240,123,43,.25);color:var(--accent);background:rgba(240,123,43,.05)}
+.card-featured .benefit-card-tag{border-color:rgba(240,123,43,.2);background:rgba(240,123,43,.1);color:var(--accent-light)}
+.card-featured:hover .benefit-card-tag{background:rgba(240,123,43,.18);border-color:rgba(240,123,43,.35)}
+.benefit-card-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+@media (max-width: 980px){
+  .benefits-cards-grid{grid-template-columns:repeat(2,1fr)}
+  .benefit-card.card-featured{grid-column:span 2}
+  .benefits-intro-strip{flex-direction:column;align-items:flex-start;gap:1.2rem}
+}
+@media (max-width: 640px){
+  .benefits-rail-section{padding:80px 0}
+  .benefits-rail-header{margin-bottom:2.5rem}
+  .benefits-cards-grid{grid-template-columns:1fr}
+  .benefit-card.card-featured{grid-column:span 1}
+  .benefit-card-body h3{font-size:1rem}
+}
+
+/* ── SERVICE SHOWCASE ── */
+.services-section{padding:6rem 2.5rem;background:var(--dark);position:relative;overflow:hidden}
+.services-section::before{display:none}
+.services-inner{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.services-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+.services-head .section-label{color:var(--accent-light)}
+.services-head .section-label::before{background:var(--accent-light)}
+.services-head h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.14;color:#fff}
+.services-head p{font-size:.9rem;color:rgba(255,255,255,.4);max-width:300px;line-height:1.7;text-align:right}
+
+.svc-showcase{display:grid;grid-template-columns:minmax(320px,380px) minmax(0,1fr);gap:2.4rem;align-items:start}
+.svc-nav{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.svc-tab{appearance:none;background:transparent;border:0;border-top:1px solid rgba(255,255,255,.05);padding:1.15rem 0 1.15rem 1rem;color:inherit;text-align:left;cursor:pointer;display:grid;grid-template-columns:64px 1fr;gap:1rem;align-items:start;position:relative;transition:all .3s}
+.svc-tab:first-child{border-top:0}
+.svc-tab::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;border-radius:999px;background:transparent;transition:background .3s}
+.svc-tab-num{font-family:var(--mono);font-size:.62rem;font-weight:700;color:rgba(255,255,255,.22);letter-spacing:.12em;transition:color .3s}
+.svc-tab-title{display:block;font-size:1rem;font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.62);transition:color .3s}
+.svc-tab-desc{display:block;margin-top:.35rem;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.34);max-width:28ch;transition:color .3s}
+.svc-tab:hover .svc-tab-title{color:rgba(255,255,255,.88)}
+.svc-tab:hover .svc-tab-desc{color:rgba(255,255,255,.5)}
+.svc-tab.active::before{background:var(--accent)}
+.svc-tab.active .svc-tab-num{color:var(--accent)}
+.svc-tab.active .svc-tab-title{color:#fff}
+.svc-tab.active .svc-tab-desc{color:rgba(255,255,255,.62)}
+
+/* ── TAB HIERARCHY ── */
+.svc-tab-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.52rem;font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .5rem;border-radius:4px;margin-top:.4rem}
+.svc-tab-badge.badge-primary{background:rgba(240,123,43,.18);color:var(--accent-light);border:1px solid rgba(240,123,43,.28)}
+.svc-tab-badge.badge-primary::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 1.8s ease-in-out infinite}
+.svc-tab-badge.badge-secondary{background:rgba(255,255,255,.05);color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.08)}
+.svc-tab.tab-secondary .svc-tab-title{color:rgba(255,255,255,.42)}
+.svc-tab.tab-secondary .svc-tab-desc{color:rgba(255,255,255,.22)}
+.svc-tab.tab-secondary:hover .svc-tab-title{color:rgba(255,255,255,.72)}
+.svc-tab.tab-secondary:hover .svc-tab-desc{color:rgba(255,255,255,.42)}
+.svc-tab.tab-secondary.active .svc-tab-title{color:#fff}
+.svc-tab.tab-secondary.active .svc-tab-desc{color:rgba(255,255,255,.62)}
+.svc-section-split{padding:.35rem 0 .2rem;margin:.2rem 0;border-top:1px solid rgba(255,255,255,.06)}
+.svc-section-split-label{font-size:.52rem;font-family:var(--mono);color:rgba(255,255,255,.22);text-transform:uppercase;letter-spacing:.1em;padding:.3rem 0 .3rem 1rem}
+
+.svc-stage{min-height:100%;border:1px solid rgba(255,255,255,.08);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));padding:2rem;box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.svc-panel-item{display:none}
+.svc-panel-item.active{display:block;animation:svcPanelFade .35s ease forwards}
+@keyframes svcPanelFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.svc-panel-top{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:1rem}
+.svc-panel-kicker{font-size:.7rem;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-light)}
+.svc-panel-line{height:1px;flex:1;min-width:60px;background:linear-gradient(90deg,rgba(240,123,43,.35),rgba(255,255,255,0))}
+.svc-panel-result{font-size:.72rem;padding:.35rem .65rem;border-radius:999px;border:1px solid rgba(240,123,43,.18);background:rgba(240,123,43,.08);color:var(--accent-light);font-weight:700}
+.svc-panel-item h3{font-size:1.5rem;line-height:1.2;letter-spacing:-.03em;color:#fff;margin-bottom:.9rem;max-width:18ch}
+.svc-panel-item>p{font-size:.92rem;line-height:1.85;color:rgba(255,255,255,.58);max-width:64ch;margin-bottom:1.5rem}
+.svc-panel-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1.8rem;align-items:start}
+.svc-panel-label{font-size:.68rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:.8rem}
+.svc-flow-list{display:flex;flex-direction:column;gap:.75rem}
+.svc-flow-row{display:grid;grid-template-columns:30px 1fr;gap:.85rem;align-items:start}
+.svc-flow-num{width:30px;height:30px;border-radius:50%;border:1px solid rgba(240,123,43,.22);background:rgba(240,123,43,.08);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--accent-light)}
+.svc-flow-row strong{display:block;font-size:.86rem;color:#fff;margin-bottom:.18rem}
+.svc-flow-row span{display:block;font-size:.8rem;line-height:1.65;color:rgba(255,255,255,.46)}
+.svc-side-block{padding:1rem 1rem 1rem 1.05rem;border-left:1px solid rgba(255,255,255,.08)}
+.svc-feat-list{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.25rem}
+.svc-feat{display:flex;align-items:flex-start;gap:.75rem;font-size:.82rem;color:rgba(255,255,255,.48);line-height:1.58}
+.svc-feat-check{width:18px;height:18px;border-radius:50%;background:rgba(5,150,105,.12);border:1px solid rgba(52,211,153,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.svc-feat-check svg{width:9px;height:9px;color:#34D399}
+.svc-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.svc-tag{font-size:.62rem;font-family:var(--mono);padding:.28rem .7rem;background:rgba(240,123,43,.1);color:var(--accent-light);border-radius:999px;border:1px solid rgba(240,123,43,.2);font-weight:500}
+
+@media(max-width:900px){
+  .svc-showcase{grid-template-columns:1fr;gap:1.5rem}
+  .svc-stage{padding:1.4rem}
+  .svc-panel-grid{grid-template-columns:1fr;gap:1.25rem}
+  .svc-side-block{border-left:0;border-top:1px solid rgba(255,255,255,.08);padding:1rem 0 0}
+}
+
+@media(max-width:768px){
+  .services-head{flex-direction:column;align-items:flex-start;gap:1rem}
+  .services-head p{text-align:left;max-width:100%}
+  .svc-tab{grid-template-columns:48px 1fr;padding-left:.75rem}
+}
+
+/* ── HOW IT WORKS ── */
+.how-section{padding:6rem max(2.5rem,calc((100vw - 1140px)/2));background:var(--bg)}
+.how-inner{max-width:960px;margin:0 auto}
+.how-header{text-align:center;margin-bottom:4rem}
+.how-header .section-title{color:var(--text-dark)}
+.how-header .section-desc{color:var(--text-body);margin:0 auto}
+.how-steps{display:flex;flex-direction:column;gap:0}
+.how-step{display:grid;grid-template-columns:60px 1fr;gap:1.5rem;position:relative}
+.how-step:not(:last-child)::before{content:'';position:absolute;left:29px;top:60px;width:2px;bottom:-2rem;background:linear-gradient(180deg,var(--accent),rgba(240,123,43,.1));z-index:0}
+.how-step-num{width:60px;height:60px;border-radius:50%;background:var(--accent);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;box-shadow:var(--shadow-orange);font-family:var(--font)}
+.how-step-body{padding:0 0 2.5rem}
+.how-step h3{font-size:1.05rem;font-weight:700;color:var(--text-dark);margin-bottom:.5rem;padding-top:.9rem}
+.how-step p{font-size:.88rem;color:var(--text-body);line-height:1.75}
+.how-step-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.how-step-chip{font-size:.62rem;font-family:var(--mono);padding:.2rem .55rem;border-radius:4px;background:var(--accent-pale);color:var(--accent-dark);font-weight:600}
+.how-step-icon{display:none}
+
+/* ── TOOLS STRIP ── */
+.tools-section{padding:4rem 2.5rem;background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.tools-inner{max-width:1140px;margin:0 auto;text-align:center}
+.tools-title{font-size:.72rem;font-family:var(--mono);color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.8rem}
+.tools-list{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
+.tool-chip{display:inline-flex;align-items:center;gap:.55rem;padding:.45rem 1rem;background:#fff;border:1px solid var(--border);border-radius:100px;font-size:.74rem;font-weight:600;color:var(--text-dark);box-shadow:var(--shadow-sm);transition:all .25s}
+.tool-chip:hover{border-color:rgba(240,123,43,.3);transform:translateY(-2px);box-shadow:var(--shadow-orange)}
+.tool-chip img{width:20px;height:20px;flex-shrink:0;display:block;object-fit:contain;border-radius:4px}
+.tool-chip svg{width:22px;height:22px;flex-shrink:0;display:block}
+.tool-chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tool-logo-init{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;flex-shrink:0;color:#fff;font-family:var(--mono);letter-spacing:-.03em}
+
+/* ── CTA FINAL ── */
+.cta-final{text-align:center;padding:6rem 2.5rem;position:relative;overflow:hidden;background:var(--dark)}
+.cta-final::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(240,123,43,.11) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.cta-inner{max-width:680px;margin:0 auto;position:relative;z-index:2}
+.cta-final .section-label{color:var(--accent-light);justify-content:center}.cta-final .section-label::before{background:var(--accent)}
+.cta-final h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.14;color:#fff;margin-bottom:1rem}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:520px;margin:0 auto 2.5rem;line-height:1.75}
+.cta-fine{margin-top:1.5rem;font-size:.82rem;color:rgba(255,255,255,.35)}
+.cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}.cta-fine a{color:var(--accent);text-decoration:underline;font-weight:500}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding:3rem 2.5rem 2rem}
+.footer-content{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+.footer-logo{height:24px;width:auto;opacity:.55;margin-bottom:1rem;display:block}
+.footer-tagline{font-size:.78rem;color:rgba(255,255,255,.32);font-family:var(--mono);line-height:1.6}
+.footer-col-title{font-size:.66rem;font-family:var(--mono);color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem}
+.footer-col a{display:block;text-decoration:none;font-size:.82rem;font-weight:500;color:rgba(255,255,255,.42);margin-bottom:.6rem;transition:color .2s}.footer-col a:hover{color:var(--accent)}
+.footer-bottom{max-width:1140px;margin:0 auto;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.22);font-family:var(--mono)}
+
+/* ── FLOAT CONTACT ── */
+.float-contact{position:fixed;bottom:1.5rem;right:1.5rem;z-index:90;display:flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem .7rem .8rem;background:var(--dark);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.1);border-radius:100px;text-decoration:none;font-size:.78rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .3s}
+.float-contact:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-orange)}
+.float-contact svg{width:17px;height:17px;flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .kpi-strip-inner{grid-template-columns:repeat(2,1fr)}
+  .flow-content{grid-template-columns:1fr}.flow-log-panel{display:none}
+  .flow-stats-row{grid-template-columns:repeat(3,1fr)}
+  .pains-vs{grid-template-columns:1fr;gap:1rem}.pv-divider{flex-direction:row;padding:.3rem 0}
+  .cases-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .how-steps{grid-template-columns:repeat(2,1fr)}.how-step::before{display:none}
+  footer .footer-content{grid-template-columns:1fr}
+  .page-hero{text-align:center}
+  .page-hero-inner{flex-direction:column;gap:3rem}
+  .page-hero-visual{flex:0 0 auto;width:100%;max-width:460px}
+  .page-hero-sub{margin:0 auto 2.5rem}
+  .hero-cta-row{justify-content:center}
+}
+@media(max-width:600px){
+  section{padding:4rem 1.5rem}
+  .kpi-strip-inner{grid-template-columns:1fr 1fr}
+  .cases-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .how-steps{grid-template-columns:1fr}
+}
+
+/* HERO VISUAL */
+
+/* === AUTOMATION PHOTO VISUAL === */
+.auto-visual-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 2.2rem 2rem 2rem 1.8rem;
+}
+.auto-photo-ring {
+  position: absolute; inset: 0; border-radius: 28px;
+  border: 1.5px dashed rgba(240,123,43,.15);
+  pointer-events: none; z-index: 0;
+}
+.auto-photo-frame {
+  position: relative; border-radius: 22px; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,.11), 0 0 0 1px rgba(240,123,43,.08);
+  z-index: 1; background: var(--bg-muted);
+}
+.auto-photo { width: 100%; height: auto; display: block; }
+
+/* Saved-hours chip — top left */
+.auto-chip-saved {
+  position: absolute; top: .9rem; left: -1.05rem; z-index: 4;
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .42rem .82rem;
+  background: rgba(255,255,255,.68);
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 100px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+.auto-chip-saved-icon {
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(5,150,105,.12); color: #059669;
+  flex-shrink: 0;
+}
+.auto-chip-saved span {
+  font-size: .68rem; font-weight: 600; line-height: 1;
+}
+
+/* Live chip — top right */
+.auto-chip-live {
+  position: absolute; top: 1rem; right: -1rem; z-index: 4;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .38rem .8rem;
+  background: rgba(23,25,31,.62);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 100px;
+  font-size: .62rem; font-weight: 600; color: rgba(255,255,255,.82);
+  box-shadow: 0 12px 34px rgba(0,0,0,.18);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  white-space: nowrap;
+}
+.auto-chip-live-dot {
+  width: 6px; height: 6px; background: var(--accent);
+  border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; flex-shrink: 0;
+}
+
+/* Progress card — bottom right, glass dark */
+.auto-progress-card {
+  position: absolute; bottom: 1rem; right: -1rem; z-index: 4;
+  background: rgba(23,25,31,.62);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px; padding: .8rem 1rem;
+  min-width: 150px;
+  box-shadow: 0 12px 34px rgba(0,0,0,.18);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.auto-progress-title {
+  font-size: .5rem; font-family: var(--mono);
+  color: rgba(255,255,255,.32); text-transform: uppercase;
+  letter-spacing: .12em; margin-bottom: .5rem;
+}
+.auto-progress-item {
+  display: flex; align-items: center; gap: .4rem; margin-bottom: .3rem;
+}
+.auto-progress-item:last-child { margin-bottom: 0; }
+.auto-progress-dot {
+  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+}
+.auto-progress-dot.done { background: #059669; }
+.auto-progress-dot.running { background: var(--accent); animation: pulse 1.5s ease-in-out infinite; }
+.auto-progress-dot.pending { background: rgba(255,255,255,.18); }
+.auto-progress-text {
+  font-size: .58rem; font-weight: 500; color: rgba(255,255,255,.45); white-space: nowrap;
+}
+.auto-progress-text.done { color: rgba(255,255,255,.75); }
+
+/* Counter — bottom left, glass light */
+.auto-counter-card {
+  position: absolute; bottom: 1rem; left: -1rem; z-index: 4;
+  background: rgba(255,255,255,.66);
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 14px; padding: .7rem 1rem;
+  min-width: 118px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.auto-counter-label {
+  font-size: .5rem; font-family: var(--mono); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: .1em; margin-bottom: .15rem;
+}
+.auto-counter-value {
+  font-size: 1.35rem; font-weight: 900; color: var(--accent);
+  letter-spacing: -.03em; line-height: 1; margin-bottom: .2rem;
+}
+.auto-counter-sub { font-size: .5rem; color: var(--text-muted); font-family: var(--mono); }
+/* ── MEGA MENU ── */
+.nav-mega-wrap{position:relative;display:flex;align-items:center}
+.nav-mega-wrap > a{display:flex;align-items:center;gap:.3rem}
+.nav-mega-wrap > a .chevron{width:11px;height:11px;transition:transform .25s}
+.nav-mega-wrap:hover > a .chevron{transform:rotate(180deg)}
+.mega-menu{
+  position:absolute;top:100%;left:0;
+  padding-top:14px;
+  background:transparent;
+  width:260px;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transform:translateY(-4px);
+  transition:opacity .2s ease,transform .2s ease;
+  z-index:200;
+}
+.mega-menu-inner{
+  background:#fff;border:1px solid #E5E7EB;border-radius:14px;
+  box-shadow:0 20px 50px rgba(0,0,0,.11),0 4px 12px rgba(0,0,0,.06);
+  padding:.6rem;display:flex;flex-direction:column;gap:.15rem;position:relative;
+}
+.mega-menu-inner::before{content:'';position:absolute;top:-5px;left:18px;
+  width:10px;height:10px;background:#fff;
+  border-left:1px solid #E5E7EB;border-top:1px solid #E5E7EB;
+  transform:rotate(45deg)}
+.nav-mega-wrap:hover .mega-menu{opacity:1;pointer-events:all;transform:translateY(0)}
+.mega-item{display:flex;align-items:center;gap:.75rem;padding:.65rem .8rem;border-radius:9px;text-decoration:none;transition:background .18s}
+.mega-item:hover{background:#FEF0E4}
+.mega-item-icon{width:32px;height:32px;border-radius:8px;background:#F07B2B;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mega-item-label{font-size:.82rem;font-weight:700;color:#1A1D24;line-height:1.2}
+.mega-item-desc{font-size:.7rem;color:#7A7A7A;line-height:1.3;margin-top:.1rem}
+
+/* ── TOOLS STRIP ── */
+.tools-strip{padding:2.5rem 0;background:#F3F3F3;overflow:hidden;position:relative}
+.tools-strip::before,.tools-strip::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.tools-strip::before{left:0;background:linear-gradient(90deg,#F3F3F3,transparent)}
+.tools-strip::after{right:0;background:linear-gradient(-90deg,#F3F3F3,transparent)}
+
+.tools-track{display:flex;gap:1rem;width:max-content;animation:toolsScroll 55s linear infinite}
+.tools-track:hover{animation-play-state:paused}
+@keyframes toolsScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tool-chip{display:inline-flex;align-items:center;gap:.6rem;padding:.65rem 1.3rem;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.8);border-radius:100px;white-space:nowrap;font-size:.83rem;font-weight:600;color:#1A1A1A;flex-shrink:0;transition:all .25s;box-shadow:0 2px 12px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tool-chip:hover{border-color:rgba(240,123,43,.45);background:rgba(255,255,255,.9);box-shadow:0 4px 16px rgba(240,123,43,.14)}
+.tool-chip svg,.tool-chip img{width:20px;height:20px;flex-shrink:0}
+
+
+/* Floating WhatsApp CTA, padronizado */
+.float-contact{position:fixed;bottom:1.5rem;right:1.5rem;z-index:90;display:flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem .7rem .8rem;background:var(--dark, #151515);color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.1);border-radius:100px;text-decoration:none;font-size:.78rem;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .3s}
+.float-contact:hover{background:var(--accent, #F07B2B);border-color:var(--accent, #F07B2B);transform:translateY(-2px);box-shadow:0 10px 30px rgba(240,123,43,.25);color:#fff}
+.float-contact svg{width:18px;height:18px;flex-shrink:0}
+@media (max-width:768px){.float-contact{bottom:1rem;right:1rem;padding:.7rem 1rem .7rem .85rem;font-size:.76rem}}
+
+</style>
+<style>
+.demo-note{display:flex;align-items:flex-start;gap:.6rem;max-width:680px;margin:0 auto 1.8rem;padding:.55rem 1rem;background:var(--bg-muted);border:1px solid var(--border);border-radius:8px;font-size:.73rem;color:var(--text-muted);line-height:1.5;font-family:var(--mono)}
+.demo-note svg{width:13px;height:13px;flex-shrink:0;margin-top:.1rem;color:var(--text-muted)}
+.footer-content{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+@media(max-width:768px){.footer-content{grid-template-columns:1fr 1fr}.footer-content>div:first-child{grid-column:1/-1}}
+@media(max-width:480px){.footer-content{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="nav">
+<a aria-label="n4flow" class="nav-logo" href="/">
+<svg class="nav-logo-svg" viewbox="0 0 794 265" xmlns="http://www.w3.org/2000/svg">
+<text fill="#F07B2B" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="0" y="222">n</text>
+<g transform="translate(6,0)"><path d="m 275.38826,221.58323 c -3.04762,-0.51146 -6.02027,-2.6528 -7.57358,-5.45561 l -0.7608,-1.37278 -0.13229,-15.875 -0.13229,-15.875 -33.86667,-0.14822 c -30.06233,-0.13156 -34.0193,-0.19587 -35.22551,-0.57251 -11.46996,-3.58155 -17.94484,-12.86428 -17.95245,-25.73761 -0.005,-9.03976 0.15171,-9.37145 12.05677,-25.46261 2.55845,-3.45806 6.55878,-8.96629 8.88962,-12.24051 2.33084,-3.27422 5.44736,-7.62 6.92561,-9.65729 1.47824,-2.03729 5.00702,-6.91886 7.84172,-10.847925 2.8347,-3.92906 6.59299,-9.10828 8.35175,-11.50937 1.75876,-2.4011 3.93325,-5.420918 4.8322,-6.710728 0.89895,-1.2898 1.91482,-2.69102 2.25748,-3.11383 0.71049,-0.87666 6.75735,-9.19213 13.05778,-17.95669 8.93374,-12.42778 12.87182,-17.43256 16.14343,-20.51616 13.69781,-12.91066 33.85155,-10.13621 38.40732,5.28731 0.55026,1.8629 0.5517,1.99412 0.59802,54.605738 0.0255,29.006095 0.11161,52.803525 0.19127,52.883185 0.0797,0.0797 5.89474,0.12811 12.92241,0.10768 15.0283,-0.0437 13.47224,-0.51274 13.63117,4.10888 0.58267,16.94394 -7.51197,27.08572 -22.02025,27.58916 l -4.49792,0.15608 -0.16767,11.37708 c -0.19923,13.51863 -0.3344,14.22007 -3.54523,18.39805 -5.23369,6.81016 -12.43119,9.8478 -20.23189,8.53868 z m -8.54439,-70.29477 c 0.0676,-0.0676 0.15919,-14.80699 0.20361,-32.75428 0.0444,-17.94728 0.17034,-33.851825 0.27984,-35.343403 0.28063,-3.82277 0.13285,-3.73792 -4.24219,2.435818 -1.30968,1.84814 -4.52757,6.29774 -7.15085,9.888 -2.62328,3.59025 -6.12916,8.432745 -7.79084,10.761075 -3.41798,4.78925 -6.64856,9.22508 -11.10378,15.24634 -1.68228,2.27361 -5.7376,7.78905 -9.01182,12.25654 -8.56037,11.68015 -8.40556,11.47012 -10.64948,14.44855 -1.12778,1.49695 -2.05052,2.85011 -2.05052,3.00702 -1e-5,0.28257 51.23376,0.33661 51.51603,0.0543 z" fill="#F07B2B"></path></g>
+<text class="logo-flow" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="320" y="222">flow</text>
+</svg>
+</a>
+<div class="nav-links"><a href="/">Home</a><div class="nav-mega-wrap"><a class="nav-link mega-toggle active" href="/">Soluções<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="m6 9 6 6 6-6"></path></svg></a><div class="mega-menu"><div class="mega-menu-inner"><a class="mega-item" href="/dados/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18"></path><path d="M8 5v14"></path></svg></div><div><div class="mega-item-label">Inteligência de Dados</div><div class="mega-item-desc">Dados integrados, dashboards em tempo real</div></div></a><a class="mega-item" href="/automacao/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="m13 2-8 12h6l-2 8 10-14h-6l2-6z"></path></svg></div><div><div class="mega-item-label">Automação</div><div class="mega-item-desc">Processos automáticos, time mais estratégico</div></div></a><a class="mega-item" href="/ia/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path></svg></div><div><div class="mega-item-label">IA para Negócios</div><div class="mega-item-desc">IA com contexto real da sua operação</div></div></a></div></div></div><a href="/sobre/">Sobre</a><a class="nav-cta" href="/diagnostico/">Solicitar diagnóstico</a></div>
+<button aria-label="Menu" class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mob-menu"><a href="/">Home</a><a href="/">Soluções</a><a href="/dados/" style="padding-left:1rem;font-size:.85rem;color:var(--text-muted)">→ Inteligência de Dados</a><a href="/automacao/" style="padding-left:1rem;font-size:.85rem;color:var(--text-muted)">→ Automação</a><a href="/ia/" style="padding-left:1rem;font-size:.85rem;color:var(--text-muted)">→ IA para Negócios</a><a href="/sobre/">Sobre</a><a href="/diagnostico/" style="color:var(--accent);font-weight:700">Solicitar diagnóstico</a></div>
+<!-- HERO -->
+<section class="page-hero">
+<div class="page-hero-inner">
+<div class="page-hero-content">
+<div class="hero-badge fade-up"><span class="hero-badge-dot"></span> Automação</div>
+<h1 class="fade-up fd1">Sua equipe focada<br/>no que importa,<br/><span class="accent">o resto roda sozinho</span></h1>
+<p class="page-hero-sub fade-up fd2">Automatizamos a cadeia completa de dados — relatórios, alertas inteligentes, atualização de banco e integrações entre sistemas. O resultado: informação certa, para quem precisa, no momento certo, sem esforço manual.</p>
+<div class="hero-cta-row fade-up fd3">
+<a class="btn-hero-primary" href="/diagnostico/">Solicitar diagnóstico <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="btn-hero-ghost" href="https://wa.me/551152864920" rel="noopener" target="_blank"><svg fill="currentColor" height="17" style="flex-shrink:0;opacity:.85" viewbox="0 0 24 24" width="17"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+</div>
+</div>
+<div class="page-hero-visual">
+<div class="solution-visual">
+<div class="auto-visual-wrap">
+<!-- Chip topo esquerdo: horas economizadas -->
+<div class="auto-chip-saved">
+<div class="auto-chip-saved-icon">
+<svg fill="none" height="10" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="10"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<span>14h/semana economizadas</span>
+</div>
+<!-- Chip topo direito: rodando agora -->
+<div class="auto-chip-live">
+<span class="auto-chip-live-dot"></span>
+<span>3 fluxos rodando agora</span>
+</div>
+<!-- Imagem principal -->
+<div class="auto-photo-frame">
+<img alt="Equipe satisfeita com processos automatizados" class="auto-photo" src="/assets/img/automacao-equipe.jpg"/>
+</div>
+<!-- Card inferior esquerdo: tarefas -->
+<div class="auto-counter-card">
+<div class="auto-counter-label">Tarefas automatizadas</div>
+<div class="auto-counter-value">847</div>
+<div class="auto-counter-sub">este mês · sem erro humano</div>
+</div>
+<!-- Card inferior direito: status fluxos -->
+<div class="auto-progress-card">
+<div class="auto-progress-title">Fluxos ativos</div>
+<div class="auto-progress-item">
+<div class="auto-progress-dot done"></div>
+<span class="auto-progress-text done">Coleta ERP</span>
+</div>
+<div class="auto-progress-item">
+<div class="auto-progress-dot done"></div>
+<span class="auto-progress-text done">CRM + Financeiro</span>
+</div>
+<div class="auto-progress-item">
+<div class="auto-progress-dot running"></div>
+<span class="auto-progress-text">Geração relatório</span>
+</div>
+<div class="auto-progress-item">
+<div class="auto-progress-dot pending"></div>
+<span class="auto-progress-text">Envio diretoria</span>
+</div>
+</div>
+<!-- Anel decorativo -->
+<div class="auto-photo-ring"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PAIN VS SOLUTION -->
+<section class="pain-section">
+<div class="pain-inner">
+<div class="pain-header reveal">
+<div class="section-label">Por que automatizar</div>
+<h2 class="section-title">O que drena energia da sua equipe hoje</h2>
+<p class="section-desc" style="margin:0 auto">Processos manuais são lentos, propensos a erro e ocupam pessoas talentosas com trabalho repetitivo. Isso tem solução.</p>
+</div>
+<!-- Column headers -->
+<div class="ps-col-headers reveal">
+<div class="ps-col-header ps-header-pain">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" x2="9" y1="9" y2="15"></line><line x1="9" x2="15" y1="9" y2="15"></line></svg>
+        Como está hoje
+      </div>
+<div class="ps-col-header-center"></div>
+<div class="ps-col-header ps-header-sol">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        Com a n4flow
+      </div>
+</div>
+<!-- Pair 1 -->
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Dor</div>
+<div class="ps-title">"Passamos horas todo mês montando relatórios"</div>
+<div class="ps-desc">Alguém abre o ERP, copia para Excel, formata, envia por e-mail. Todo mês, toda semana. Um trabalho que não agrega nada e ainda está sujeito a erros.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge">
+<span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span>
+</div>
+<div class="ps-arrow-line">
+<svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Solução</div>
+<div class="ps-title">Relatório gerado, formatado e enviado automaticamente</div>
+<div class="ps-desc">Conectamos as fontes de dados, criamos o template e agendamos o envio. O relatório chega na caixa de entrada de cada gestor sem que ninguém precise tocar nele.</div>
+</div>
+</div>
+<!-- Pair 2 -->
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Dor</div>
+<div class="ps-title">"O banco de dados está sempre desatualizado"</div>
+<div class="ps-desc">Os dados chegam de fontes diferentes — ERP, planilhas, formulários — e alguém precisa consolidar tudo manualmente. Quando a análise é feita, a informação já está velha.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge">
+<span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span>
+</div>
+<div class="ps-arrow-line">
+<svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Solução</div>
+<div class="ps-title">Banco atualizado automaticamente a partir de todas as fontes</div>
+<div class="ps-desc">Conectamos ERP, CRM, planilhas e APIs em um fluxo de atualização contínua. Os dados chegam limpos, estruturados e prontos para análise, sem intervenção humana.</div>
+</div>
+</div>
+<!-- Pair 3 -->
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Dor</div>
+<div class="ps-title">"Só descobrimos o problema quando já é tarde"</div>
+<div class="ps-desc">Ninguém monitora os indicadores em tempo real. A queda de receita, o atraso na entrega ou o KPI fora do padrão aparecem no fim do mês, quando o estrago já está feito.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge">
+<span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span>
+</div>
+<div class="ps-arrow-line">
+<svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Solução</div>
+<div class="ps-title">Alerta automático no momento em que o desvio acontece</div>
+<div class="ps-desc">Configuramos gatilhos que monitoram seus KPIs em tempo real. Quando algo sai do padrão, a notificação chega para quem precisa agir — antes que o problema escale.</div>
+</div>
+</div>
+<!-- Pair 4 -->
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Dor</div>
+<div class="ps-title">"Cada sistema exige entrada manual de dados"</div>
+<div class="ps-desc">O que é fechado no CRM precisa ser inserido no ERP. O que é aprovado no Jira precisa ser atualizado no Slack. Ninguém sincroniza nada automaticamente.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge">
+<span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span>
+</div>
+<div class="ps-arrow-line">
+<svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Solução</div>
+<div class="ps-title">Integração bidirecional entre todos os sistemas sem intervenção manual</div>
+<div class="ps-desc">Quando algo muda em um sistema, os outros são atualizados automaticamente via API. Fim da duplicidade, dos erros de transcrição e da perda de informação entre áreas.</div>
+</div>
+</div>
+<!-- Pair 5 -->
+<div class="ps-pair reveal">
+<div class="ps-card ps-pain">
+<div class="ps-tag-pain">❌ Dor</div>
+<div class="ps-title">"Passamos tempo demais preenchendo planilhas e atualizando controles"</div>
+<div class="ps-desc">Consolidar dados, atualizar planilhas de controle e preencher campos em sistemas diferentes consomem horas da equipe toda semana, horas que deveriam ir para análise e decisão.</div>
+</div>
+<div class="ps-mid">
+<div class="ps-n4flow-badge">
+<span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span>
+</div>
+<div class="ps-arrow-line">
+<svg fill="none" viewbox="0 0 40 16"><path d="M0 8h32" stroke="#F07B2B" stroke-width="1.5"></path><path d="M28 3l9 5-9 5" stroke="#F07B2B" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+</div>
+<div class="ps-card ps-sol">
+<div class="ps-tag-sol">✅ Solução</div>
+<div class="ps-title">Preenchimento e atualização automática de planilhas e controles operacionais</div>
+<div class="ps-desc">Conectamos as fontes de dados e automatizamos a atualização de qualquer controle, planilhas, dashboards, sistemas internos. A equipe para de copiar e colar e passa a analisar e decidir.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FLOW ENGINE -->
+<section class="flow-section" id="fluxos">
+<div class="flow-inner">
+<div class="flow-header reveal">
+<div class="section-label" style="color:var(--accent);justify-content:center">Automação ao vivo</div>
+<h2 class="section-title">É assim que seus dados e relatórios rodam automaticamente</h2>
+<p class="section-desc">Cada fluxo é montado sob medida para a sua operação. Veja exemplos reais de automações que entregamos.</p>
+</div>
+<!-- Scenario selector -->
+<div class="scenario-tabs reveal">
+<div class="sc-tab active" data-scenario="relatorio">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+        Relatório automático
+      </div>
+<div class="sc-tab" data-scenario="dashboard">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" width="20" x="2" y="3"></rect><path d="M8 21h8M12 17v4"></path><path d="M7 8h.01M12 8v4M17 8l-3 4"></path></svg>
+        Dashboard + alertas de KPIs
+      </div>
+<div class="sc-tab" data-scenario="erp">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="5" rx="1" width="20" x="2" y="3"></rect><rect height="5" rx="1" width="20" x="2" y="10"></rect><rect height="5" rx="1" width="20" x="2" y="17"></rect><path d="M6 5.5h.01M6 12.5h.01M6 19.5h.01"></path></svg>
+        Lançamento no ERP
+      </div>
+</div>
+<div class="demo-note reveal">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+      Ilustração demonstrativa. A solução real é integrada às ferramentas do seu negócio e construída com tecnologias definidas conforme cada projeto.
+    </div>
+<!-- Flow window -->
+<div class="flow-window reveal">
+<div class="flow-titlebar">
+<div class="flow-dots"><div class="flow-dot flow-dot-r"></div><div class="flow-dot flow-dot-y"></div><div class="flow-dot flow-dot-g"></div></div>
+<span class="flow-title-text" id="flowTitle">n4flow Automation Engine, Aprovação de Compra #3841</span>
+<div class="flow-running-badge running" id="flowBadge">Executando</div>
+</div>
+<div class="flow-content">
+<!-- Steps panel -->
+<div class="flow-steps-panel">
+<div class="flow-steps-title">Etapas do fluxo</div>
+<div class="flow-steps-list" id="flowStepsList">
+<!-- populated by JS -->
+</div>
+<div class="flow-progress-row">
+<div class="flow-progress-bar"><div class="flow-progress-fill" id="flowPF"></div></div>
+<div class="flow-progress-txt" id="flowPT">0/0 etapas</div>
+</div>
+</div>
+<!-- Log panel -->
+<div class="flow-log-panel">
+<div class="flow-log-title">Log de execução</div>
+<div class="flow-log" id="flowLog"></div>
+</div>
+</div>
+<div class="flow-stats-row">
+<div class="flow-stat"><div class="flow-stat-val" id="statExec">0</div><div class="flow-stat-lbl">Execuções hoje</div></div>
+<div class="flow-stat"><div class="flow-stat-val" id="statTime"></div><div class="flow-stat-lbl">Tempo médio</div></div>
+<div class="flow-stat"><div class="flow-stat-val" id="statSave">0h</div><div class="flow-stat-lbl">Horas economizadas</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- SERVICE SHOWCASE -->
+<!-- SERVICE SHOWCASE -->
+<section class="services-section">
+<div class="services-inner">
+<div class="services-head reveal">
+<div>
+<div class="section-label">O que automatizamos</div>
+<h2>Dados, relatórios e alertas<br/>no centro da automação</h2>
+</div>
+<p>Nosso foco principal é automatizar a cadeia completa de dados — da coleta ao relatório entregue, com alertas inteligentes no meio do caminho. Também atuamos em processos operacionais, comercial e integrações quando faz sentido para o negócio.</p>
+</div>
+<div class="svc-showcase">
+<div class="svc-nav reveal">
+<!-- ── FOCO PRINCIPAL ── -->
+<button class="svc-tab active" data-svc="dados" onclick="setSvcTab('dados')" type="button">
+<span class="svc-tab-num">01</span>
+<span>
+<span class="svc-tab-title">Dados &amp; Relatórios</span>
+<span class="svc-tab-desc">Da fonte de dados ao relatório entregue, sem intervenção humana.</span>
+</span>
+</button>
+<button class="svc-tab" data-svc="alertas" onclick="setSvcTab('alertas')" type="button">
+<span class="svc-tab-num">02</span>
+<span>
+<span class="svc-tab-title">Alertas Inteligentes</span>
+<span class="svc-tab-desc">O negócio avisa antes que você precise perguntar.</span>
+</span>
+</button>
+<button class="svc-tab" data-svc="relatorios-clientes" onclick="setSvcTab('relatorios-clientes')" type="button">
+<span class="svc-tab-num">03</span>
+<span>
+<span class="svc-tab-title">Relatórios Automáticos</span>
+<span class="svc-tab-desc">Geração e entrega automática para gestão interna e clientes externos.</span>
+</span>
+</button>
+<!-- ── TAMBÉM OFERECEMOS ── -->
+<div class="svc-section-split">
+<div class="svc-section-split-label">Também automatizamos</div>
+</div>
+<button class="svc-tab tab-secondary" data-svc="operations" onclick="setSvcTab('operations')" type="button">
+<span class="svc-tab-num">04</span>
+<span>
+<span class="svc-tab-title">Operação &amp; Processos</span>
+<span class="svc-tab-desc">Aprovações, repasses e tarefas sem gargalos.</span>
+</span>
+</button>
+<button class="svc-tab tab-secondary" data-svc="commercial" onclick="setSvcTab('commercial')" type="button">
+<span class="svc-tab-num">05</span>
+<span>
+<span class="svc-tab-title">Comercial</span>
+<span class="svc-tab-desc">Leads, propostas e follow-ups automáticos.</span>
+</span>
+</button>
+<button class="svc-tab tab-secondary" data-svc="integration" onclick="setSvcTab('integration')" type="button">
+<span class="svc-tab-num">06</span>
+<span>
+<span class="svc-tab-title">Integração entre áreas</span>
+<span class="svc-tab-desc">CRM, ERP e sistemas conversando automaticamente.</span>
+</span>
+</button>
+</div>
+<div class="svc-stage reveal">
+<!-- PAINEL 01 — DADOS & RELATÓRIOS (novo / foco principal) -->
+<div class="svc-panel-item active" data-svc-panel="dados">
+<div class="svc-panel-top">
+<span class="svc-panel-kicker">Dados &amp; Relatórios</span>
+<span class="svc-panel-line"></span>
+<span class="svc-panel-result">Dados sempre prontos, sem esforço manual</span>
+</div>
+<h3>Da fonte ao relatório, sem ninguém tocar nos dados</h3>
+<p>Automatizamos toda a cadeia: coleta de múltiplas fontes, atualização do banco de dados, transformação e entrega do relatório. O time para de alimentar planilhas e começa a receber os dados prontos, no momento certo.</p>
+<div class="svc-panel-grid">
+<div>
+<div class="svc-panel-label">O que pode ser automatizado</div>
+<div class="svc-flow-list">
+<div class="svc-flow-row"><div class="svc-flow-num">01</div><div><strong>Coleta e atualização de banco</strong><span>Dados de ERP, CRM, planilhas e APIs entram automaticamente no banco, com frequência programada ou em tempo real.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">02</div><div><strong>Transformação e validação</strong><span>Os dados são limpos, estruturados e organizados conforme as regras do negócio antes de qualquer entrega.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">03</div><div><strong>Geração e distribuição automática</strong><span>Relatórios gerados, formatados e enviados para cada destinatário, no horário certo, sem intervenção humana.</span></div></div>
+</div>
+</div>
+<div class="svc-side-block">
+<div class="svc-panel-label">Ganhos diretos</div>
+<div class="svc-feat-list">
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Banco sempre atualizado e confiável</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Zero digitação ou cópia manual</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Dados prontos para análise e decisão</div>
+</div>
+<div class="svc-tags"><span class="svc-tag">ERP</span><span class="svc-tag">SQL</span><span class="svc-tag">APIs</span><span class="svc-tag">Relatórios</span></div>
+</div>
+</div>
+</div>
+<!-- PAINEL 02 — ALERTAS INTELIGENTES (novo / foco principal) -->
+<div class="svc-panel-item" data-svc-panel="alertas">
+<div class="svc-panel-top">
+<span class="svc-panel-kicker">Alertas Inteligentes</span>
+<span class="svc-panel-line"></span>
+<span class="svc-panel-result">Ação antes do problema escalar</span>
+</div>
+<h3>O negócio te avisa antes que você precise perguntar</h3>
+<p>Configuramos gatilhos que monitoram seus dados e disparam alertas no momento certo — quando um KPI sai do padrão, quando um prazo está vencendo, quando há uma anomalia na operação. Você age antes que o problema escale.</p>
+<div class="svc-panel-grid">
+<div>
+<div class="svc-panel-label">O que pode ser automatizado</div>
+<div class="svc-flow-list">
+<div class="svc-flow-row"><div class="svc-flow-num">01</div><div><strong>Monitoramento contínuo</strong><span>O sistema observa métricas, volumes, prazos e padrões definidos como críticos para o negócio.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">02</div><div><strong>Detecção de desvio e anomalia</strong><span>Quando algo sai do esperado — queda de receita, atraso, volume atípico — o gatilho classifica e aciona.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">03</div><div><strong>Alerta direcionado com contexto</strong><span>A notificação chega para quem precisa agir, no canal certo (WhatsApp, Slack, email), com os dados do desvio.</span></div></div>
+</div>
+</div>
+<div class="svc-side-block">
+<div class="svc-panel-label">Ganhos diretos</div>
+<div class="svc-feat-list">
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Reação rápida sem monitoramento manual</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Menos surpresas no fim do mês</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Mais controle sem esforço extra</div>
+</div>
+<div class="svc-tags"><span class="svc-tag">KPIs</span><span class="svc-tag">Slack</span><span class="svc-tag">Falar com um especialista</span><span class="svc-tag">Email</span></div>
+</div>
+</div>
+</div>
+<!-- PAINEL 03 — RELATÓRIOS PARA CLIENTES (foco principal) -->
+<div class="svc-panel-item" data-svc-panel="relatorios-clientes">
+<div class="svc-panel-top">
+<span class="svc-panel-kicker">Relatórios Automáticos</span>
+<span class="svc-panel-line"></span>
+<span class="svc-panel-result">Entrega sem esforço manual</span>
+</div>
+<h3>Relatório certo, para a pessoa certa, na hora certa</h3>
+<p>Automatizamos a geração e o envio de relatórios para gestão interna e para clientes externos. Cada destinatário recebe exatamente o que precisa, no formato correto, sem que ninguém precise montar nada manualmente.</p>
+<div class="svc-panel-grid">
+<div>
+<div class="svc-panel-label">O que pode ser automatizado</div>
+<div class="svc-flow-list">
+<div class="svc-flow-row"><div class="svc-flow-num">01</div><div><strong>Relatórios para gestão interna</strong><span>Indicadores operacionais, comerciais e financeiros entregues prontos para cada perfil da liderança.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">02</div><div><strong>Relatórios personalizados por cliente</strong><span>Cada cliente externo recebe seu relatório com os dados do período, no formato combinado, sem atraso.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">03</div><div><strong>Frequência e canal configuráveis</strong><span>Diário, semanal, mensal. PDF, Excel, email ou WhatsApp. A regra é definida uma vez e o envio acontece sozinho.</span></div></div>
+</div>
+</div>
+<div class="svc-side-block">
+<div class="svc-panel-label">Ganhos diretos</div>
+<div class="svc-feat-list">
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Nenhum relatório montado manualmente</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Clientes sempre bem informados</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Padrão garantido em toda entrega</div>
+</div>
+<div class="svc-tags"><span class="svc-tag">PDF</span><span class="svc-tag">Excel</span><span class="svc-tag">Email</span><span class="svc-tag">Falar com um especialista</span></div>
+</div>
+</div>
+</div>
+<!-- PAINEL 04 — OPERAÇÃO & PROCESSOS (secundário) -->
+<div class="svc-panel-item" data-svc-panel="operations">
+<div class="svc-panel-top">
+<span class="svc-panel-kicker">Operação &amp; Processos</span>
+<span class="svc-panel-line"></span>
+<span class="svc-panel-result">Menos gargalo no dia a dia</span>
+</div>
+<h3>Processos internos andando com regra, responsável e prazo</h3>
+<p>Solicitações internas, repasses entre áreas, aprovações, criação de tarefas e acompanhamento de status costumam travar a operação quando tudo depende de mensagens soltas e atualizações manuais. A automação cria um fluxo claro e rastreável.</p>
+<div class="svc-panel-grid">
+<div>
+<div class="svc-panel-label">O que pode ser automatizado</div>
+<div class="svc-flow-list">
+<div class="svc-flow-row"><div class="svc-flow-num">01</div><div><strong>Solicitações e aprovações</strong><span>Pedidos internos seguem por regra, valor, área, urgência ou responsável.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">02</div><div><strong>Criação de tarefas</strong><span>Quando algo acontece em um sistema, tarefas, notificações e repasses são gerados automaticamente.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">03</div><div><strong>Acompanhamento de prazos</strong><span>O fluxo avisa atrasos, pendências e mudanças de status sem depender de cobrança manual.</span></div></div>
+</div>
+</div>
+<div class="svc-side-block">
+<div class="svc-panel-label">Ganhos diretos</div>
+<div class="svc-feat-list">
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Mais clareza de responsabilidade</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Menos ruído entre áreas</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Mais rastreabilidade do processo</div>
+</div>
+<div class="svc-tags"><span class="svc-tag">Workflows</span><span class="svc-tag">Prazos</span><span class="svc-tag">Tarefas</span></div>
+</div>
+</div>
+</div>
+<div class="svc-panel-item" data-svc-panel="commercial">
+<div class="svc-panel-top">
+<span class="svc-panel-kicker">Comercial</span>
+<span class="svc-panel-line"></span>
+<span class="svc-panel-result">Mais velocidade para vender</span>
+</div>
+<h3>Do lead ao contrato com menos atrito operacional</h3>
+<p>Quando o processo comercial depende de copiar dados, montar proposta manualmente, cobrar retorno e atualizar status na mão, a operação perde ritmo. A automação organiza esse fluxo para o time comercial focar em negociação e relacionamento.</p>
+<div class="svc-panel-grid">
+<div>
+<div class="svc-panel-label">O que pode ser automatizado</div>
+<div class="svc-flow-list">
+<div class="svc-flow-row"><div class="svc-flow-num">01</div><div><strong>Captação e qualificação</strong><span>Leads entram por formulário, WhatsApp ou landing page e já seguem para o fluxo correto.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">02</div><div><strong>Propostas e follow-up</strong><span>Documentos, lembretes e cobranças de retorno podem ser disparados automaticamente.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">03</div><div><strong>Status e registro</strong><span>O CRM é atualizado sem depender de preenchimento manual a cada etapa.</span></div></div>
+</div>
+</div>
+<div class="svc-side-block">
+<div class="svc-panel-label">Ganhos diretos</div>
+<div class="svc-feat-list">
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Menos atraso nas negociações</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Mais previsibilidade no funil</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Menos retrabalho comercial</div>
+</div>
+<div class="svc-tags"><span class="svc-tag">Leads</span><span class="svc-tag">CRM</span><span class="svc-tag">Contratos</span></div>
+</div>
+</div>
+</div>
+<div class="svc-panel-item" data-svc-panel="integration">
+<div class="svc-panel-top">
+<span class="svc-panel-kicker">Integração entre áreas</span>
+<span class="svc-panel-line"></span>
+<span class="svc-panel-result">A operação conectada de ponta a ponta</span>
+</div>
+<h3>Quando os sistemas conversam, a automação ganha escala real</h3>
+<p>Em muitas empresas, o problema não é falta de sistema. É excesso de sistema isolado. Quando CRM, ERP, financeiro, marketing, atendimento e operação passam a trocar informação do jeito certo, a automação deixa de ser pontual e começa a gerar impacto de verdade.</p>
+<div class="svc-panel-grid">
+<div>
+<div class="svc-panel-label">O que pode ser automatizado</div>
+<div class="svc-flow-list">
+<div class="svc-flow-row"><div class="svc-flow-num">01</div><div><strong>Troca de dados entre plataformas</strong><span>O que acontece em um sistema atualiza os outros sem retrabalho nem duplicidade.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">02</div><div><strong>Fluxos entre áreas</strong><span>Uma ação do comercial pode disparar atendimento, financeiro, operação ou onboarding automaticamente.</span></div></div>
+<div class="svc-flow-row"><div class="svc-flow-num">03</div><div><strong>Rastreabilidade ponta a ponta</strong><span>As etapas ficam conectadas e a empresa entende melhor o que travou, andou ou saiu do padrão.</span></div></div>
+</div>
+</div>
+<div class="svc-side-block">
+<div class="svc-panel-label">Ganhos diretos</div>
+<div class="svc-feat-list">
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Menos digitação duplicada</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Mais consistência entre áreas</div>
+<div class="svc-feat"><div class="svc-feat-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>Base melhor para dados e IA</div>
+</div>
+<div class="svc-tags"><span class="svc-tag">CRM</span><span class="svc-tag">ERP</span><span class="svc-tag">APIs</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="benefits-rail-section">
+<div class="container">
+<div class="benefits-rail-header reveal">
+<div class="section-label">Benefícios da automação</div>
+<h2 class="section-title">O que a empresa ganha quando o processo deixa de depender do improviso</h2>
+<p class="section-desc">Depois de entender as dores e ver o que pode ser automatizado, o próximo passo é deixar claro o ganho real para a operação, para a liderança e para a equipe.</p>
+</div>
+<!-- Intro strip -->
+<div class="benefits-intro-strip reveal">
+<div class="benefits-intro-text">
+<h3>Uma automação bem desenhada não entrega só agilidade. Ela reduz atrito, organiza a rotina e melhora a tomada de decisão.</h3>
+<p>Menos ruído operacional. Mais previsibilidade. Mais tempo para o time agir com contexto e foco no que realmente importa.</p>
+</div>
+<div class="benefits-side-note">ganho percebido no dia a dia</div>
+</div>
+<!-- Cards Grid -->
+<div class="benefits-cards-grid reveal">
+<!-- Card 1 — Featured (wide) -->
+<article class="benefit-card card-featured">
+<div class="benefit-card-top">
+<div class="benefit-card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4"></path><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"></path></svg>
+</div>
+<div class="benefit-card-num">01</div>
+</div>
+<div class="benefit-card-body">
+<h3>Menos retrabalho e menos dependência de memória</h3>
+<p>Quando o fluxo já sabe quem recebe, o que valida, quando envia e onde registra, a operação deixa de depender de lembretes manuais, repasses informais e correções depois. O processo acontece com consistência — independente de quem está na equipe naquele dia.</p>
+</div>
+<div class="benefit-card-tag">Processo mais consistente</div>
+</article>
+<!-- Card 2 -->
+<article class="benefit-card">
+<div class="benefit-card-top">
+<div class="benefit-card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+</div>
+<div class="benefit-card-num">02</div>
+</div>
+<div class="benefit-card-body">
+<h3>Mais velocidade sem perder controle</h3>
+<p>A tarefa anda mais rápido porque o sistema dispara, organiza e encaminha automaticamente, mas com regras claras, responsáveis definidos e histórico de tudo o que aconteceu.</p>
+</div>
+<div class="benefit-card-tag">Agilidade com regra</div>
+</article>
+<!-- Card 3 -->
+<article class="benefit-card">
+<div class="benefit-card-top">
+<div class="benefit-card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<div class="benefit-card-num">03</div>
+</div>
+<div class="benefit-card-body">
+<h3>Menos erro operacional e mais padronização</h3>
+<p>Copiar e colar, esquecer anexos, enviar para a pessoa errada ou lançar informação duplicada são falhas comuns em rotinas manuais. A automação reduz esse tipo de ruído na origem.</p>
+</div>
+<div class="benefit-card-tag">Menos falha humana</div>
+</article>
+<!-- Card 4 -->
+<article class="benefit-card">
+<div class="benefit-card-top">
+<div class="benefit-card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M2 12h5m0 0l3-3m-3 3l3 3M22 12h-5m0 0l-3-3m3 3l-3 3"></path><circle cx="12" cy="12" r="3"></circle></svg>
+</div>
+<div class="benefit-card-num">04</div>
+</div>
+<div class="benefit-card-body">
+<h3>Mais visibilidade para gestão e auditoria</h3>
+<p>Com dados registrados em cada etapa, fica mais fácil acompanhar status, identificar gargalos, comprovar execução e tomar decisão com base no processo real, não em percepção.</p>
+</div>
+<div class="benefit-card-tag">Rastreabilidade real</div>
+</article>
+<!-- Card 5 -->
+<article class="benefit-card">
+<div class="benefit-card-top">
+<div class="benefit-card-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+</div>
+<div class="benefit-card-num">05</div>
+</div>
+<div class="benefit-card-body">
+<h3>Equipe mais focada no que realmente gera valor</h3>
+<p>Pessoas deixam de gastar energia com tarefas repetitivas e podem atuar em análise, atendimento qualificado, negociação e decisão. O ganho não é só operacional — é estratégico.</p>
+</div>
+<div class="benefit-card-tag">Mais energia no core</div>
+</article>
+</div><!-- /grid -->
+</div>
+</section>
+<!-- NODE MAP REMOVED -->
+<section class="nodes-section" style="display:none">
+<div class="nodes-inner">
+<div class="nodes-header reveal">
+<div class="section-label">Como a automação conecta tudo</div>
+<h2 class="section-title">Um fluxo conecta todas as suas ferramentas</h2>
+<p class="section-desc" style="margin:0 auto">Cada nó é uma ação, uma ferramenta ou uma decisão. A n4flow monta esse mapa para a sua operação, sem precisar de programadores internos.</p>
+</div>
+<div class="nodes-canvas reveal">
+<svg class="nodes-svg" id="nodeMap" viewbox="0 0 1020 360">
+<!-- ── EDGES top row ── -->
+<line class="n-edge" opacity=".6" stroke="#F07B2B" x1="140" x2="240" y1="105" y2="105"></line>
+<line class="n-edge" opacity=".55" stroke="#F07B2B" x1="350" x2="440" y1="105" y2="105"></line>
+<line class="n-edge" opacity=".65" stroke="#34D399" x1="550" x2="630" y1="105" y2="105"></line>
+<line class="n-edge" opacity=".65" stroke="#34D399" x1="740" x2="820" y1="105" y2="105"></line>
+<!-- ── BRANCH EDGES ── -->
+<path class="n-edge" d="M295,130 Q295,205 295,215" opacity=".45" stroke="#FBBF24"></path>
+<path class="n-edge" d="M295,130 Q295,210 620,215" opacity=".4" stroke="#60A5FA"></path>
+<path class="n-edge" d="M295,130 Q295,230 870,215" opacity=".35" stroke="#60A5FA"></path>
+<!-- Sub-connectors -->
+<line class="n-edge" opacity=".3" stroke="#FBBF24" x1="295" x2="420" y1="265" y2="280"></line>
+<line class="n-edge" opacity=".3" stroke="#60A5FA" x1="620" x2="700" y1="260" y2="280"></line>
+<!-- ── EDGE LABELS ── -->
+<text class="n-edgelabel" text-anchor="middle" x="190" y="96">dados</text>
+<text class="n-edgelabel" text-anchor="middle" x="395" y="96">dispara</text>
+<text class="n-edgelabel" text-anchor="middle" x="590" y="96">sim</text>
+<text class="n-edgelabel" text-anchor="middle" x="780" y="96">aprovado</text>
+<!-- ── TRIGGER NODE (laranja) ── -->
+<rect fill="#2A1F0F" height="64" rx="12" stroke="#F07B2B" stroke-width="2" width="120" x="20" y="68"></rect>
+<text class="n-label" style="fill:#F59D5E" text-anchor="middle" x="80" y="97">⚡ Gatilho</text>
+<text class="n-sublabel" text-anchor="middle" x="80" y="113">Form / Webhook / Evento</text>
+<!-- ── CONDITION NODE (amarelo) ── -->
+<rect fill="#201D0C" height="64" rx="12" stroke="#FBBF24" stroke-width="2" width="110" x="240" y="68"></rect>
+<text class="n-label" style="fill:#FCD34D" text-anchor="middle" x="295" y="97">⬡ Condição</text>
+<text class="n-sublabel" text-anchor="middle" x="295" y="113">Valor &gt; R$ 5k?</text>
+<!-- ── NOTIFY NODE (azul) ── -->
+<rect fill="#0D1520" height="64" rx="12" stroke="#60A5FA" stroke-width="2" width="110" x="440" y="68"></rect>
+<text class="n-label" style="fill:#93C5FD" text-anchor="middle" x="495" y="97">✉ Notificação</text>
+<text class="n-sublabel" text-anchor="middle" x="495" y="113">Email + Slack</text>
+<!-- ── APPROVAL NODE (verde) ── -->
+<rect fill="#0A1E18" height="64" rx="12" stroke="#34D399" stroke-width="2" width="110" x="630" y="68"></rect>
+<text class="n-label" style="fill:#6EE7B7" text-anchor="middle" x="685" y="97">✓ Aprovação</text>
+<text class="n-sublabel" text-anchor="middle" x="685" y="113">Gestor via app</text>
+<!-- ── ERP NODE (verde) ── -->
+<rect fill="#0A1E18" height="64" rx="12" stroke="#34D399" stroke-width="2" width="110" x="820" y="68"></rect>
+<text class="n-label" style="fill:#6EE7B7" text-anchor="middle" x="875" y="97">⚙ ERP</text>
+<text class="n-sublabel" text-anchor="middle" x="875" y="113">Registro automático</text>
+<!-- ── BRANCH NODES ── -->
+<rect fill="#1A1408" height="50" rx="10" stroke="#FBBF24" stroke-width="1.5" width="130" x="230" y="215"></rect>
+<text class="n-sublabel" style="font-size:9px;fill:#FCD34D;font-weight:700" text-anchor="middle" x="295" y="237">Auto-aprovar</text>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.5)" text-anchor="middle" x="295" y="252">&lt; R$ 5k</text>
+<rect fill="#0D1320" height="50" rx="10" stroke="#60A5FA" stroke-width="1.5" width="130" x="555" y="215"></rect>
+<text class="n-sublabel" style="font-size:9px;fill:#93C5FD;font-weight:700" text-anchor="middle" x="620" y="237">Dir. Financeiro</text>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.5)" text-anchor="middle" x="620" y="252">&gt; R$ 50k</text>
+<rect fill="#0A1812" height="50" rx="10" stroke="#34D399" stroke-width="1.5" width="130" x="810" y="215"></rect>
+<text class="n-sublabel" style="font-size:9px;fill:#6EE7B7;font-weight:700" text-anchor="middle" x="875" y="237">Notif. Solicitante</text>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.5)" text-anchor="middle" x="875" y="252">Falar com um especialista</text>
+<!-- ── FINAL NODES ── -->
+<rect fill="#181B24" height="38" rx="8" stroke="rgba(255,255,255,.15)" stroke-width="1" width="100" x="370" y="280"></rect>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.55)" text-anchor="middle" x="420" y="301">Log + Audit</text>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.35)" text-anchor="middle" x="420" y="313">trail</text>
+<rect fill="#181B24" height="38" rx="8" stroke="rgba(255,255,255,.15)" stroke-width="1" width="100" x="650" y="280"></rect>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.55)" text-anchor="middle" x="700" y="301">Dashboard</text>
+<text class="n-sublabel" style="font-size:9px;fill:rgba(255,255,255,.35)" text-anchor="middle" x="700" y="313">atualizado</text>
+<!-- ── POWERED BY BADGE ── -->
+<rect fill="rgba(240,123,43,.12)" height="28" rx="7" stroke="rgba(240,123,43,.25)" stroke-width="1" width="150" x="840" y="308"></rect>
+<text style="font-family:'DM Mono',monospace;font-size:9px;fill:rgba(240,123,43,.85)" text-anchor="middle" x="915" y="326">n4flow · n8n · Make</text>
+</svg>
+</div>
+</div>
+</section>
+<!-- IMPACT SECTION REMOVED -->
+<!-- HOW IT WORKS -->
+<section class="how-section">
+<div class="how-inner">
+<div class="how-header reveal">
+<div class="section-label">Como funciona</div>
+<h2 class="section-title">Da rotina manual à automação rodando<br/>em 4 etapas</h2>
+<p class="section-desc">Não pedimos para você repensar a empresa. Mapeamos o que existe e automatizamos etapa por etapa, com validação sua em cada fase.</p>
+</div>
+<div class="how-steps">
+<div class="how-step reveal">
+<div class="how-step-num">1</div>
+<div class="how-step-body">
+<h3>Diagnóstico e mapeamento de processos</h3>
+<p>Identificamos tudo o que pode ser automatizado: onde estão os gargalos, quais tarefas consomem mais tempo, quais dependem de esforço humano repetitivo e quais sistemas precisam se falar. Esse mapeamento é a base para tudo o que vem depois.</p>
+<div class="how-step-chips">
+<span class="how-step-chip">Entrevistas com o time</span>
+<span class="how-step-chip">Mapeamento de sistemas</span>
+<span class="how-step-chip">Inventário de processos</span>
+</div>
+</div>
+</div>
+<div class="how-step reveal">
+<div class="how-step-num">2</div>
+<div class="how-step-body">
+<h3>Desenho do fluxo automatizado</h3>
+<p>Desenhamos o fluxo junto com você: gatilhos, condições, integrações, notificações e regras de negócio. Cada detalhe é documentado e validado antes de qualquer implementação. Você aprova o desenho completo antes de avançar.</p>
+<div class="how-step-chips">
+<span class="how-step-chip">Fluxogramas</span>
+<span class="how-step-chip">Regras e condições</span>
+<span class="how-step-chip">Validação com stakeholders</span>
+</div>
+</div>
+</div>
+<div class="how-step reveal">
+<div class="how-step-num">3</div>
+<div class="how-step-body">
+<h3>Implementação e testes com dados reais</h3>
+<p>Construímos e integramos o fluxo com todos os sistemas necessários — ERP, CRM, WhatsApp, email, planilhas e APIs internas. Testamos cada cenário com dados reais da operação e validamos com o time antes de entrar em produção.</p>
+<div class="how-step-chips">
+<span class="how-step-chip">Integrações via API</span>
+<span class="how-step-chip">Testes com dados reais</span>
+<span class="how-step-chip">Validação com usuários</span>
+</div>
+</div>
+</div>
+<div class="how-step reveal">
+<div class="how-step-num">4</div>
+<div class="how-step-body">
+<h3>Monitoramento, expansão e evolução contínua</h3>
+<p>Acompanhamos as execuções, medimos o impacto, ajustamos comportamentos e expandimos continuamente. A automação é entregue como ativo da empresa — documentada, escalável e preparada para crescer com o negócio sem dependência permanente da n4flow.</p>
+<div class="how-step-chips">
+<span class="how-step-chip">Monitoramento de execuções</span>
+<span class="how-step-chip">Documentação</span>
+<span class="how-step-chip">Escalável</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TOOLS STRIP -->
+<div class="tools-section">
+<div class="tools-inner">
+<div class="tools-title reveal">Ferramentas e plataformas que utilizamos</div>
+<div class="tools-list reveal">
+<!-- n8n -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#F05528" height="40" rx="8" width="40"></rect><circle cx="10" cy="20" fill="#fff" r="5"></circle><circle cx="30" cy="12" fill="#fff" r="5"></circle><circle cx="30" cy="28" fill="#fff" r="5"></circle><line stroke="#fff" stroke-width="2" x1="15" x2="25" y1="18" y2="13"></line><line stroke="#fff" stroke-width="2" x1="15" x2="25" y1="22" y2="27"></line></svg>
+        n8n
+      </div>
+<!-- Make (Integromat) -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#6D00CC" height="40" rx="8" width="40"></rect><text fill="#fff" font-family="Arial" font-size="18" font-weight="900" text-anchor="middle" x="50%" y="27">M</text></svg>
+        Make (Integromat)
+      </div>
+<!-- Claude / Anthropic -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#D97706" height="40" rx="8" width="40"></rect><path d="M20 8 L26 24 L30 24 L22 8 Z" fill="#fff"></path><path d="M20 8 L14 24 L10 24 L18 8 Z" fill="#fff" opacity=".7"></path><path d="M12 20 L28 20" stroke="#fff" stroke-linecap="round" stroke-width="2.5"></path></svg>
+        Claude / Anthropic
+      </div>
+<!-- OpenAI -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#10a37f" height="40" rx="8" width="40"></rect><path d="M20 9.5C14.2 9.5 9.5 14.2 9.5 20c0 5.8 4.7 10.5 10.5 10.5 5.8 0 10.5-4.7 10.5-10.5 0-5.8-4.7-10.5-10.5-10.5zm0 3.5c1.4 0 2.7.4 3.8 1L14 22.8C13.4 21.7 13 20.4 13 19c0-3.9 3.1-7 7-7zm0 14c-1.4 0-2.7-.4-3.8-1L26 17.2c.6 1.1 1 2.4 1 3.8 0 3.9-3.1 7-7 7z" fill="#fff"></path></svg>
+        OpenAI
+      </div>
+<!-- WhatsApp -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#25D366" height="40" rx="8" width="40"></rect><path d="M20 8C13.4 8 8 13.4 8 20c0 2.1.6 4.2 1.6 5.9L8 32l6.3-1.6C16 31.4 18 32 20 32c6.6 0 12-5.4 12-12S26.6 8 20 8zm5.8 16.5c-.3.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.2-.2-1.4-1.9-1.4-3.6 0-1.7.9-2.5 1.2-2.8.3-.4.7-.4.9-.4h.7c.2 0 .5 0 .7.5.3.6 1 2.4 1.1 2.6.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.1.2-.3.4-.4.5-.1.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.5 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.9.9 2.2 1.1.3.2.5.3.6.4.1.3.1.9-.2 1.6z" fill="#fff"></path></svg>
+        WhatsApp API
+      </div>
+<!-- Slack -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="40" rx="8" width="40"></rect><rect fill="#E01E5A" height="6" rx="2" width="6" x="8" y="16"></rect><rect fill="#E01E5A" height="8" opacity=".5" rx="2" width="6" x="8" y="24"></rect><rect fill="#36C5F0" height="6" opacity=".5" rx="2" width="6" x="16" y="8"></rect><rect fill="#36C5F0" height="6" rx="2" width="6" x="16" y="16"></rect><rect fill="#ECB22E" height="6" rx="2" width="6" x="24" y="16"></rect><rect fill="#ECB22E" height="6" opacity=".5" rx="2" width="8" x="24" y="8"></rect><rect fill="#2EB67D" height="6" rx="2" width="6" x="16" y="24"></rect><rect fill="#2EB67D" height="6" opacity=".5" rx="2" width="6" x="8" y="24"></rect></svg>
+        Slack
+      </div>
+<!-- Microsoft Teams -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#5059C9" height="40" rx="8" width="40"></rect><circle cx="26" cy="13" fill="#fff" opacity=".9" r="4"></circle><path d="M30 21c0-1.1-.9-2-2-2H18c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-7z" fill="#fff"></path><path d="M14 18h-2c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h2v-10z" fill="#fff" opacity=".6"></path></svg>
+        Microsoft Teams
+      </div>
+<!-- Google Workspace -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="40" rx="8" width="40"></rect><path d="M30.5 20.2c0-.7-.1-1.4-.2-2H20v3.8h5.9c-.3 1.3-1 2.4-2 3.1v2.6h3.2c1.9-1.7 3-4.3 3-7.5z" fill="#4285F4"></path><path d="M20 32c3 0 5.5-1 7.3-2.7l-3.2-2.6c-1 .7-2.3 1.1-4.1 1.1-3.1 0-5.7-2.1-6.7-5H10v2.7C11.8 29.8 15.6 32 20 32z" fill="#34A853"></path><path d="M13.3 22.7c-.2-.7-.4-1.5-.4-2.7s.1-2 .4-2.7V14.6H10C9.1 16.3 8.6 18.1 8.6 20s.5 3.7 1.4 5.4l3.3-2.7z" fill="#FBBC05"></path><path d="M20 13.4c1.8 0 3.4.6 4.6 1.8l3.4-3.4C26.1 9.9 23.3 8.7 20 8.7c-4.4 0-8.2 2.2-10 5.4l3.3 2.7c1-2.9 3.6-5 6.7-5z" fill="#EA4335"></path></svg>
+        Google Workspace
+      </div>
+<!-- HubSpot -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#FF7A59" height="40" rx="8" width="40"></rect><circle cx="25" cy="13" fill="#fff" r="4"></circle><circle cx="25" cy="13" fill="#FF7A59" r="2"></circle><line stroke="#fff" stroke-linecap="round" stroke-width="2.5" x1="21" x2="17" y1="13" y2="19"></line><circle cx="13" cy="23" fill="#fff" r="5"></circle><circle cx="13" cy="23" fill="#FF7A59" r="2.5"></circle><line stroke="#fff" stroke-linecap="round" stroke-width="2.5" x1="17" x2="23" y1="21" y2="18"></line><circle cx="27" cy="27" fill="#fff" r="4"></circle><circle cx="27" cy="27" fill="#FF7A59" r="2"></circle><line stroke="#fff" stroke-linecap="round" stroke-width="2.5" x1="17" x2="23" y1="25" y2="26"></line></svg>
+        HubSpot
+      </div>
+<!-- Pipedrive -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#00a45b" height="40" rx="8" width="40"></rect><circle cx="20" cy="18" r="7" stroke="#fff" stroke-width="3"></circle><circle cx="20" cy="18" fill="#fff" r="3"></circle><line stroke="#fff" stroke-linecap="round" stroke-width="3" x1="20" x2="20" y1="25" y2="32"></line></svg>
+        Pipedrive
+      </div>
+<!-- RD Station -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#F23665" height="40" rx="8" width="40"></rect><text fill="#fff" font-family="Arial" font-size="13" font-weight="900" text-anchor="middle" x="50%" y="26">RD</text></svg>
+        RD Station
+      </div>
+<!-- Salesforce -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#009EDB" height="40" rx="8" width="40"></rect><path d="M15 24c-3.3 0-6-2.7-6-6s2.7-6 6-6c1.4 0 2.7.5 3.7 1.3.9-1.9 2.8-3.3 5-3.3 3 0 5.4 2.4 5.4 5.4 0 .2 0 .4-.1.6.3-.1.7-.1 1-.1 2.2 0 4 1.8 4 4s-1.8 4-4 4H15z" fill="#fff"></path></svg>
+        Salesforce
+      </div>
+<!-- TOTVS / SAP -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#003399" height="40" rx="8" width="40"></rect><text fill="#fff" font-family="Arial" font-size="13" font-weight="900" text-anchor="middle" x="50%" y="27">SAP</text></svg>
+        TOTVS / SAP
+      </div>
+<!-- Omie -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#0066FF" height="40" rx="8" width="40"></rect><text fill="#fff" font-family="Arial" font-size="14" font-weight="900" text-anchor="middle" x="50%" y="27">Om</text></svg>
+        Omie
+      </div>
+<!-- Docusign -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#FFCC22" height="40" rx="8" width="40"></rect><path d="M13 8h8c5 0 9 4 9 9v0c0 5-4 9-9 9h-8V8z" fill="#1A1A1A"></path><circle cx="26" cy="29" fill="#1A1A1A" r="5"></circle><circle cx="26" cy="29" fill="#FFCC22" r="2"></circle></svg>
+        Docusign
+      </div>
+<!-- ClickSign -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#5956E9" height="40" rx="8" width="40"></rect><path d="M22 12h-6a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4v-6l-6-6z" fill="#fff"></path><path d="M22 12v5h5" fill="none" stroke="#5956E9" stroke-width="1.5"></path><path d="M14 22l3 3 6-6" stroke="#5956E9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        ClickSign
+      </div>
+<!-- Pipefy -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#0B84FF" height="40" rx="8" width="40"></rect><rect fill="#fff" height="16" rx="4" width="8" x="9" y="12"></rect><rect fill="#fff" height="4" rx="2" width="10" x="21" y="12"></rect><rect fill="#fff" height="4" opacity=".6" rx="2" width="10" x="21" y="18"></rect><rect fill="#fff" height="4" opacity=".4" rx="2" width="7" x="21" y="24"></rect></svg>
+        Pipefy
+      </div>
+<!-- Monday.com -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="40" rx="8" width="40"></rect><ellipse cx="11" cy="25" fill="#FF3750" rx="5" ry="5"></ellipse><ellipse cx="20" cy="25" fill="#FFCB00" rx="5" ry="5"></ellipse><ellipse cx="29" cy="25" fill="#00D9A5" rx="5" ry="5"></ellipse></svg>
+        Monday.com
+      </div>
+<!-- Jira -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#0052CC" height="40" rx="8" width="40"></rect><path d="M20 8L9 20l11 12 11-12L20 8zm0 4.8L27.2 20 20 27.2 12.8 20 20 12.8z" fill="#fff"></path><circle cx="20" cy="20" fill="#fff" r="4"></circle></svg>
+        Jira
+      </div>
+<!-- Notion -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="40" rx="8" stroke="#E5E5E5" width="40"></rect><path d="M11 10h13l5 5v15H11V10z" fill="#1A1A1A"></path><path d="M24 10v5h5" fill="none" stroke="#1A1A1A" stroke-width="1.5"></path><line stroke="#fff" stroke-linecap="round" stroke-width="1.5" x1="15" x2="25" y1="18" y2="18"></line><line stroke="#fff" stroke-linecap="round" stroke-width="1.5" x1="15" x2="25" y1="22" y2="22"></line><line stroke="#fff" stroke-linecap="round" stroke-width="1.5" x1="15" x2="21" y1="26" y2="26"></line></svg>
+        Notion
+      </div>
+<!-- Airtable -->
+<div class="tool-chip">
+<svg fill="none" viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect fill="#18BFFF" height="40" rx="8" width="40"></rect><rect fill="#fff" height="8" rx="2" width="11" x="8" y="14"></rect><rect fill="#FCB400" height="8" rx="2" width="11" x="21" y="14"></rect><rect fill="#F82B60" height="7" opacity=".8" rx="2" width="11" x="8" y="24"></rect><rect fill="#fff" height="7" opacity=".7" rx="2" width="11" x="21" y="24"></rect></svg>
+        Airtable
+      </div>
+</div>
+</div>
+</div>
+<!-- CTA FINAL -->
+<section class="cta-final">
+<div class="cta-inner reveal">
+<div class="section-label">Próximo passo</div>
+<h2>Quais relatórios e alertas da sua empresa podem rodar sozinhos?</h2>
+<p class="cta-sub">No diagnóstico gratuito, mapeamos sua operação e identificamos os três processos com maior potencial de automação, com estimativa de tempo e custo economizados.</p>
+<div class="cta-buttons">
+<a class="btn-hero-primary" href="/diagnostico/">Solicitar diagnóstico <svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="btn-hero-ghost" href="https://wa.me/551152864920" rel="noopener" target="_blank"><svg fill="currentColor" height="17" style="flex-shrink:0;opacity:.85" viewbox="0 0 24 24" width="17"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="footer-content">
+<div>
+<svg aria-label="n4flow" class="footer-logo" viewbox="0 0 794 265" xmlns="http://www.w3.org/2000/svg">
+<text fill="#F07B2B" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="0" y="222">n</text>
+<g transform="translate(6,0)"><path d="m 275.38826,221.58323 c -3.04762,-0.51146 -6.02027,-2.6528 -7.57358,-5.45561 l -0.7608,-1.37278 -0.13229,-15.875 -0.13229,-15.875 -33.86667,-0.14822 c -30.06233,-0.13156 -34.0193,-0.19587 -35.22551,-0.57251 -11.46996,-3.58155 -17.94484,-12.86428 -17.95245,-25.73761 -0.005,-9.03976 0.15171,-9.37145 12.05677,-25.46261 2.55845,-3.45806 6.55878,-8.96629 8.88962,-12.24051 2.33084,-3.27422 5.44736,-7.62 6.92561,-9.65729 1.47824,-2.03729 5.00702,-6.91886 7.84172,-10.847925 2.8347,-3.92906 6.59299,-9.10828 8.35175,-11.50937 1.75876,-2.4011 3.93325,-5.420918 4.8322,-6.710728 0.89895,-1.2898 1.91482,-2.69102 2.25748,-3.11383 0.71049,-0.87666 6.75735,-9.19213 13.05778,-17.95669 8.93374,-12.42778 12.87182,-17.43256 16.14343,-20.51616 13.69781,-12.91066 33.85155,-10.13621 38.40732,5.28731 0.55026,1.8629 0.5517,1.99412 0.59802,54.605738 0.0255,29.006095 0.11161,52.803525 0.19127,52.883185 0.0797,0.0797 5.89474,0.12811 12.92241,0.10768 15.0283,-0.0437 13.47224,-0.51274 13.63117,4.10888 0.58267,16.94394 -7.51197,27.08572 -22.02025,27.58916 l -4.49792,0.15608 -0.16767,11.37708 c -0.19923,13.51863 -0.3344,14.22007 -3.54523,18.39805 -5.23369,6.81016 -12.43119,9.8478 -20.23189,8.53868 z m -8.54439,-70.29477 c 0.0676,-0.0676 0.15919,-14.80699 0.20361,-32.75428 0.0444,-17.94728 0.17034,-33.851825 0.27984,-35.343403 0.28063,-3.82277 0.13285,-3.73792 -4.24219,2.435818 -1.30968,1.84814 -4.52757,6.29774 -7.15085,9.888 -2.62328,3.59025 -6.12916,8.432745 -7.79084,10.761075 -3.41798,4.78925 -6.64856,9.22508 -11.10378,15.24634 -1.68228,2.27361 -5.7376,7.78905 -9.01182,12.25654 -8.56037,11.68015 -8.40556,11.47012 -10.64948,14.44855 -1.12778,1.49695 -2.05052,2.85011 -2.05052,3.00702 -1e-5,0.28257 51.23376,0.33661 51.51603,0.0543 z" fill="#F07B2B"></path></g>
+<text fill="rgba(255,255,255,.25)" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="320" y="222">flow</text>
+</svg>
+<p class="footer-tagline">IA, Dados &amp; Automação aplicados à operação da sua empresa.<br/>São Paulo, SP · Atendimento em todo o Brasil</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Soluções</p>
+<a href="/dados/">Inteligência de Dados</a>
+<a href="/automacao/">Automação</a>
+<a href="/ia/">IA para Negócios</a>
+<a href="/">Ver tudo</a>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<a href="/">Home</a>
+<a href="/sobre/">Sobre a n4flow</a>
+<a href="/">Método</a>
+<a href="/">FAQ</a>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Contato</p>
+<a href="https://www.linkedin.com/company/n4flow" rel="noopener" target="_blank">LinkedIn</a>
+<a href="https://wa.me/551152864920" rel="noopener" target="_blank">Falar com um especialista</a>
+<a href="/diagnostico/">Solicitar diagnóstico</a>
+</div>
+</div>
+<div class="footer-bottom">
+<p class="footer-copy">© 2026 n4flow. Todos os direitos reservados.</p>
+<p class="footer-copy">IA · Dados · Automação</p>
+</div>
+</footer>
+<a aria-label="Falar com um especialista" class="float-contact" href="https://wa.me/551152864920" rel="noopener" target="_blank">
+<svg fill="currentColor" height="18" style="flex-shrink:0" viewbox="0 0 24 24" width="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
+<span>Falar com um especialista</span>
+</a>
+<script>
+// ── NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+document.querySelector('.hamburger').addEventListener('click', () => document.getElementById('mob-menu').classList.toggle('open'));
+
+// ── SERVICE ACCORDION
+function setSvcTab(id) {
+  document.querySelectorAll('.svc-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.svc === id);
+  });
+  document.querySelectorAll('.svc-panel-item').forEach(panel => {
+    panel.classList.toggle('active', panel.dataset.svcPanel === id);
+  });
+}
+
+const revObs = new IntersectionObserver(es => es.forEach((e,i) => {
+  if(e.isIntersecting){ setTimeout(() => e.target.classList.add('visible'), i*60); revObs.unobserve(e.target); }
+}), {threshold:.08});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// ── KPI COUNT-UP
+function countUp(el){
+  const target = parseFloat(el.dataset.count), suffix = el.dataset.suffix || '', dur = 1800;
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min((now-start)/dur, 1), ease = 1-Math.pow(1-p,3);
+    const val = target*ease, isInt = Number.isInteger(target);
+    el.textContent = (isInt ? Math.round(val) : val.toFixed(1)) + suffix;
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const kpiObs = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ countUp(e.target); kpiObs.unobserve(e.target); }
+}), {threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el => kpiObs.observe(el));
+
+// ── FLOW SCENARIOS
+const SCENARIOS = {
+  relatorio: {
+    title: 'n4flow Automation Engine, Relatório Gerencial Semanal',
+    exec: 52, time: '18.4s', save: '12h',
+    steps: [
+      {icon:'⏰',name:'Agendamento disparado',desc:'Segunda-feira, 07:00 — gatilho temporal automático',t:'0.0s'},
+      {icon:'📊',name:'Coleta de dados',desc:'Puxa dados do ERP, CRM e Financeiro via API',t:'8.2s'},
+      {icon:'🔄',name:'Processamento dos KPIs',desc:'Calcula 24 indicadores, variações e destaques',t:'4.1s'},
+      {icon:'📄',name:'Montagem do PDF',desc:'Template preenchido — 8 páginas, 24 gráficos',t:'3.8s'},
+      {icon:'📬',name:'Envio por e-mail',desc:'12 destinatários recebem versão personalizada',t:'1.8s'},
+      {icon:'💬',name:'Resumo no Slack',desc:'Digest de 5 linhas postado no canal #gestao',t:'0.5s'},
+    ],
+    logs: [
+      {t:'07:00:00',type:'info',msg:'<strong>Agendamento</strong>: relatório semanal iniciado'},
+      {t:'07:00:01',type:'act',msg:'<strong>ERP</strong>: buscando faturamento, custos e pedidos da semana'},
+      {t:'07:00:09',type:'act',msg:'<strong>HubSpot</strong>: buscando pipeline, conversões e novos leads'},
+      {t:'07:00:13',type:'ok',msg:'<strong>KPIs calculados</strong>: 24 indicadores atualizados'},
+      {t:'07:00:17',type:'ok',msg:'<strong>PDF gerado</strong>: 8 páginas, 24 gráficos — 12 versões personalizadas'},
+      {t:'07:00:19',type:'ok',msg:'<strong>Enviado</strong>: 12 e-mails entregues, 0 erros'},
+      {t:'07:00:19',type:'ok',msg:'<strong>Slack</strong>: digest postado em #gestao com 5 destaques da semana'},
+    ]
+  },
+  dashboard: {
+    title: 'n4flow Automation Engine, Dashboard + Alertas de KPIs',
+    exec: 890, time: '3.2s', save: '20h',
+    steps: [
+      {icon:'🔗',name:'Integração ativada',desc:'Conexão com ERP, CRM, Financeiro e Marketing',t:'0.0s'},
+      {icon:'📡',name:'Coleta em tempo real',desc:'Indicadores puxados automaticamente de cada fonte',t:'1.1s'},
+      {icon:'📊',name:'Dashboard atualizado',desc:'Visão unificada por área — Comercial, Financeiro, Ops',t:'0.8s'},
+      {icon:'🔴',name:'Limite atingido detectado',desc:'Inadimplência ultrapassou 8% — gatilho ativado',t:'0.5s'},
+      {icon:'📲',name:'Alerta disparado',desc:'Diretoria recebe notificação no WhatsApp e e-mail',t:'0.4s'},
+      {icon:'📋',name:'Relatório de contexto gerado',desc:'IA monta resumo com causa provável e histórico',t:'0.4s'},
+    ],
+    logs: [
+      {t:'14:30:00',type:'info',msg:'<strong>Atualização</strong>: ciclo de coleta de dados iniciado'},
+      {t:'14:30:01',type:'act',msg:'<strong>ERP</strong>: faturamento, custos e contas a receber atualizados'},
+      {t:'14:30:02',type:'act',msg:'<strong>CRM</strong>: pipeline, conversão e ticket médio atualizados'},
+      {t:'14:30:02',type:'ok',msg:'<strong>Dashboard</strong>: 18 indicadores atualizados em tempo real'},
+      {t:'14:30:03',type:'ok',msg:'<strong>Alerta</strong>: inadimplência 8.4% — limite de 8% ultrapassado'},
+      {t:'14:30:03',type:'act',msg:'<strong>Falar com um especialista</strong>: alerta enviado para Diretora Financeira'},
+      {t:'14:30:03',type:'ok',msg:'<strong>IA</strong>: relatório de contexto gerado — 3 clientes concentram 71% do atraso'},
+    ]
+  },
+  erp: {
+    title: 'n4flow Automation Engine, Lançamento no ERP #PV-00512',
+    exec: 1240, time: '6.3s', save: '40h',
+    steps: [
+      {icon:'📥',name:'Pedido recebido',desc:'E-mail do cliente com planilha de pedido em anexo',t:'0.0s'},
+      {icon:'🤖',name:'Extração inteligente',desc:'IA lê o anexo e extrai itens, quantidades e valores',t:'2.1s'},
+      {icon:'🔍',name:'Validação dos dados',desc:'Confere SKUs, estoque disponível e limite de crédito',t:'1.4s'},
+      {icon:'⚙️',name:'Lançamento no ERP',desc:'Pedido de venda criado automaticamente no TOTVS',t:'1.8s'},
+      {icon:'📊',name:'Planilha de controle atualizada',desc:'Registro adicionado ao consolidado da equipe',t:'0.6s'},
+      {icon:'📧',name:'Confirmação ao cliente',desc:'E-mail automático com número do pedido e prazo',t:'0.4s'},
+    ],
+    logs: [
+      {t:'10:47:03',type:'info',msg:'<strong>E-mail recebido</strong>: pedido de Distribuidora Omega, planilha .xlsx'},
+      {t:'10:47:04',type:'act',msg:'<strong>IA</strong>: lendo anexo — 23 itens, R$ 87.400 em produtos'},
+      {t:'10:47:05',type:'ok',msg:'<strong>Extração concluída</strong>: 23 SKUs identificados, 0 erros'},
+      {t:'10:47:06',type:'ok',msg:'<strong>Validação</strong>: estoque OK, crédito disponível R$ 120.000'},
+      {t:'10:47:07',type:'ok',msg:'<strong>TOTVS</strong>: pedido #PV-00512 criado, R$ 87.400'},
+      {t:'10:47:08',type:'ok',msg:'<strong>Planilha</strong>: linha adicionada ao controle de pedidos do dia'},
+      {t:'10:47:08',type:'ok',msg:'<strong>Email</strong>: confirmação enviada — prazo de entrega: 5 dias úteis'},
+    ]
+  }
+};
+
+let currentScenario = 'relatorio';
+let flowTimer = null;
+let animGen = 0; // generation counter — incremented on every reset to kill stale timeouts
+
+function buildFlow(key) {
+  const sc = SCENARIOS[key];
+  if (!sc) return;
+
+  animGen++; // invalidate any running animation
+
+  document.getElementById('flowTitle').textContent = sc.title;
+  document.getElementById('statExec').textContent = sc.exec.toLocaleString('pt-BR');
+  document.getElementById('statTime').textContent = sc.time;
+  document.getElementById('statSave').textContent = sc.save;
+
+  // Build steps HTML
+  const list = document.getElementById('flowStepsList');
+  list.innerHTML = '';
+  sc.steps.forEach((s, i) => {
+    const step = document.createElement('div');
+    step.className = 'fl-step';
+    step.dataset.i = i;
+    step.innerHTML = `
+      <div class="fl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="fl-step-body">
+        <div class="fl-step-name">${s.icon} ${s.name}</div>
+        <div class="fl-step-desc">${s.desc}</div>
+      </div>
+      <div class="fl-step-time"></div>`;
+    list.appendChild(step);
+
+    if (i < sc.steps.length - 1) {
+      const conn = document.createElement('div');
+      conn.className = 'fl-connector';
+      conn.dataset.ci = i;
+      list.appendChild(conn);
+    }
+  });
+
+  // Build log HTML
+  const log = document.getElementById('flowLog');
+  log.innerHTML = '';
+  sc.logs.forEach(l => {
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = `<span class="log-ts">${l.t.slice(6)}</span><div class="log-dot ${l.type}"></div><div class="log-text">${l.msg}</div>`;
+    log.appendChild(entry);
+  });
+
+  document.getElementById('flowPF').style.width = '0%';
+  document.getElementById('flowPT').textContent = `0/${sc.steps.length} etapas`;
+  document.getElementById('flowBadge').className = 'flow-running-badge waiting';
+  document.getElementById('flowBadge').textContent = 'Aguardando';
+}
+
+function runFlow() {
+  const myGen = animGen; // capture generation at start
+  const sc = SCENARIOS[currentScenario];
+  const steps = document.querySelectorAll('.fl-step');
+  const conns = document.querySelectorAll('.fl-connector');
+  const logEntries = document.querySelectorAll('.log-entry');
+  const badge = document.getElementById('flowBadge');
+
+  badge.className = 'flow-running-badge running';
+  badge.textContent = 'Executando';
+
+  let stepIdx = 0;
+  let logIdx = 0;
+
+  function nextStep() {
+    if (animGen !== myGen) return; // stale animation — stop
+
+    if (stepIdx >= steps.length) {
+      badge.className = 'flow-running-badge done';
+      badge.textContent = 'Concluído ✓';
+      setTimeout(() => {
+        if (animGen !== myGen) return;
+        buildFlow(currentScenario);
+        setTimeout(runFlow, 800);
+      }, 3500);
+      return;
+    }
+
+    const i = stepIdx; // capture index for this step
+    const step = steps[i];
+
+    step.classList.add('active');
+    step.querySelector('.fl-step-time').textContent = sc.steps[i].t;
+
+    // Reveal log entries for this step
+    const logsPerStep = Math.ceil(sc.logs.length / sc.steps.length);
+    for (let k = 0; k < logsPerStep && logIdx < logEntries.length; k++) {
+      const li = logEntries[logIdx++];
+      setTimeout(() => { if (li && animGen === myGen) li.classList.add('visible'); }, k * 300);
+    }
+
+    const delay = 1000 + Math.random() * 600;
+    setTimeout(() => {
+      if (animGen !== myGen) return; // stale — stop
+
+      step.classList.remove('active');
+      step.classList.add('completed');
+      step.querySelector('.fl-step-time').textContent = '✓ ' + sc.steps[i].t;
+      if (conns[i]) conns[i].classList.add('lit');
+
+      stepIdx++;
+      const pct = (stepIdx / steps.length * 100).toFixed(0);
+      document.getElementById('flowPF').style.width = pct + '%';
+      document.getElementById('flowPT').textContent = `${stepIdx}/${steps.length} etapas`;
+
+      setTimeout(nextStep, 400);
+    }, delay);
+  }
+
+  setTimeout(nextStep, 500);
+}
+
+// Scenario tabs
+document.querySelectorAll('.sc-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.sc-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    if (flowTimer) clearTimeout(flowTimer);
+    currentScenario = tab.dataset.scenario;
+    buildFlow(currentScenario);  // increments animGen, kills old animation
+    setTimeout(runFlow, 300);
+  });
+});
+
+// Init
+buildFlow('relatorio');
+const flowObserver = new IntersectionObserver(es => {
+  if (es[0].isIntersecting) { setTimeout(runFlow, 600); flowObserver.disconnect(); }
+}, {threshold: .15});
+flowObserver.observe(document.querySelector('.flow-window'));
+
+</script>
+</body>
+</html>
