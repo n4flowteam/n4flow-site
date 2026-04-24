@@ -44,7 +44,7 @@ body{font-family:var(--font);color:var(--text-dark);background:var(--bg);overflo
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:transparent;backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all .4s}
 nav.scrolled{background:rgba(255,255,255,.95);border-bottom-color:var(--border)}
-.nav-logo{display:flex;align-items:center;text-decoration:none}.nav-logo-svg{height:30px;width:auto}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
 .nav-links{display:flex;align-items:center;gap:2.2rem}.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.6);transition:color .2s}
 .nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent-light)}
 nav.scrolled .nav-links a{color:var(--text-muted)}nav.scrolled .nav-links a:hover{color:var(--text-dark)}nav.scrolled .nav-links a.active{color:var(--accent)}
@@ -276,7 +276,7 @@ section{padding:6rem 2.5rem}.container{max-width:1140px;margin:0 auto}
 /* ── FOOTER ── */
 footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding:3rem 2.5rem 2rem}
 .footer-content{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
-.footer-logo{height:24px;width:auto;opacity:.55;margin-bottom:1rem;display:block}
+.footer-logo { height:28px; width:auto; opacity:.85; margin-bottom:1rem; display:block; }
 .footer-tagline{font-size:.78rem;color:rgba(255,255,255,.32);font-family:var(--mono);line-height:1.6}
 .footer-col-title{font-size:.66rem;font-family:var(--mono);color:#9CA3AF;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem}
 .footer-col a{display:block;text-decoration:none;font-size:.82rem;font-weight:500;color:rgba(255,255,255,.42);margin-bottom:.6rem;transition:color .2s}.footer-col a:hover{color:var(--accent)}
@@ -389,6 +389,14 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding
 .float-contact svg{width:18px;height:18px;flex-shrink:0}
 @media (max-width:768px){.float-contact{bottom:1rem;right:1rem;padding:.7rem 1rem .7rem .85rem;font-size:.76rem}}
 
+
+/* Logo do cabecalho: alterna entre variante clara (fundo escuro) e escura (fundo claro) */
+.nav-logo-svg { position:relative; display:inline-block; height:30px; width:auto; line-height:0; }
+.nav-logo-img { height:30px; width:auto; display:block; transition: opacity .35s ease; }
+.nav-logo-img--light { position:absolute; top:0; left:0; opacity:0; }
+nav.scrolled .nav-logo-img--dark { opacity:0; }
+nav.scrolled .nav-logo-img--light { opacity:1; }
+
 </style>
 <style>
 /* Pain/Solution paired layout */
@@ -423,11 +431,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding
 <!-- NAV -->
 <nav id="nav">
 <a class="nav-logo" href="/">
-<svg class="nav-logo-svg" viewbox="0 0 794 265" xmlns="http://www.w3.org/2000/svg">
-<text fill="#F07B2B" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="0" y="222">n</text>
-<g transform="translate(6,0)"><path d="m 275.38826,221.58323 c -3.04762,-0.51146 -6.02027,-2.6528 -7.57358,-5.45561 l -0.7608,-1.37278 -0.13229,-15.875 -0.13229,-15.875 -33.86667,-0.14822 c -30.06233,-0.13156 -34.0193,-0.19587 -35.22551,-0.57251 -11.46996,-3.58155 -17.94484,-12.86428 -17.95245,-25.73761 -0.005,-9.03976 0.15171,-9.37145 12.05677,-25.46261 2.55845,-3.45806 6.55878,-8.96629 8.88962,-12.24051 2.33084,-3.27422 5.44736,-7.62 6.92561,-9.65729 1.47824,-2.03729 5.00702,-6.91886 7.84172,-10.847925 2.8347,-3.92906 6.59299,-9.10828 8.35175,-11.50937 1.75876,-2.4011 3.93325,-5.420918 4.8322,-6.710728 0.89895,-1.2898 1.91482,-2.69102 2.25748,-3.11383 0.71049,-0.87666 6.75735,-9.19213 13.05778,-17.95669 8.93374,-12.42778 12.87182,-17.43256 16.14343,-20.51616 13.69781,-12.91066 33.85155,-10.13621 38.40732,5.28731 0.55026,1.8629 0.5517,1.99412 0.59802,54.605738 0.0255,29.006095 0.11161,52.803525 0.19127,52.883185 0.0797,0.0797 5.89474,0.12811 12.92241,0.10768 15.0283,-0.0437 13.47224,-0.51274 13.63117,4.10888 0.58267,16.94394 -7.51197,27.08572 -22.02025,27.58916 l -4.49792,0.15608 -0.16767,11.37708 c -0.19923,13.51863 -0.3344,14.22007 -3.54523,18.39805 -5.23369,6.81016 -12.43119,9.8478 -20.23189,8.53868 z m -8.54439,-70.29477 c 0.0676,-0.0676 0.15919,-14.80699 0.20361,-32.75428 0.0444,-17.94728 0.17034,-33.851825 0.27984,-35.343403 0.28063,-3.82277 0.13285,-3.73792 -4.24219,2.435818 -1.30968,1.84814 -4.52757,6.29774 -7.15085,9.888 -2.62328,3.59025 -6.12916,8.432745 -7.79084,10.761075 -3.41798,4.78925 -6.64856,9.22508 -11.10378,15.24634 -1.68228,2.27361 -5.7376,7.78905 -9.01182,12.25654 -8.56037,11.68015 -8.40556,11.47012 -10.64948,14.44855 -1.12778,1.49695 -2.05052,2.85011 -2.05052,3.00702 -1e-5,0.28257 51.23376,0.33661 51.51603,0.0543 z" fill="#F07B2B"></path></g>
-<text class="logo-flow" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="320" y="222">flow</text>
-</svg>
+<span class="nav-logo-svg"><img alt="n4flow" class="nav-logo-img nav-logo-img--dark" src="/assets/img/logo-header-dark.png"><img alt="" class="nav-logo-img nav-logo-img--light" src="/assets/img/logo-header-light.png"></span>
 </a>
 <div class="nav-links"><a href="/">Home</a><div class="nav-mega-wrap"><a class="nav-link mega-toggle active" href="/">Soluções<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="m6 9 6 6 6-6"></path></svg></a><div class="mega-menu"><div class="mega-menu-inner"><a class="mega-item" href="/dados/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18"></path><path d="M8 5v14"></path></svg></div><div><div class="mega-item-label">Inteligência de Dados</div><div class="mega-item-desc">Dados integrados, dashboards em tempo real</div></div></a><a class="mega-item" href="/automacao/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="m13 2-8 12h6l-2 8 10-14h-6l2-6z"></path></svg></div><div><div class="mega-item-label">Automação</div><div class="mega-item-desc">Processos automáticos, time mais estratégico</div></div></a><a class="mega-item" href="/ia/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path></svg></div><div><div class="mega-item-label">IA para Negócios</div><div class="mega-item-desc">IA com contexto real da sua operação</div></div></a></div></div></div><a href="/sobre/">Sobre</a><a class="nav-cta" href="/diagnostico/">Solicitar diagnóstico</a></div>
 <button aria-label="Menu" class="hamburger"><span></span><span></span><span></span></button>
@@ -835,11 +839,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding
 <footer>
 <div class="footer-content">
 <div>
-<svg aria-label="n4flow" class="footer-logo" viewbox="0 0 794 265" xmlns="http://www.w3.org/2000/svg">
-<text fill="#F07B2B" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="0" y="222">n</text>
-<g transform="translate(6,0)"><path d="m 275.38826,221.58323 c -3.04762,-0.51146 -6.02027,-2.6528 -7.57358,-5.45561 l -0.7608,-1.37278 -0.13229,-15.875 -0.13229,-15.875 -33.86667,-0.14822 c -30.06233,-0.13156 -34.0193,-0.19587 -35.22551,-0.57251 -11.46996,-3.58155 -17.94484,-12.86428 -17.95245,-25.73761 -0.005,-9.03976 0.15171,-9.37145 12.05677,-25.46261 2.55845,-3.45806 6.55878,-8.96629 8.88962,-12.24051 2.33084,-3.27422 5.44736,-7.62 6.92561,-9.65729 1.47824,-2.03729 5.00702,-6.91886 7.84172,-10.847925 2.8347,-3.92906 6.59299,-9.10828 8.35175,-11.50937 1.75876,-2.4011 3.93325,-5.420918 4.8322,-6.710728 0.89895,-1.2898 1.91482,-2.69102 2.25748,-3.11383 0.71049,-0.87666 6.75735,-9.19213 13.05778,-17.95669 8.93374,-12.42778 12.87182,-17.43256 16.14343,-20.51616 13.69781,-12.91066 33.85155,-10.13621 38.40732,5.28731 0.55026,1.8629 0.5517,1.99412 0.59802,54.605738 0.0255,29.006095 0.11161,52.803525 0.19127,52.883185 0.0797,0.0797 5.89474,0.12811 12.92241,0.10768 15.0283,-0.0437 13.47224,-0.51274 13.63117,4.10888 0.58267,16.94394 -7.51197,27.08572 -22.02025,27.58916 l -4.49792,0.15608 -0.16767,11.37708 c -0.19923,13.51863 -0.3344,14.22007 -3.54523,18.39805 -5.23369,6.81016 -12.43119,9.8478 -20.23189,8.53868 z m -8.54439,-70.29477 c 0.0676,-0.0676 0.15919,-14.80699 0.20361,-32.75428 0.0444,-17.94728 0.17034,-33.851825 0.27984,-35.343403 0.28063,-3.82277 0.13285,-3.73792 -4.24219,2.435818 -1.30968,1.84814 -4.52757,6.29774 -7.15085,9.888 -2.62328,3.59025 -6.12916,8.432745 -7.79084,10.761075 -3.41798,4.78925 -6.64856,9.22508 -11.10378,15.24634 -1.68228,2.27361 -5.7376,7.78905 -9.01182,12.25654 -8.56037,11.68015 -8.40556,11.47012 -10.64948,14.44855 -1.12778,1.49695 -2.05052,2.85011 -2.05052,3.00702 -1e-5,0.28257 51.23376,0.33661 51.51603,0.0543 z" fill="#F07B2B"></path></g>
-<text fill="rgba(255,255,255,.25)" font-family="Inter,sans-serif" font-size="195" font-weight="800" letter-spacing="-8" x="320" y="222">flow</text>
-</svg>
+<img alt="n4flow" class="footer-logo" src="/assets/img/logo-footer.png">
 <p class="footer-tagline">IA, Dados &amp; Automação aplicados à operação da sua empresa.<br/>São Paulo, SP · Atendimento em todo o Brasil</p>
 </div>
 <div class="footer-col">
@@ -847,14 +847,11 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding
 <a href="/dados/">Inteligência de Dados</a>
 <a href="/automacao/">Automação</a>
 <a href="/ia/">IA para Negócios</a>
-<a href="/">Ver tudo</a>
 </div>
 <div class="footer-col">
 <p class="footer-col-title">Empresa</p>
 <a href="/">Home</a>
 <a href="/sobre/">Sobre a n4flow</a>
-<a href="/">Método</a>
-<a href="/">FAQ</a>
 </div>
 <div class="footer-col">
 <p class="footer-col-title">Contato</p>
