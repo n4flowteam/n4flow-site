@@ -788,6 +788,80 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 .footer-bottom-links a:hover{color:#F59D5E}
 .footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}
 
+
+
+/* === MOBILE: HERO AUTOMAÇÃO === */
+@media (max-width: 768px) {
+  .auto-visual-wrap {
+    max-width: min(360px, 88vw);
+    padding: 1.6rem 1.2rem;
+    margin: 1.5rem auto 1rem;
+  }
+  .auto-photo-frame {
+    box-shadow: 0 12px 30px rgba(0,0,0,.10), 0 0 0 1px rgba(240,123,43,.08);
+  }
+  .auto-chip-saved {
+    top: .5rem; left: -.4rem;
+    padding: .35rem .65rem;
+  }
+  .auto-chip-saved span { font-size: .6rem; }
+  .auto-chip-saved-icon { width: 14px; height: 14px; }
+  .auto-chip-saved-icon svg { width: 8px; height: 8px; }
+
+  .auto-chip-live {
+    top: .6rem; right: 0;
+    padding: .3rem .65rem;
+    font-size: .55rem;
+  }
+  .auto-chip-live-dot { width: 5px; height: 5px; }
+
+  .auto-progress-card {
+    bottom: .5rem; right: 0;
+    padding: .55rem .7rem;
+    min-width: 110px;
+  }
+  .auto-progress-title { font-size: .42rem; margin-bottom: .35rem; }
+  .auto-progress-text { font-size: .5rem; }
+  .auto-progress-dot { width: 4px; height: 4px; }
+
+  .auto-counter-card {
+    bottom: .5rem; left: -.4rem;
+    padding: .5rem .7rem;
+    min-width: 90px;
+  }
+  .auto-counter-label { font-size: .42rem; }
+  .auto-counter-value { font-size: 1.05rem; }
+  .auto-counter-sub { font-size: .42rem; }
+}
+@media (max-width: 480px) {
+  .auto-visual-wrap {
+    max-width: min(320px, 90vw);
+    padding: 1.4rem 1rem;
+  }
+}.footer-col { display: flex; flex-direction: column; align-items: center; }
+  .footer-col-title { text-align: center; }
+  .footer-col a { text-align: center; }
+  .footer-brand { text-align: center !important; }
+  .footer-brand p { text-align: center; margin-left: auto; margin-right: auto; }
+}
+
+
+
+/* === MOBILE: rodapé centralizado === */
+@media (max-width: 640px) {
+  footer .footer-content,
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 1.8rem !important;
+  }
+  .footer-col { display: flex !important; flex-direction: column !important; align-items: center !important; }
+  .footer-col-title { text-align: center !important; }
+  .footer-col a { text-align: center !important; }
+  .footer-brand { text-align: center !important; }
+  .footer-brand p { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
+}
+
 </style>
 <style>
 .demo-note{display:flex;align-items:flex-start;gap:.6rem;max-width:680px;margin:0 auto 1.8rem;padding:.55rem 1rem;background:var(--bg-muted);border:1px solid var(--border);border-radius:8px;font-size:.73rem;color:var(--text-muted);line-height:1.5;font-family:var(--mono)}

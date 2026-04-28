@@ -373,7 +373,29 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 .footer-bottom-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.06)}
 .footer-bottom-links a{font-size:.74rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s}
 .footer-bottom-links a:hover{color:#F59D5E}
-.footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}
+.footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}.footer-col { display: flex; flex-direction: column; align-items: center; }
+  .footer-col-title { text-align: center; }
+  .footer-col a { text-align: center; }
+  .footer-brand { text-align: center !important; }
+  .footer-brand p { text-align: center; margin-left: auto; margin-right: auto; }
+}
+
+
+
+/* === MOBILE: rodapé centralizado === */
+@media (max-width: 640px) {
+  footer .footer-content,
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 1.8rem !important;
+  }
+  .footer-col { display: flex !important; flex-direction: column !important; align-items: center !important; }
+  .footer-col-title { text-align: center !important; }
+  .footer-col a { text-align: center !important; }
+  .footer-brand { text-align: center !important; }
+  .footer-brand p { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
+}
 
 </style>
 <style>
@@ -390,7 +412,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <span class="nav-logo-svg"><img alt="n4flow" class="nav-logo-img nav-logo-img--dark" src="/assets/img/logo-header-dark.png"><img alt="" class="nav-logo-img nav-logo-img--light" src="/assets/img/logo-header-light.png"></span>
 </a>
 <div class="nav-links"><a href="/">Home</a><div class="nav-mega-wrap"><a class="nav-link mega-toggle" href="/">Soluções<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="m6 9 6 6 6-6"></path></svg></a><div class="mega-menu"><div class="mega-menu-inner"><a class="mega-item" href="/dados/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18"></path><path d="M8 5v14"></path></svg></div><div><div class="mega-item-label">Inteligência de Dados</div><div class="mega-item-desc">Dados integrados, dashboards em tempo real</div></div></a><a class="mega-item" href="/automacao/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="m13 2-8 12h6l-2 8 10-14h-6l2-6z"></path></svg></div><div><div class="mega-item-label">Automação</div><div class="mega-item-desc">Processos automáticos, time mais estratégico</div></div></a><a class="mega-item" href="/ia/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path></svg></div><div><div class="mega-item-label">IA para Negócios</div><div class="mega-item-desc">IA com contexto real da sua operação</div></div></a></div></div></div><a class="active" href="/sobre/">Sobre</a><a class="nav-cta" href="/diagnostico/">Solicitar diagnóstico</a></div>
-<button class="hamburger" onclick="document.getElementById('mob-menu').classList.toggle('open')">
+<button class="hamburger" aria-label="Abrir menu">
 <span></span><span></span><span></span>
 </button>
 </nav>
@@ -1319,6 +1341,21 @@ window.addEventListener('scroll', () => {
   function update(){ nav.classList.toggle('scrolled', window.scrollY > 80); }
   window.addEventListener('scroll', update, { passive: true });
   update();
+})();
+</script>
+
+
+<script>
+// Mobile menu
+(function(){
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.getElementById('mob-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+  }
 })();
 </script>
 
