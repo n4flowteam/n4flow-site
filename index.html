@@ -2154,7 +2154,6 @@ footer {
 @media (max-width:900px) {
   .hero-inner { grid-template-columns:1fr; padding:6rem 1.6rem 2.8rem; }
   .hero-actions { flex-wrap:wrap; }
-  .hero-visual { display:none; }
   /* pillars responsive handled inline */
   .results-grid { grid-template-columns:repeat(2,1fr); }
   .result-card { border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -2256,7 +2255,202 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 .footer-bottom-links{display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.06)}
 .footer-bottom-links a{font-size:.74rem;color:rgba(255,255,255,.45);text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s}
 .footer-bottom-links a:hover{color:#F59D5E}
-.footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}
+.footer-meta-legal{font-size:.68rem;color:rgba(255,255,255,.28);line-height:1.7;margin-top:.9rem;text-align:center;font-family:'DM Mono',monospace}@media (max-width: 900px) {
+  .hero-stage { transform: none; max-width: min(420px, 90vw); margin: 0 auto; }
+  .hero-stage img.hero-photo, .hero-stage > img { width: 100%; height: auto; display: block; }
+}
+@media (max-width: 640px) {
+  .hero-visual {
+    transform: scale(.85); transform-origin: top center;
+    margin-top: .5rem;
+  }
+}
+
+
+
+/* === MOBILE: HERO HOME === */
+@media (max-width: 900px) {
+  .hero-visual {
+    display: flex;
+    margin: 1rem auto 0;
+    width: 100%;
+    max-width: 320px;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-photo-wrap {
+    min-height: auto;
+    max-width: 280px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .hero-photo {
+    max-width: 100%;
+    height: auto;
+  }
+  /* Esconder elementos de fundo decorativos (chat, charts, kpis) no mobile - 
+     eles foram desenhados pra contexto desktop e congestionam o mobile */
+  .bg-elements {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .hero-visual { max-width: 260px; margin-top: .5rem; }
+  .hero-photo-wrap { max-width: 240px; }
+}.footer-col { display: flex; flex-direction: column; align-items: center; }
+  .footer-col-title { text-align: center; }
+  .footer-col a { text-align: center; }
+  .footer-brand { text-align: center !important; }
+  .footer-brand p { text-align: center; margin-left: auto; margin-right: auto; }
+}
+
+
+
+/* === MOBILE: Nossa trajetória — centralizar números === */
+@media (max-width: 768px) {
+  .result-card {
+    text-align: center;
+    align-items: center;
+    padding: 1.5rem 1rem;
+  }
+  .result-num {
+    font-size: 3rem !important;
+    text-align: center;
+    width: 100%;
+  }
+  .result-label {
+    text-align: center;
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .result-num {
+    font-size: 2.5rem !important;
+  }
+}
+
+
+
+/* === MOBILE: Setores — 2 colunas, fontes menores === */
+@media (max-width: 768px) {
+  .sector-pills {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+    padding: 0;
+    max-width: 100%;
+  }
+  .sector-pill {
+    padding: .55rem .85rem;
+    font-size: .72rem;
+    gap: .35rem;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+    width: 100%;
+    min-width: 0;
+  }
+  .sector-pill svg {
+    width: 12px; height: 12px;
+  }
+  .sector-pill-cta {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 380px) {
+  .sector-pill {
+    font-size: .68rem;
+    padding: .5rem .65rem;
+  }
+}
+
+
+
+/* === MOBILE: Slider horizontal nas Transformações === */
+@media (max-width: 768px) {
+  .testimonials-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem;
+    padding: .5rem 1rem 1.5rem;
+    margin: 0 -1.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.4) transparent;
+  }
+  .testimonials-grid::-webkit-scrollbar { height: 4px; }
+  .testimonials-grid::-webkit-scrollbar-track { background: rgba(255,255,255,.04); }
+  .testimonials-grid::-webkit-scrollbar-thumb { background: rgba(240,123,43,.5); border-radius: 4px; }
+  .testimonials-grid .testimonial-card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    margin: 0;
+  }
+  /* Indicador de swipe (texto pequeno) */
+  .testimonials-header::after {
+    content: "← deslize para ver mais →";
+    display: block;
+    font-family: var(--mono);
+    font-size: .65rem;
+    color: rgba(255,255,255,.35);
+    margin-top: .8rem;
+    letter-spacing: .05em;
+  }
+}
+
+
+
+/* === MOBILE: CTA "Vamos conversar" — garantir centralização === */
+@media (max-width: 640px) {
+  .cta-final { padding: 4rem 1.2rem; }
+  .cta-final-grid {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+  .cta-final .section-title {
+    text-align: center;
+    margin: 0 auto .8rem;
+  }
+  .cta-sub {
+    text-align: center;
+    margin: 0 auto 2rem;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: .7rem;
+  }
+  .cta-buttons a {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .cta-fine {
+    text-align: center;
+  }
+}
+
+
+
+/* === MOBILE: rodapé centralizado === */
+@media (max-width: 640px) {
+  footer .footer-content,
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 1.8rem !important;
+  }
+  .footer-col { display: flex !important; flex-direction: column !important; align-items: center !important; }
+  .footer-col-title { text-align: center !important; }
+  .footer-col a { text-align: center !important; }
+  .footer-brand { text-align: center !important; }
+  .footer-brand p { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
+}
 
 </style>
 </head>
@@ -2268,7 +2462,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <span class="nav-logo-svg"><img alt="n4flow" class="nav-logo-img nav-logo-img--dark" src="/assets/img/logo-header-dark.png"><img alt="" class="nav-logo-img nav-logo-img--light" src="/assets/img/logo-header-light.png"></span>
 </a>
 <div class="nav-links"><a class="active" href="/">Home</a><div class="nav-mega-wrap"><a class="nav-link mega-toggle" href="/">Soluções<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="m6 9 6 6 6-6"></path></svg></a><div class="mega-menu"><div class="mega-menu-inner"><a class="mega-item" href="/dados/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="18" x="3" y="5"></rect><path d="M3 10h18"></path><path d="M8 5v14"></path></svg></div><div><div class="mega-item-label">Inteligência de Dados</div><div class="mega-item-desc">Dados integrados, dashboards em tempo real</div></div></a><a class="mega-item" href="/automacao/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="m13 2-8 12h6l-2 8 10-14h-6l2-6z"></path></svg></div><div><div class="mega-item-label">Automação</div><div class="mega-item-desc">Processos automáticos, time mais estratégico</div></div></a><a class="mega-item" href="/ia/"><div class="mega-item-icon"><svg fill="none" height="16" stroke="#fff" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path></svg></div><div><div class="mega-item-label">IA para Negócios</div><div class="mega-item-desc">IA com contexto real da sua operação</div></div></a></div></div></div><a href="/sobre/">Sobre</a><a class="nav-cta" href="/diagnostico/">Solicitar diagnóstico</a></div>
-<button aria-label="Abrir menu" class="hamburger" onclick="document.getElementById('mob-menu').classList.toggle('open')">
+<button aria-label="Abrir menu" class="hamburger">
 <span></span><span></span><span></span>
 </button>
 </div>
@@ -3503,7 +3697,20 @@ document.querySelectorAll('.pillar-tab').forEach(tab => {
     document.querySelectorAll('.pillar-pane').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     tab.setAttribute('aria-selected','true');
-    document.getElementById('pane-' + idx).classList.add('active');
+    const pane = document.getElementById('pane-' + idx);
+    pane.classList.add('active');
+    
+    // Mobile: scroll suave até o painel pra ver imagem/conteúdo
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      setTimeout(() => {
+        const rect = pane.getBoundingClientRect();
+        const navHeight = document.querySelector('nav')?.offsetHeight || 60;
+        window.scrollTo({
+          top: window.scrollY + rect.top - navHeight - 20,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
   });
 });
 
