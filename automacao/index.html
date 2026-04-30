@@ -873,6 +873,33 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   }
 }
 
+/* === V12.3 (mobile): padding compacto e padronizado, fonte H2 uniforme ===
+   Mobile-first: respiro pequeno entre sections (3rem). Page-heros com top maior (5rem) pelo nav fixo.
+   benefits-rail-section preservada (edge-to-edge intencional). */
+@media (max-width: 768px) {
+  section:not(.hero) {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  section:not(.hero):not(.benefits-rail-section) {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  section.page-hero,
+  section.hero-sobre {
+    padding-top: 5rem !important;
+  }
+  .section-title,
+  .why-statement,
+  h2.st,
+  h2.st-light,
+  .services-head h2,
+  .cta-final h2,
+  .cta-section h2 {
+    font-size: 1.9rem !important;
+  }
+}
+
 </style>
 <style>
 .demo-note{display:flex;align-items:flex-start;gap:.6rem;max-width:680px;margin:0 auto 1.8rem;padding:.55rem 1rem;background:var(--bg-muted);border:1px solid var(--border);border-radius:8px;font-size:.73rem;color:var(--text-muted);line-height:1.5;font-family:var(--mono)}

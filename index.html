@@ -2562,6 +2562,38 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   }
 }
 
+/* === V12.3 (mobile): padding compacto e padronizado, fonte H2 uniforme ===
+   Substitui o V12.2 anterior. Mobile-first: respiro pequeno entre sections (3rem) em vez do default desktop.
+   Page-heros mantêm top maior (5rem) por causa do nav fixo de ~62px.
+   O hero da home (section.hero) é excluído porque tem layout customizado pelo v12. */
+@media (max-width: 768px) {
+  /* Padding vertical compacto em todas as sections (exceto hero da home) */
+  section:not(.hero) {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  /* Padding lateral 24px (exceto hero e benefits-rail-section que tem edge-to-edge) */
+  section:not(.hero):not(.benefits-rail-section) {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  /* Page-heros: padding-top maior pra respiro do nav fixo (especificidade reforçada com section.) */
+  section.page-hero,
+  section.hero-sobre {
+    padding-top: 5rem !important;
+  }
+  /* H2 uniforme — cobre todas as variações de seletores nas 5 páginas */
+  .section-title,
+  .why-statement,
+  h2.st,
+  h2.st-light,
+  .services-head h2,
+  .cta-final h2,
+  .cta-section h2 {
+    font-size: 1.9rem !important;
+  }
+}
+
 </style>
 </head>
 <body>
