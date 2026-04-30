@@ -2582,6 +2582,16 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   section.hero-sobre {
     padding-top: 5rem !important;
   }
+  /* Hero da home: o padding mora no .hero-inner (não na section). Igualar aos page-heros: 5rem top / 3rem bottom / 1.5rem lateral */
+  section.hero {
+    padding: 0 !important; /* zera padding da section pra evitar somar com o do hero-inner */
+  }
+  section.hero .hero-inner {
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
   /* H2 uniforme — cobre todas as variações de seletores nas 5 páginas */
   .section-title,
   .why-statement,
