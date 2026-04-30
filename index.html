@@ -2332,11 +2332,13 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 
 
 /* === MOBILE: HERO HOME — V12: ordem, eyebrow 1-linha, h1 ajustado, btn compacto, elementos flutuantes === */
+/* === V12.1 (fix): align-items flex-start no .hero-inner pra H1 não ficar centralizado por herança do grid desktop === */
 @media (max-width: 600px) {
   /* 1. Reorganizar ordem dos blocos: textos → imagem → botões */
   .hero-inner {
     display: flex !important;
     flex-direction: column !important;
+    align-items: flex-start !important; /* v12.1 fix: sem isso o H1 herda align-items:center do desktop e fica deslocado */
   }
   .hero-content { display: contents; }
   .hero-eyebrow { order: 1; }
@@ -2386,6 +2388,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
     margin: 1.4rem auto 1rem !important;
     max-width: 320px !important;
     transform: none !important;
+    align-self: center !important; /* v12.1 fix: foto centralizada apesar do flex-start no parent */
   }
   .hero-photo-wrap {
     max-width: 260px !important;
@@ -2543,6 +2546,20 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   .footer-col a { text-align: center !important; }
   .footer-brand { text-align: center !important; }
   .footer-brand p { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
+}
+
+/* === V12.1 (mobile): conteúdo do botão CTA sempre centralizado dentro do botão ===
+   Em sections centralizadas (sectors, cta-final), botões com width fixa precisam ter o conteúdo (texto+ícone) centralizado.
+   Em sections esquerda (hero da home), botões têm width:auto então essa regra não tem efeito visual. */
+@media (max-width: 768px) {
+  a.btn-hero-primary,
+  a.btn-hero-ghost,
+  a.btn-primary,
+  a.btn-secondary,
+  a.btn-sector-primary,
+  a.btn-sector-secondary {
+    justify-content: center !important;
+  }
 }
 
 </style>

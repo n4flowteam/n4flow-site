@@ -586,6 +586,20 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   .footer-brand p { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
 }
 
+/* === V12.1 (mobile): conteúdo do botão CTA centralizado + .hero-cta-row centralizada no eixo
+   (corrige bug de override do .hero-cta-row{justify-content:flex-start} que estava sobrescrevendo a regra @media) === */
+@media (max-width: 768px) {
+  a.btn-hero-primary,
+  a.btn-hero-ghost,
+  a.btn-primary,
+  a.btn-secondary {
+    justify-content: center !important;
+  }
+}
+@media (max-width: 900px) {
+  .hero-cta-row { justify-content: center !important; }
+}
+
 </style>
 <style>
 /* Pain/Solution paired layout */
