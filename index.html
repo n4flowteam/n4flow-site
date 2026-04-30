@@ -2618,35 +2618,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 
 @media (max-width: 768px) {
 
-  .results-grid {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-padding: 1rem;
-    gap: 1rem !important;
-    padding: .5rem 1rem 1.5rem !important;
-    margin: 0 -1.5rem !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(240,123,43,.45) transparent;
-    grid-template-columns: none !important;
-    width: auto !important;
-    max-width: none !important;
-  }
-  .results-grid::-webkit-scrollbar { height: 4px; }
-  .results-grid::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
-  .results-grid::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
-  .results-grid > .result-card {
-    flex: 0 0 85% !important;
-    scroll-snap-align: center;
-    margin: 0 !important;
-    width: auto !important;
-    max-width: none !important;
-    min-width: 0 !important;
-  }
+  /* v13.1: slider removido — Kellyn pediu manter como estava */
 
 
   .pain-grid {
@@ -2722,6 +2694,38 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
     width: auto !important;
     max-width: none !important;
     min-width: 0 !important;
+  }
+}
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   v13.1 — Feedback Kellyn:
+   - Pillars (Três frentes) ficam horizontais no mobile (3 colunas)
+   - Botões compactos: ícone em cima, nome embaixo, fonte menor
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .pillars-tabs {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: .4rem !important;
+    margin-top: 1.8rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .pillar-tab {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: .35rem !important;
+    padding: .7rem .35rem !important;
+    font-size: .72rem !important;
+    line-height: 1.18 !important;
+    letter-spacing: -.015em !important;
+    min-height: 78px;
+    justify-content: center;
+  }
+  .pillar-tab svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 }
 
