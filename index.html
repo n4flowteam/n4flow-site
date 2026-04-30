@@ -2067,7 +2067,7 @@ footer {
   .star { animation:none; opacity:.6; }
 }
 
-.testimonials-header { text-align:center; max-width:640px; margin:0 auto 3.5rem; }
+.testimonials-header { text-align:center; max-width:640px; margin:0 auto 1.8rem; }
 .testimonials-section .section-label { justify-content:center; color:var(--accent-light); }
 .testimonials-section .section-label::before { background:var(--accent); }
 .testimonials-section .section-title { color:#fff !important; }
@@ -2487,16 +2487,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
     scroll-snap-align: center;
     margin: 0;
   }
-  /* Indicador de swipe (texto pequeno) */
-  .testimonials-header::after {
-    content: "← deslize para ver mais →";
-    display: block;
-    font-family: var(--mono);
-    font-size: .65rem;
-    color: rgba(255,255,255,.35);
-    margin-top: .8rem;
-    letter-spacing: .05em;
-  }
+  /* v13.3: indicador 'deslize para ver mais' removido (Kellyn) */
 }
 
 
@@ -2726,6 +2717,89 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   .pillar-tab svg {
     width: 18px !important;
     height: 18px !important;
+  }
+}
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   v13.3 — mudanças mobile (Kellyn 30/abr)
+   ════════════════════════════════════════════════════════════════ */
+
+/* #1 — Setores: alinhar todos os ícones à esquerda (texto longo+curto consistente) */
+@media (max-width: 768px) {
+  .sector-pill {
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding-left: 1rem !important;
+  }
+  .sector-pill svg { flex-shrink: 0 !important; }
+}
+
+/* #2 — Passos (Método): reduzir espaço antes do "01 Diagnóstico" */
+@media (max-width: 768px) {
+  .method-section { padding-top: 3rem !important; padding-bottom: 3.5rem !important; }
+  .method-section .section-desc { margin-bottom: 0 !important; }
+  .method-section .container > .reveal:first-child { margin-bottom: .8rem !important; }
+  .method-steps-tl { gap: 1.5rem !important; margin-top: 0 !important; padding-top: 0 !important; }
+  .method-steps-tl > .method-step-tl:first-child { padding-top: 0 !important; }
+}
+
+/* #3 — Why section: depoimento ANTES do botão, botão centralizado (mobile) */
+@media (max-width: 768px) {
+  .why-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.8rem !important;
+  }
+  .why-left, .why-right { display: contents !important; }
+  .why-cta-row {
+    order: 99;                  /* joga o botão pro fim */
+    margin-top: .5rem !important;
+    margin-bottom: 0 !important;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  /* Principles (lista de ✓) — depois do botão também ficaria estranho, mantém na ordem natural */
+  .why-principles { order: 50; }
+}
+
+/* #6 — Footer: logo centralizado no mobile */
+@media (max-width: 768px) {
+  .footer-logo {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* #7 — Footer meta-legal: reduzir espaço acima */
+.footer-meta-legal { margin-top: .35rem !important; }
+
+/* #8 — Hero: reduzir espaços entre eyebrow → h1 → texto → imagem (mobile)
+   IMPORTANTE: o .hero-inner tem gap: 36px no mobile que somava com os margins;
+   zeramos o gap e deixamos cada margin individual controlar o espaço. */
+@media (max-width: 600px) {
+  .hero-inner { gap: 0 !important; row-gap: 0 !important; }
+  .hero-eyebrow { margin-bottom: .8rem !important; }
+  .hero h1 { margin-bottom: .8rem !important; }
+  .hero-sub { margin-bottom: 1rem !important; }
+  .hero-visual { margin: .5rem auto .5rem !important; }
+  .hero-actions { margin-top: 1rem !important; }
+}
+@media (max-width: 768px) and (min-width: 601px) {
+  .hero-inner { gap: 0 !important; row-gap: 0 !important; }
+  .hero-eyebrow { margin-bottom: 1rem !important; }
+  .hero h1 { margin-bottom: 1rem !important; }
+  .hero-sub { margin-bottom: 1.2rem !important; }
+}
+
+/* #4 — Transformações título: reduz fonte mobile pra "reais que" caber em 1 linha */
+@media (max-width: 768px) {
+  .testimonials-section .section-title {
+    font-size: 1.6rem !important;
+    line-height: 1.2 !important;
   }
 }
 
@@ -3887,8 +3961,7 @@ Falar com um especialista</a>
 <a href="https://www.linkedin.com/company/n4flow" rel="noopener" target="_blank">LinkedIn</a>
 </div>
 <div class="footer-meta-legal">
-© 2026 n4flow · Benn Consultoria Business Intelligence e Marketing LTDA · CNPJ 05.376.867/0001-60<br>
-São Paulo, SP · Atendimento em todo o Brasil · IA · Dados · Automação
+© 2026 n4flow · Benn Consultoria Business Intelligence e Marketing LTDA · CNPJ 05.376.867/0001-60
 </div>
 </div>
 </footer>
@@ -3977,17 +4050,8 @@ document.querySelectorAll('.pillar-tab').forEach(tab => {
     const pane = document.getElementById('pane-' + idx);
     pane.classList.add('active');
     
-    // Mobile: scroll suave até o painel pra ver imagem/conteúdo
-    if (window.matchMedia('(max-width: 900px)').matches) {
-      setTimeout(() => {
-        const rect = pane.getBoundingClientRect();
-        const navHeight = document.querySelector('nav')?.offsetHeight || 60;
-        window.scrollTo({
-          top: window.scrollY + rect.top - navHeight - 20,
-          behavior: 'smooth'
-        });
-      }, 100);
-    }
+    // v13.2: scroll automático removido (Kellyn) — usuário clica e troca conteúdo
+    // sem perder os botões da vista. Se quiser ver detalhes, rola manualmente.
   });
 });
 
