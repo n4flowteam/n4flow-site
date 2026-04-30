@@ -2604,6 +2604,127 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   }
 }
 
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   V13 (mobile): seções com 4+ cards viram slider horizontal
+   Reusa o mesmo padrão visual do .testimonials-grid já existente.
+   Desktop continua intocado.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Desktop: wrapper do security-orbit é "transparente" pro layout grid ── */
+.security-cards-mobile-wrap { display: contents; }
+
+@media (max-width: 768px) {
+
+  .results-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .results-grid::-webkit-scrollbar { height: 4px; }
+  .results-grid::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .results-grid::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .results-grid > .result-card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+
+  .pain-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .pain-grid::-webkit-scrollbar { height: 4px; }
+  .pain-grid::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .pain-grid::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .pain-grid > .pgrid-card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  /* ── Security: orbit vira bloco no mobile, wrapper vira slider ── */
+  .security-orbit {
+    display: block !important;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+    min-height: auto !important;
+    margin-top: 1.5rem !important;
+  }
+  .security-center {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    margin-bottom: 1.25rem;
+    width: 100%;
+  }
+
+  .security-cards-mobile-wrap {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .security-cards-mobile-wrap::-webkit-scrollbar { height: 4px; }
+  .security-cards-mobile-wrap::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .security-cards-mobile-wrap::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .security-cards-mobile-wrap > .security-card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3270,18 +3391,15 @@ Falar com um especialista</a>
 </div>
 <div class="security-orbit reveal">
 <!-- Card 1: Top-Left -->
-<div class="security-card sec-tl">
-<div class="security-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg></div>
-<h3>Dados no ambiente do cliente</h3>
-<p>A solução é estruturada conforme a arquitetura definida para o projeto, com dados, acessos e integrações organizados de acordo com a realidade da sua operação.</p>
-</div>
+
 <!-- Card 2: Top-Right -->
-<div class="security-card sec-tr">
-<div class="security-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="M9 12l2 2 4-4"></path></svg></div>
-<h3>Privacidade e conformidade</h3>
-<p>Cada entrega considera boas práticas de proteção de dados, controle de acesso, rastreabilidade e diretrizes de conformidade desde o início da implantação.</p>
-</div>
+
 <!-- Central gauge illustration -->
+
+<!-- Card 3: Bottom-Left -->
+
+<!-- Card 4: Bottom-Right -->
+
 <div class="security-center">
 <div class="security-shield-wrap">
 <!-- Decoração de fundo: órbitas concêntricas + nodes (identidade visual n4flow) -->
@@ -3303,20 +3421,23 @@ Falar com um especialista</a>
 </div>
 <img alt="Velocímetro de segurança apontando para Máxima" src="/assets/img/home-velocimetro.png" style="width:100%; max-width:290px; height:auto; display:block; filter:drop-shadow(0 10px 40px rgba(0,0,0,.13)); margin-top: 38px;"/>
 </div>
-</div>
-<!-- Card 3: Bottom-Left -->
-<div class="security-card sec-bl">
+</div><div class="security-cards-mobile-wrap"><div class="security-card sec-tl">
+<div class="security-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg></div>
+<h3>Dados no ambiente do cliente</h3>
+<p>A solução é estruturada conforme a arquitetura definida para o projeto, com dados, acessos e integrações organizados de acordo com a realidade da sua operação.</p>
+</div><div class="security-card sec-tr">
+<div class="security-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+<h3>Privacidade e conformidade</h3>
+<p>Cada entrega considera boas práticas de proteção de dados, controle de acesso, rastreabilidade e diretrizes de conformidade desde o início da implantação.</p>
+</div><div class="security-card sec-bl">
 <div class="security-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect height="12" rx="2" width="14" x="5" y="7"></rect><path d="M9 3v4M15 3v4"></path><path d="M9 13h.01M15 13h.01"></path></svg></div>
 <h3>Acessos e rastreabilidade</h3>
 <p>Cada pessoa acessa apenas o que precisa. Perfis, permissões, logs e trilhas de auditoria ajudam a manter governança e segurança no dia a dia.</p>
-</div>
-<!-- Card 4: Bottom-Right -->
-<div class="security-card sec-br">
+</div><div class="security-card sec-br">
 <div class="security-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"></circle><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path><path d="M17 11l2 2 4-4"></path></svg></div>
 <h3>Monitoramento e visibilidade da operação</h3>
 <p>Você acompanha o que está conectado, como os fluxos estão funcionando e onde agir com mais rapidez, clareza e controle.</p>
-</div>
-</div>
+</div></div></div>
 </div>
 </section>
 <!-- ═══════════════════════ 5. MÉTODO ═══════════════════════ -->

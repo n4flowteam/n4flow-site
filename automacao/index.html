@@ -900,6 +900,117 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   }
 }
 
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   V13 (mobile): seções com 4+ cards viram slider horizontal
+   Reusa o mesmo padrão visual do .testimonials-grid já existente.
+   Desktop continua intocado.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Desktop: wrapper de ps-pairs invisível pro layout ── */
+.ps-pair-list { display: contents; }
+
+@media (max-width: 768px) {
+  /* Wrapper bloqueia o display:contents só no mobile */
+  .ps-pair-list { display: flex !important; }
+
+  .ps-pair-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .ps-pair-list::-webkit-scrollbar { height: 4px; }
+  .ps-pair-list::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .ps-pair-list::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .ps-pair-list > .ps-pair {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  /* NOTA v13: .svc-stage NÃO virou slider — comportamento "lista+painel detalhado" requer tratamento à parte */
+
+
+  .benefits-cards-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .benefits-cards-grid::-webkit-scrollbar { height: 4px; }
+  .benefits-cards-grid::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .benefits-cards-grid::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .benefits-cards-grid > .benefit-card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+
+  .how-steps {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .how-steps::-webkit-scrollbar { height: 4px; }
+  .how-steps::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .how-steps::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .how-steps > .how-step {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+}
+
 </style>
 <style>
 .demo-note{display:flex;align-items:flex-start;gap:.6rem;max-width:680px;margin:0 auto 1.8rem;padding:.55rem 1rem;background:var(--bg-muted);border:1px solid var(--border);border-radius:8px;font-size:.73rem;color:var(--text-muted);line-height:1.5;font-family:var(--mono)}
@@ -1003,6 +1114,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
         Com a n4flow
       </div>
 </div>
+<div class="ps-pair-list">
 <!-- Pair 1 -->
 <div class="ps-pair reveal">
 <div class="ps-card ps-pain">
@@ -1106,6 +1218,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <div class="ps-tag-sol">✅ Solução</div>
 <div class="ps-title">Preenchimento e atualização automática de planilhas e controles operacionais</div>
 <div class="ps-desc">Conectamos as fontes de dados e automatizamos a atualização de qualquer controle, planilhas, dashboards, sistemas internos. A equipe para de copiar e colar e passa a analisar e decidir.</div>
+</div>
 </div>
 </div>
 </div>

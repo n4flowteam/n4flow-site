@@ -815,6 +815,82 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   }
 }
 
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   V13 (mobile): seções com 4+ cards viram slider horizontal
+   Reusa o mesmo padrão visual do .testimonials-grid já existente.
+   Desktop continua intocado.
+   ════════════════════════════════════════════════════════════════ */
+
+.ps-pair-list { display: contents; }
+
+@media (max-width: 768px) {
+  .ps-pair-list { display: flex !important; }
+
+  .ps-pair-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .ps-pair-list::-webkit-scrollbar { height: 4px; }
+  .ps-pair-list::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .ps-pair-list::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .ps-pair-list > .ps-pair {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+
+  .features-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem !important;
+    padding: .5rem 1rem 1.5rem !important;
+    margin: 0 -1.5rem !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240,123,43,.45) transparent;
+    grid-template-columns: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .features-grid::-webkit-scrollbar { height: 4px; }
+  .features-grid::-webkit-scrollbar-track { background: rgba(0,0,0,.06); }
+  .features-grid::-webkit-scrollbar-thumb { background: rgba(240,123,43,.55); border-radius: 4px; }
+  .features-grid > .feature-card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+}
+
 </style>
 <style>
 .demo-note{display:flex;align-items:flex-start;gap:.6rem;max-width:680px;margin:0 auto 1.8rem;padding:.55rem 1rem;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.07);border-radius:8px;font-size:.73rem;color:var(--text-muted);line-height:1.5;font-family:var(--mono)}
@@ -1174,6 +1250,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
         Com a n4flow
       </div>
 </div>
+<div class="ps-pair-list">
 <div class="ps-pair reveal">
 <div class="ps-card ps-pain">
 <div class="ps-tag-pain">❌ Dor</div>
@@ -1243,6 +1320,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <div class="ps-tag-pain">❌ Dor</div>
 <div class="ps-title">"Investimos em marketing sem saber o que de fato gera venda."</div>
 <div class="ps-desc">Sem integrar Marketing, CRM e Financeiro, o ROI é uma estimativa, e o orçamento vai para os canais errados.</div>
+</div>
 </div>
 <div class="ps-mid">
 <div class="ps-n4flow-badge"><span class="ps-n4-accent">n4</span><span class="ps-n4-flow">flow</span></div>
