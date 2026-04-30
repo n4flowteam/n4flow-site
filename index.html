@@ -2331,6 +2331,99 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 
 
 
+/* === MOBILE: HERO HOME — V12: ordem, eyebrow 1-linha, h1 ajustado, btn compacto, elementos flutuantes === */
+@media (max-width: 600px) {
+  /* 1. Reorganizar ordem dos blocos: textos → imagem → botões */
+  .hero-inner {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .hero-content { display: contents; }
+  .hero-eyebrow { order: 1; }
+  .hero h1 { order: 2; }
+  .hero-sub { order: 3; }
+  .hero-visual { order: 4; }
+  .hero-actions { order: 5; }
+
+  /* 2. Eyebrow em uma linha só */
+  .hero-eyebrow {
+    font-size: .62rem;
+    letter-spacing: .06em;
+    padding: .3rem .8rem .3rem .55rem;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-bottom: 1.1rem;
+  }
+
+  /* 3. H1 menor pra "mais inteligência" caber em 1 linha */
+  .hero h1 {
+    font-size: 2.1rem;
+    line-height: 1.18;
+    margin-bottom: 1.1rem;
+  }
+  .hero-sub { margin-bottom: 1.2rem; }
+
+  /* 4. Botões auto-width, alinhados à esquerda (não largura inteira) */
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: .8rem;
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+  .hero-actions .btn-hero-primary,
+  .hero-actions .btn-hero-ghost {
+    width: auto !important;
+    align-self: flex-start;
+    padding: .85rem 1.6rem;
+  }
+
+  /* 5. Mostrar 2 elementos flutuantes (chat + KPI), esconder os outros */
+  .bg-elements { display: block !important; }
+  .bg-chart, .bg-auto { display: none !important; }
+
+  .hero-visual {
+    margin: 1.4rem auto 1rem !important;
+    max-width: 320px !important;
+    transform: none !important;
+  }
+  .hero-photo-wrap {
+    max-width: 260px !important;
+    min-height: 280px !important;
+    overflow: visible !important;
+  }
+
+  .bg-chat {
+    top: 0%; left: -12%;
+    width: 145px;
+    padding: .5rem .6rem;
+  }
+  .bg-chat-bubble {
+    font-size: .55rem;
+    padding: .25rem .45rem;
+    margin-bottom: .25rem;
+  }
+  /* Só duas bolhas no mobile (a primeira pergunta + primeira resposta IA) */
+  .bg-chat .bg-chat-bubble:nth-child(n+3) { display: none; }
+
+  .bg-kpi {
+    bottom: 8%; right: -10%;
+    width: 138px;
+    gap: .3rem;
+  }
+  .bg-kpi-item {
+    padding: .3rem .5rem;
+  }
+  .bg-kpi-label { font-size: .48rem; }
+  .bg-kpi-value { font-size: .68rem; }
+}
+
+/* Ajuste fino pra viewports muito pequenos (Galaxy S20, iPhone SE 1st gen, etc) */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 1.92rem; }
+  .hero-eyebrow { font-size: .58rem; padding: .28rem .7rem .28rem .5rem; }
+}
+
 /* === MOBILE: Setores — 2 colunas, fontes menores === */
 @media (max-width: 768px) {
   .sector-pills {
