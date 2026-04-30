@@ -703,6 +703,266 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
   }
 }
 
+
+/* ════════════════════════════════════════════════════════════════
+   v13.4 — WhatsApp button: laranja circular + glow pulsante + tooltip
+   ════════════════════════════════════════════════════════════════ */
+.float-contact {
+  position: fixed !important;
+  bottom: 1.5rem !important;
+  right: 1.5rem !important;
+  z-index: 90 !important;
+  width: 56px;
+  height: 56px;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F07B2B 0%, #E76817 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50% !important;
+  text-decoration: none;
+  box-shadow:
+    0 4px 16px rgba(240,123,43,.45),
+    0 0 0 0 rgba(240,123,43,.55);
+  transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
+  animation: wa-pulse 2.6s ease-in-out infinite;
+  cursor: pointer;
+}
+.float-contact svg {
+  width: 26px !important;
+  height: 26px !important;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+/* Esconde o texto antigo (caso exista) */
+.float-contact span { display: none !important; }
+
+.float-contact:hover {
+  animation-play-state: paused;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow:
+    0 8px 28px rgba(240,123,43,.55),
+    0 0 0 8px rgba(240,123,43,.12);
+}
+
+@keyframes wa-pulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 16px rgba(240,123,43,.45),
+      0 0 0 0 rgba(240,123,43,.55);
+  }
+  50% {
+    box-shadow:
+      0 6px 22px rgba(240,123,43,.55),
+      0 0 0 14px rgba(240,123,43,0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-contact { animation: none; }
+}
+
+/* ── Tooltip "Chame a gente..." ── */
+.wa-tooltip {
+  position: fixed;
+  bottom: 5.5rem;       /* acima do botão */
+  right: 1.5rem;
+  max-width: 290px;
+  z-index: 91;
+  padding: .9rem 2.2rem .9rem 1rem;
+  background: #1A1D24;
+  color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.1);
+  font-size: .82rem;
+  line-height: 1.4;
+  font-family: var(--font, 'Inter', sans-serif);
+  font-weight: 500;
+  letter-spacing: -.005em;
+  opacity: 0;
+  transform: translateY(8px) scale(.96);
+  pointer-events: none;
+  transition: opacity .35s cubic-bezier(.16,1,.3,1), transform .35s cubic-bezier(.16,1,.3,1);
+}
+.wa-tooltip.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+/* Seta apontando pro botão (canto inferior direito) */
+.wa-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  right: 22px;
+  width: 14px;
+  height: 14px;
+  background: #1A1D24;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.wa-tooltip-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,.55);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background .2s, color .2s;
+  padding: 0;
+}
+.wa-tooltip-close:hover { background: rgba(255,255,255,.08); color: #fff; }
+
+@media (max-width: 480px) {
+  .wa-tooltip {
+    max-width: calc(100vw - 4rem);
+    right: 1rem;
+    bottom: 5rem;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   v13.6 — Exit-intent modal (desktop only)
+   ════════════════════════════════════════════════════════════════ */
+.exit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 14, .65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease;
+}
+.exit-overlay.show { opacity: 1; pointer-events: auto; }
+
+.exit-modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  width: calc(100% - 3rem);
+  max-width: 520px;
+  z-index: 101;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.8rem 2.2rem 2.2rem;
+  box-shadow: 0 30px 80px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-50% + 12px)) scale(.96);
+  transition: opacity .4s cubic-bezier(.16,1,.3,1), transform .4s cubic-bezier(.16,1,.3,1);
+  font-family: var(--font, 'Inter', sans-serif);
+  text-align: center;
+  overflow: hidden;
+}
+.exit-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+/* Detalhe laranja no topo do modal */
+.exit-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F07B2B 0%, #F59D5E 100%);
+}
+.exit-modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.04);
+  border: none;
+  border-radius: 50%;
+  color: #555;
+  font-size: 22px; line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s, color .2s, transform .2s;
+}
+.exit-modal-close:hover { background: rgba(0,0,0,.08); color: #000; transform: rotate(90deg); }
+
+.exit-modal-eyebrow {
+  display: inline-block;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: .68rem;
+  letter-spacing: .14em;
+  color: #F07B2B;
+  background: rgba(240,123,43,.08);
+  padding: .35rem .9rem;
+  border-radius: 100px;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+.exit-modal h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -.025em;
+  color: #17191F;
+  margin: 0 0 .9rem;
+}
+.exit-modal p.exit-modal-body {
+  font-size: .95rem;
+  line-height: 1.65;
+  color: #4A5060;
+  margin: 0 0 1.6rem;
+}
+.exit-modal-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  background: linear-gradient(135deg, #F07B2B 0%, #E76817 100%);
+  color: #fff !important;
+  padding: .95rem 1.8rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: -.005em;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(240,123,43,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.exit-modal-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(240,123,43,.45);
+}
+.exit-modal-cta svg {
+  width: 18px; height: 18px;
+  fill: currentColor;
+}
+.exit-modal-meta {
+  margin-top: 1.2rem;
+  font-size: .72rem;
+  color: #8A8F9A;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  letter-spacing: .04em;
+}
+
+/* Em mobile/touch o modal fica desativado (não há mouseleave)
+   mas se algo disparar sem querer, ainda renderiza ok */
+@media (max-width: 600px) {
+  .exit-modal { padding: 2.2rem 1.6rem 1.8rem; }
+  .exit-modal h2 { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exit-modal, .exit-overlay { transition: opacity .15s; }
+  .exit-modal.show { transform: translate(-50%, -50%) scale(1); }
+}
+
 </style>
 <style>
 /* Pain/Solution paired layout */
@@ -752,7 +1012,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <p class="page-hero-sub fade-up fd2">Conectamos IA aos seus dados, documentos, sistemas e regras do negócio. O resultado é uma inteligência que conhece a sua operação, e responde como alguém de dentro da empresa.</p>
 <div class="hero-cta-row fade-up fd3">
 <a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
-<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+<a class="btn-whatsapp" href="https://wa.me/5511913587867" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
 </div>
 </div>
 <div class="page-hero-visual">
@@ -868,7 +1128,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 </div>
 <div class="section-cta-bar reveal">
 <a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
-<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+<a class="btn-whatsapp" href="https://wa.me/5511913587867" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
 </div>
 </section>
 <!-- VERSUS -->
@@ -975,7 +1235,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 </div>
 <div class="section-cta-bar reveal">
 <a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
-<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+<a class="btn-whatsapp" href="https://wa.me/5511913587867" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
 </div>
 </section><!-- USE CASES BY SECTOR -->
 <section class="how-section">
@@ -1078,7 +1338,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 </div>
 <div class="section-cta-bar-light reveal" style="max-width:1100px;margin:3rem auto 0;padding:2.5rem 2.5rem 0;border-top:1px solid var(--border)">
 <a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a>
-<a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
+<a class="btn-whatsapp" href="https://wa.me/5511913587867" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a>
 </div>
 </section>
 <!-- HOW IT WORKS -->
@@ -1155,7 +1415,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <div class="section-label">Próximo passo</div>
 <h2 class="section-title">Veja o que a IA pode fazer<br/>pelo seu negócio — sem custo</h2>
 <p class="section-desc">Solicitar diagnóstico, sem compromisso. Em 30 minutos entendemos a sua operação e mostramos onde a IA pode gerar resultado real no seu negócio.</p>
-<div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem"><a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a><a class="btn-whatsapp" href="https://wa.me/551152864920" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a></div>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem"><a class="btn-primary" href="/diagnostico/">Solicitar diagnóstico</a><a class="btn-whatsapp" href="https://wa.me/5511913587867" target="_blank"><svg fill="currentColor" height="16" style="flex-shrink:0" viewbox="0 0 24 24" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>Falar com um especialista</a></div>
 </div>
 </section>
 <!-- FOOTER -->
@@ -1179,7 +1439,7 @@ nav.scrolled .nav-logo-img--light { opacity:1; }
 <div class="footer-col">
 <p class="footer-col-title">Contato</p>
 <a href="https://www.linkedin.com/company/n4flow" rel="noopener" target="_blank">LinkedIn</a>
-<a href="https://wa.me/551152864920" rel="noopener" target="_blank">Falar com um especialista</a>
+<a href="https://wa.me/5511913587867" rel="noopener" target="_blank">Falar com um especialista</a>
 <a href="/diagnostico/">Solicitar diagnóstico</a>
 </div>
 </div>
@@ -1195,9 +1455,9 @@ São Paulo, SP · Atendimento em todo o Brasil · IA · Dados · Automação
 </div>
 </div>
 </footer>
-<a aria-label="Falar com um especialista" class="float-contact" href="https://wa.me/551152864920" rel="noopener" target="_blank">
+<a aria-label="Falar com um especialista" class="float-contact" href="https://wa.me/5511913587867" rel="noopener" target="_blank">
 <svg fill="currentColor" height="18" style="flex-shrink:0" viewbox="0 0 24 24" width="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
-<span>Falar com um especialista</span>
+
 </a>
 <script>
 // ── FAQ
@@ -1363,5 +1623,128 @@ if(chatSection) chatObs.observe(chatSection);
 })();
 </script>
 
+<!-- v13.4: Tooltip do WhatsApp (aparece após 30s) -->
+<div class="wa-tooltip" id="waTooltip" role="status" aria-live="polite">
+  <button class="wa-tooltip-close" id="waTooltipClose" aria-label="Fechar mensagem">×</button>
+  👋 Chame a gente e tire suas dúvidas, é rápido e sem compromisso!
+</div>
+
+<script>
+// v13.5: WhatsApp tooltip timer (30s, mostra 1x por sessão) + som de notificação
+(function(){
+  var tip = document.getElementById('waTooltip');
+  if (!tip) return;
+  var KEY = 'waTooltipShown';
+  var dismissed = false;
+  try { dismissed = sessionStorage.getItem(KEY) === '1'; } catch(e) {}
+
+  // v13.5: gera som "ti-lim" suave via Web Audio API (não precisa de arquivo externo)
+  function playNotification() {
+    try {
+      var AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      var ctx = new AudioCtx();
+      // se contexto suspendido (autoplay bloqueado), tenta resumir mas não força
+      if (ctx.state === 'suspended') { ctx.resume().catch(function(){}); }
+      var now = ctx.currentTime;
+      function tone(freq, start, dur, peak) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, start);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        gain.gain.setValueAtTime(0, start);
+        gain.gain.linearRampToValueAtTime(peak, start + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+        osc.start(start);
+        osc.stop(start + dur + 0.02);
+      }
+      // 2 notas suaves em sequência rápida (A5 → E6) — som "ti-lim" tipo iOS
+      tone(880, now, 0.18, 0.10);
+      tone(1318.5, now + 0.09, 0.22, 0.085);
+      // fecha contexto quando termina
+      setTimeout(function(){ try { ctx.close(); } catch(e){} }, 500);
+    } catch(e) { /* falha silenciosa: autoplay bloqueado ou sem suporte */ }
+  }
+
+  if (!dismissed) {
+    setTimeout(function(){
+      tip.classList.add('show');
+      playNotification();
+    }, 30000);
+  }
+  function hide() {
+    tip.classList.remove('show');
+    try { sessionStorage.setItem(KEY, '1'); } catch(e) {}
+  }
+  document.getElementById('waTooltipClose').addEventListener('click', hide);
+  var fab = document.querySelector('.float-contact');
+  if (fab) fab.addEventListener('click', hide);
+})();
+</script>
+<!-- v13.6: Exit intent modal -->
+<div class="exit-overlay" id="exitOverlay"></div>
+<div class="exit-modal" id="exitModal" role="dialog" aria-modal="true" aria-labelledby="exitModalTitle" aria-hidden="true">
+  <button class="exit-modal-close" id="exitModalClose" aria-label="Fechar">×</button>
+  <div class="exit-modal-eyebrow">👋 ANTES DE SAIR...</div>
+  <h2 id="exitModalTitle">Vamos mapear onde sua operação pode crescer?</h2>
+  <p class="exit-modal-body">Em 30 minutos identificamos onde <strong>dados, IA e automação</strong> podem entregar resultado real na sua empresa. Direto ao ponto.</p>
+  <a class="exit-modal-cta" href="https://wa.me/5511913587867" rel="noopener" target="_blank" id="exitModalCta">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg>
+    Falar com especialista
+  </a>
+  <div class="exit-modal-meta">SEM CUSTO · SEM COMPROMISSO · 30 MINUTOS</div>
+</div>
+
+<script>
+// v13.6: Exit-intent modal (desktop only — mouseleave pelo topo)
+(function(){
+  var modal = document.getElementById('exitModal');
+  var overlay = document.getElementById('exitOverlay');
+  var btnClose = document.getElementById('exitModalClose');
+  var btnCta = document.getElementById('exitModalCta');
+  if (!modal || !overlay) return;
+  
+  var KEY = 'exitIntentShown';
+  var alreadyShown = false;
+  try { alreadyShown = sessionStorage.getItem(KEY) === '1'; } catch(e){}
+  if (alreadyShown) return;
+  
+  var entryTime = Date.now();
+  var MIN_TIME_MS = 15000;       // 15s mínimo no site
+  var hasShown = false;
+  
+  function show() {
+    if (hasShown) return;
+    if (Date.now() - entryTime < MIN_TIME_MS) return;
+    hasShown = true;
+    try { sessionStorage.setItem(KEY, '1'); } catch(e){}
+    overlay.classList.add('show');
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function hide() {
+    overlay.classList.remove('show');
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  
+  // Exit intent: mouse sai pelo TOPO da janela
+  document.addEventListener('mouseleave', function(e){
+    if (e.clientY <= 0 && !e.relatedTarget) show();
+  });
+  
+  // Fechar
+  overlay.addEventListener('click', hide);
+  btnClose.addEventListener('click', hide);
+  btnCta.addEventListener('click', hide);  // fechou via CTA também marca como visto
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('show')) hide();
+  });
+})();
+</script>
 </body>
 </html>
